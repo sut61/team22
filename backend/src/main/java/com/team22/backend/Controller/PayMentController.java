@@ -1,9 +1,9 @@
-package com.application.SE.controller;
+package com.team22.backend.Controller;
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.application.SE.Entity.*;
-import com.application.SE.repository.*;
+import com.team22.backend.Entity.*;
+import com.team22.backend.Repository.*;
 import java.util.*;
 import java.util.Date;
 

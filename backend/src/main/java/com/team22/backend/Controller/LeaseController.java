@@ -1,6 +1,6 @@
-package com.application.SE.controller;
-import com.application.SE.Entity.*;
-import com.application.SE.repository.*;
+package com.team22.backend.Controller;
+import com.team22.backend.Entity.*;
+import com.team22.backend.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.application.SE.Entity;
+package com.team22.backend.Entity;
 
 import lombok.*;
 
