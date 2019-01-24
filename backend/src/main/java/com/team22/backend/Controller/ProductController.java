@@ -61,4 +61,14 @@ public class ProductController {
         newProduct.setType(setType);
         return productRepository.save(newProduct);
     }
+    @PostMapping("/description/{prodId}/{detailId}/{data}")
+    public Description newDes(@RequestBody Description newDes, @PathVariable Long prodId, @PathVariable Long detailId,@PathVariable String data)
+    {
+        Detail setDet = detailRepository.findByDetailIds(detailId);
+        Product setProd = productRepository.findByProdId(prodId);
+        newDes.setDataDescription(data);
+        newDes.setDetail(setDet);
+        newDes.setProduct(setProd);
+        return descriptionRepository.save(newDes);
+    } 
 }
