@@ -6,7 +6,7 @@ import java.util.*;
 
 @Data
 @Entity
-@Getter @Setter
+@Getter @Setter //get set
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
