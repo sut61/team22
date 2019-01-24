@@ -1,0 +1,30 @@
+.toolbar{
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  background-color: #ff9999;
+  opacity: 100%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.menu-list{
+  float: left;
+  margin-left: 50px;
+  font-color:white;
+  font-size: 30px;
+}
+
+.example-icon{
+  float: left;
+  margin-left: 50px;
+  font-color:white;
+  font-size: 30px;
+}
+mat-toolbar-row{
+  font-family: 'Dosis', sans-serif;
+  font-size: 15px;
+}
+button{
+  font-family: 'Dosis', sans-serif;
+  font-size: 23px;
+}
