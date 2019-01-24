@@ -36,7 +36,10 @@ public class Data {
                            StaffRepository staffRepository,
                            BookingRepository bookingRepository,
                            CustomerRepository customerRepository,
-                           StyleRepository styleRepository
+                           StyleRepository styleRepository,
+                           PayMentRepository payMentRepository,
+                           SellingRepository sellingRepository,
+                           LeaseRepository leaseRepository
     ) {
         return args -> {
 
@@ -186,7 +189,7 @@ public class Data {
                     positionRepository.save(positiondb);
                 }
             });
-
+            
             Position po1 = positionRepository.findByPositionId(1L);
             Position po2 = positionRepository.findByPositionId(2L);
             Position po3 = positionRepository.findByPositionId(3L);
@@ -269,8 +272,31 @@ public class Data {
             leasedb.setProduct(pt1);
             leaseRepository.save(leasedb);
 
-                    
-        System.out.println("\n Spring-Boot Complete");
+
+
+
+
+
+
+            
+            Lease lid = leaseRepository.findByLeaseId(1L);
+            Stream.of(1L).forEach(pmid -> {
+                PayMent paymentdb = new PayMent();
+                paymentdb.setPmId(pmid);
+                Date paydate = new Date();
+                payMentRepository.save(paymentdb);
+
+                if (pmid == 1L) {
+                    paymentdb.setTypePay("Lease");
+                    paymentdb.setCustomer(c1);
+                    paymentdb.setDatePay(paydate);
+                    paymentdb.setLease(lid);
+                    paymentdb.setStatusPay("paid");
+                    payMentRepository.save(paymentdb);
+                }
+            });
+
+            System.out.println("\n Spring-Boot Complete");
         };
     }
 }
