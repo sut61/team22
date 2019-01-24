@@ -44,12 +44,21 @@ public class Data {
                            LeaseRepository leaseRepository
     ) {
         return args -> {
-
-
-
-
-
-
+            Stream.of("Renting", "Selling", "Stocking").forEach(status -> {
+                Status state = new Status(status);
+                statusRepository.save(state);
+            });
+            Status sta1 = statusRepository.findByStateId(1L);
+            Status sta2 = statusRepository.findByStateId(2L);
+            Status sta3 = statusRepository.findByStateId(3L);
+            Stream.of("Cloth", "Shoes", "Cosmetic", "Hair", "Accessories", "OtherType").forEach(tName -> {
+                Type typeprodName = new Type(tName);
+                typeRepository.save(typeprodName);
+            });
+            Stream.of("Bust", "Waist", "Hip", "Length", "Size", "OtherDetail").forEach(dName -> {
+                Detail dprodName = new Detail(dName);
+                detailRepository.save(dprodName);
+            });
 
             Stream.of("M.3","M.6","Polytechnical College","Technical College","Bachelor Degrees","Master Degrees").forEach(EduName -> {
 				Education educationdb = new Education();
