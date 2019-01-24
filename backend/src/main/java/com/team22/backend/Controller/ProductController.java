@@ -70,5 +70,19 @@ public class ProductController {
         newDes.setDetail(setDet);
         newDes.setProduct(setProd);
         return descriptionRepository.save(newDes);
-    } 
+    }
+    @PutMapping("/product/updateproduct/{prodId}/{productID}/{productName}/{productPrice}/{productQuantity}")
+    public Product editProduct(@RequestBody Product prod, @PathVariable Long prodId, @PathVariable String productID, @PathVariable String productName, @PathVariable Integer productPrice
+            , @PathVariable Integer productQuantity) {
+        return productRepository.findById(prodId).map(prodEdit -> {
+                    prodEdit.setProductIds(productID);
+                    prodEdit.setProductName(productName);
+                    prodEdit.setProductPrice(productPrice);
+                    prodEdit.setProductQuantity(productQuantity);
+                    return productRepository.save(prodEdit);
+                }
+        ).orElseGet(() -> {
+            return productRepository.save(prod);
+        });
+    }
 }
