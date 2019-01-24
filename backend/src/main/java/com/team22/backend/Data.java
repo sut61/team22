@@ -253,7 +253,23 @@ public class Data {
             sellingdb.setStatus("not paid");
             sellingdb.setProduct(pt1);
             sellingRepository.save(sellingdb);
-        
+
+
+  		Lease leasedb = new Lease();
+            String lDate1 = "20:04:1998";
+            String lDate2 = "21:05:1998";
+            DateTimeFormatter lformatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+            LocalDate ldate = LocalDate.parse(lDate1, lformatter);
+            LocalDate ldate1 = LocalDate.parse(lDate2, lformatter);
+            leasedb.setCustomer(c3);
+            leasedb.setDateStart(ldate);
+            leasedb.setDateEnd(ldate1);
+            leasedb.setStatus("paid");
+            leasedb.setStaff(st1);
+            leasedb.setProduct(pt1);
+            leaseRepository.save(leasedb);
+
+                    
         System.out.println("\n Spring-Boot Complete");
         };
     }
