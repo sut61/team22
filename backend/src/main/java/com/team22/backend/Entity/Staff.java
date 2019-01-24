@@ -1,7 +1,10 @@
-package com.team22.backend.Entity;
-        import javax.persistence.*;
-
-        import lombok.*;
+package com.application.SE.Entity;
+import javax.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import java.util.*;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -10,25 +13,20 @@ package com.team22.backend.Entity;
 @ToString
 @EqualsAndHashCode
 @Table(name="Staff")
-
 public class Staff {
-
-
     @Id
-    //@JsonFormat(pattern="yyyy-mm-dd")
     @SequenceGenerator(name="staff_seq",sequenceName="staff_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="staff_seq")
-    @Column(name="staffId",unique = true, nullable = false)
-
+    @Column(name="Staff_ID",unique = true, nullable = false)
     private @NonNull Long staffId;
     private @NonNull String staffIds;
-    private          String staffName;
-    private          String staffGender;
-    private          String staffJobtype;
+    public           String staffName;
     private          String staffPhone;
-    private          int staffSalary;
+    private          int    staffSalary;
     private          String staffStatus;
-
+    private          String staffJobtype;
+    private          String staffGender;
+    
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Position.class)
     @JoinColumn(name = "positionId", insertable = true)
     private Position position;
@@ -40,6 +38,5 @@ public class Staff {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Education.class)
     @JoinColumn(name = "educationId", insertable = true)
     private Education education;
-
 
 }
