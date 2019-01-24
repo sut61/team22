@@ -1,5 +1,5 @@
 package com.team22.backend;
-import com.team22.backend.repository.*;
+import com.team22.backend.Repository.*;
 import com.team22.backend.Entity.*;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 public class Data {
 
-//    Date date = new Date();
+
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Data.class, args);
     }
@@ -239,6 +239,20 @@ public class Data {
             bookingdb.setStaff(st1);
             bookingdb.setStyle(sy1);
             bookingRepository.save(bookingdb);
+
+
+		Selling sellingdb = new Selling();
+            sellingRepository.save(sellingdb);
+            String sDate2 = "20:04:1998";
+            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+            LocalDate sdate = LocalDate.parse(sDate2, formatter2);
+
+            sellingdb.setSellingDate(sdate);
+            sellingdb.setCustomer(c2);
+            sellingdb.setStaff(st1);
+            sellingdb.setStatus("not paid");
+            sellingdb.setProduct(pt1);
+            sellingRepository.save(sellingdb);
         
         System.out.println("\n Spring-Boot Complete");
         };
