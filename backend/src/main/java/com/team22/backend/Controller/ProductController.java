@@ -85,4 +85,16 @@ public class ProductController {
             return productRepository.save(prod);
         });
     }
+    @PutMapping("/description/updatedetail/{prodId}/{detailId}/{data}")
+    public Description editDetail(@RequestBody Description des, @PathVariable Long prodId, @PathVariable long detailId, @PathVariable String data) {
+        Detail setDet = detailRepository.findByDetailIds(detailId);
+        return descriptionRepository.findById(prodId).map(detEdit -> {
+                    detEdit.setDetail(setDet);
+                    detEdit.setDataDescription(data);
+                    return descriptionRepository.save(detEdit);
+                }
+        ).orElseGet(() -> {
+            return descriptionRepository.save(des);
+        });
+    }
 }
