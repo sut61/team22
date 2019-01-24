@@ -1,8 +1,9 @@
-package com.okta.developer.demo.entity;
-import javax.persistence.*;
-import lombok.*;
-import java.util.*;
+package com.application.SE.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity  //บอกว่าเป็น class entity class ที่เก็บขอมูล
 @Data  // lombox จะสร้าง method getter setter ให้เอง
@@ -18,14 +19,11 @@ public class Product {
     @Column(name="Products_ID",unique = true, nullable = false)
 
     private @NonNull Long prodId;
-
-    private @NonNull String productID;
+    private @NonNull String productIds;
     private @NonNull String productName;
     private @NonNull Integer productQuantity;
     private @NonNull Date productDate;
     private @NonNull Integer productPrice ;
-    private @NonNull String productImage ;
-
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Type.class)
     @JoinColumn(name = "typeIds", insertable = true)
     private Type type;
