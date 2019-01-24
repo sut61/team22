@@ -1,12 +1,11 @@
-package com.application.SE.Entity;
+package com.team22.backend.Entity;
 import javax.persistence.*;
 import lombok.*;
-
 import java.util.*;
 
 @Data
 @Entity
-@Getter @Setter //get set
+@Getter @Setter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
@@ -35,7 +34,7 @@ public class PayMent {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sellingId")
-    private Selling selling;
+     private Selling selling;
 
-
+     
 }

@@ -1,6 +1,6 @@
-package com.application.SE.controller;
-import com.application.SE.Entity.*;
-import com.application.SE.repository.*;
+package com.team22.backend.Controller;
+import com.team22.backend.Entity.*;
+import com.team22.backend.Repository.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
