@@ -17,11 +17,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 public class Data {
 
-
+//    Date date = new Date();
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Data.class, args);
     }
-
 
     @Bean
     CharacterEncodingFilter characterEncodingFilter() {
@@ -34,16 +33,21 @@ public class Data {
     @Bean
     ApplicationRunner init(PositionRepository positionRepository,
                            StaffRepository staffRepository,
+                           SellingRepository sellingRepository,
                            EducationRepository educationRepository,
-                           ExperienceRepository experienceRepository,
+                           DetailRepository detailRepository,
+                           ProductRepository productRepository,
+                           StatusRepository statusRepository,
                            BookingRepository bookingRepository,
                            CustomerRepository customerRepository,
+                           TypeRepository typeRepository,
                            StyleRepository styleRepository,
-                           PayMentRepository payMentRepository,
-                           SellingRepository sellingRepository,
-                           LeaseRepository leaseRepository
-    ) {
+                           LeaseRepository leaseRepository,
+                           PayMentRepository  payMentRepository,
+                           ExperienceRepository experienceRepository
+                           ) {
         return args -> {
+
             Stream.of("Renting", "Selling", "Stocking").forEach(status -> {
                 Status state = new Status(status);
                 statusRepository.save(state);
@@ -140,6 +144,7 @@ public class Data {
 			Experience ex5 = experienceRepository.findByExperienceId(5L);
 
             Stream.of("Sunvo", "Ploy", "Ao" ,"Wahn","Opal","Meen").forEach(cusName -> {
+
                 Customer customerdb = new Customer();
                 customerdb.setCustomerName(cusName);
                 customerRepository.save(customerdb);
@@ -189,10 +194,24 @@ public class Data {
             Customer c5 = customerRepository.findByCusId(5L);
             Customer c6 = customerRepository.findByCusId(6L);
 
+            Type type1 = typeRepository.findByTypeIds(1L);
+            Stream.of("Dress").forEach(proName ->{
+                Product productName = new Product();
+                productName.setProductName(proName);
+                productRepository.save(productName);
 
+                if(proName == "Dress") {
+                    Product prodid = productRepository.findByProdId(1L);
+                    productName.setProductIds("P" + prodid.getProdId());
+                    productName.setProductPrice(1000);
+                    productName.setProductQuantity(18);
+                    productName.setStatus(sta1);
+                    productName.setType(type1);
+                    productRepository.save(productName);
+                }
 
-
-
+            });
+            Product pt1 = productRepository.findByProdId(1L);
 
             Stream.of("korea style", "thai style", "laos style","wedding", "thai wedding", "chinese style").forEach(styName -> {
                 Style styledb = new Style();
@@ -243,7 +262,7 @@ public class Data {
             Style sy5 = styleRepository.findBystyleID(5L);
             Style sy6 = styleRepository.findBystyleID(6L);
 
-             Stream.of("Stylist","Service","HairStylist", "MakeupArtist","Renter","Seller","Accountant").forEach(posName -> {
+            Stream.of("Stylist","Service","HairStylist", "MakeupArtist","Renter","Seller","Accountant").forEach(posName -> {
                 Position positiondb = new Position();
                 positiondb.setPositionName(posName);
                 positionRepository.save(positiondb);
@@ -369,26 +388,12 @@ public class Data {
 
             bookingdb.setBookingDate(bdate);
             bookingdb.setCustomer(c3);
+            bookingdb.setStatus("not paid");
             bookingdb.setStaff(st1);
             bookingdb.setStyle(sy1);
             bookingRepository.save(bookingdb);
 
-
-		Selling sellingdb = new Selling();
-            sellingRepository.save(sellingdb);
-            String sDate2 = "20:04:1998";
-            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-            LocalDate sdate = LocalDate.parse(sDate2, formatter2);
-
-            sellingdb.setSellingDate(sdate);
-            sellingdb.setCustomer(c2);
-            sellingdb.setStaff(st1);
-            sellingdb.setStatus("not paid");
-            sellingdb.setProduct(pt1);
-            sellingRepository.save(sellingdb);
-
-
-  		Lease leasedb = new Lease();
+            Lease leasedb = new Lease();
             String lDate1 = "20:04:1998";
             String lDate2 = "21:05:1998";
             DateTimeFormatter lformatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
@@ -402,14 +407,49 @@ public class Data {
             leasedb.setProduct(pt1);
             leaseRepository.save(leasedb);
 
+            Lease leasedb2 = new Lease();
+            String l2Date1 = "11:11:1998";
+            String l2Date2 = "12:12:1998";
+            DateTimeFormatter l2formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+            LocalDate l2date = LocalDate.parse(l2Date1, l2formatter);
+            LocalDate l2date1 = LocalDate.parse(l2Date2, l2formatter);
+            leasedb2.setCustomer(c1);
+            leasedb2.setDateStart(l2date);
+            leasedb2.setDateEnd(l2date1);
+            leasedb2.setStatus("not paid");
+            leasedb2.setStaff(st1);
+            leasedb2.setProduct(pt1);
+            leaseRepository.save(leasedb2);
 
+            Lease leasedb3 = new Lease();
+            String l2Date12 = "07:07:1998";
+            String l2Date22 = "06:07:1998";
+            DateTimeFormatter l2formatter2 = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+            LocalDate l2date2 = LocalDate.parse(l2Date12, l2formatter2);
+            LocalDate l2date12 = LocalDate.parse(l2Date22, l2formatter2);
+            leasedb3.setCustomer(c2);
+            leasedb3.setDateStart(l2date2);
+            leasedb3.setDateEnd(l2date12);
+            leasedb3.setStatus("not paid");
+            leasedb3.setStaff(st1);
+            leasedb3.setProduct(pt1);
+            leaseRepository.save(leasedb3);
 
+            Selling sellingdb = new Selling();
+            sellingRepository.save(sellingdb);
+            String sDate2 = "20:04:1998";
+            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+            LocalDate sdate = LocalDate.parse(sDate2, formatter2);
 
+            sellingdb.setSellingDate(sdate);
+            sellingdb.setCustomer(c2);
+            sellingdb.setStaff(st1);
+            sellingdb.setStatus("not paid");
+            sellingdb.setProduct(pt1);
+            sellingRepository.save(sellingdb);
 
-
-
-            
             Lease lid = leaseRepository.findByLeaseId(1L);
+
             Stream.of(1L).forEach(pmid -> {
                 PayMent paymentdb = new PayMent();
                 paymentdb.setPmId(pmid);
