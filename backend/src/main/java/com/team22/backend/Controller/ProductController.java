@@ -97,4 +97,8 @@ public class ProductController {
             return descriptionRepository.save(des);
         });
     }
+    @DeleteMapping("/product/delete/{prodId}")
+    public void deleteProduct(@PathVariable Long prodId) {
+         productRepository.deleteById(prodId);
+    }
 }
