@@ -1,56 +1,84 @@
+import { SigninService } from './../service/signin.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {MatDialog , MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
   hide = true;
 
-  loginuser = {
-    userName: '',
+  login = {
+    userId: '',
     upassword: '',
-    adminName: '',
+    admin: '',
     apassword: ''
   };
 
-  constructor( private router: Router ) { }
+  constructor( private signinService: SigninService, private router: Router , public dialog: MatDialog) { }
 
   ngOnInit() {
   }
-  loginUser() {
-    if (this.loginuser.userName === '' ||
-    this.loginuser.upassword ===  ''
-    ) {
-     alert('กรอกข้อมูลให้ครบถ้วน');
-  } else if (this.loginuser.userName === 'sunvo' ||
-  this.loginuser.userName === 'ploy' ||
-  this.loginuser.userName === 'Ao' ||
-      this.loginuser.userName === 'Wahn' ||
-      this.loginuser.userName === 'Opal' ||
-      this.loginuser.userName === 'Meen' &&
-  this.loginuser.upassword ===  '123456' ) {
-    this.router.navigate(['/makeup']);
-    alert('เข้าสู่ระบบ');
-  } else {
-    alert('รหัสไม่ถูกต้อง');
-  }
-  }
 
-  loginAdmin() {
-    if (this.loginuser.adminName === '' ||
-    this.loginuser.apassword ===  ''
-    ) {
-     alert('กรอกข้อมูลให้ครบถ้วน');
-  } else if (this.loginuser.adminName === 'admin' &&
-  this.loginuser.apassword ===  '123456' ) {
-    this.router.navigate(['/payment']);
-    alert('เข้าสู่ระบบ');
-  } else {
-    alert('รหัสไม่ถูกต้อง');
-  }
-  }
+  SignInUser() {
+    this.signinService.findCustomer(this.login.userId , this.login.upassword).subscribe(data => {
+       console.log( data );
+           if ( data != null ) {
+            localStorage.setItem('customer', JSON.stringify(data));
+                this.router.navigate(['./makeup' , { first: data.name}]);
+           } else {
+              const dialogRef = this.dialog.open(Loginfalse, {
+                             width: '500px'
+                           });
+
+                           dialogRef.afterClosed().subscribe(result => {
+                             console.log('The dialog was closed');
+
+                           });
+            localStorage.setItem('user' , JSON.stringify(data));
+            this.login.upassword = null ;
+           }
+    });
 }
+
+SignInAdmin() {
+  this.signinService.findAdmin(this.login.admin , this.login.apassword).subscribe(data => {
+     console.log( data );
+         if ( data != null ) {
+          localStorage.setItem('admin', JSON.stringify(data));
+              this.router.navigate(['./payment' , { first: data.name}]);
+         } else {
+            const dialogRef = this.dialog.open(Loginfalse, {
+                           width: '500px'
+                         });
+
+                         dialogRef.afterClosed().subscribe(result => {
+                           console.log('The dialog was closed');
+
+                         });
+          localStorage.setItem('admin' , JSON.stringify(data));
+          this.login.apassword = null ;
+         }
+  });
+}
+
+}
+
+  @Component ({
+    selector: 'app-loginfalse',
+    templateUrl: './loginfalse.html',
+  })
+  // tslint:disable-next-line:component-class-suffix
+  export class Loginfalse {
+    constructor(
+      public dialogRef: MatDialogRef<Loginfalse>
+      ) {}
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+  }
 

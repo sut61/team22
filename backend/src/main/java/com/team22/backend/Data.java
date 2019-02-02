@@ -143,47 +143,78 @@ public class Data {
 			Experience ex4 = experienceRepository.findByExperienceId(4L);
 			Experience ex5 = experienceRepository.findByExperienceId(5L);
 
+            String dateB1 = "20:04:1997";
+            String dateB2 = "21:05:1996";
+            DateTimeFormatter lformatterb = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+            LocalDate dateB1c = LocalDate.parse(dateB1, lformatterb);
+            LocalDate dateB2c = LocalDate.parse(dateB2, lformatterb);
             Stream.of("Sunvo", "Ploy", "Ao" ,"Wahn","Opal","Meen").forEach(cusName -> {
+
 
                 Customer customerdb = new Customer();
                 customerdb.setCustomerName(cusName);
                 customerRepository.save(customerdb);
+                
 
                 if (cusName == "Sunvo") {
                     Customer cusid = customerRepository.findByCusId(1L);
                     customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setAddressCustomer("Korat");
+                    customerdb.setCustomerPassword("123456");
+                    customerdb.setCustomerAddress("Korat");
+                    customerdb.setCustomerPhone("0912345678"); 
+                    customerdb.setCustomerGender("Man");
+                    customerdb.setCustomerBirthday(dateB1c);
                     customerRepository.save(customerdb);
 
                 }
                 else if(cusName == "Ploy"){
                     Customer cusid = customerRepository.findByCusId(2L);
                     customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setAddressCustomer("Suranaree");
+                    customerdb.setCustomerPassword("123456");
+                    customerdb.setCustomerAddress("Suranaree");
+                    customerdb.setCustomerPhone("0912345678"); 
+                    customerdb.setCustomerGender("Man");
+                    customerdb.setCustomerBirthday(dateB2c);
                     customerRepository.save(customerdb);
                 }
                 else if(cusName == "Ao"){
                     Customer cusid = customerRepository.findByCusId(3L);
                     customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setAddressCustomer("Sungneon");
+                    customerdb.setCustomerPassword("123456");
+                    customerdb.setCustomerAddress("Sungneon");
+                    customerdb.setCustomerPhone("0912345678"); 
+                    customerdb.setCustomerGender("Man");
+                    customerdb.setCustomerBirthday(dateB1c);
                     customerRepository.save(customerdb);
                 }
                 else if(cusName == "Wahn"){
                     Customer cusid = customerRepository.findByCusId(4L);
                     customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setAddressCustomer("Krathok");
+                    customerdb.setCustomerPassword("123456");
+                    customerdb.setCustomerAddress("Krathok");
+                    customerdb.setCustomerPhone("0912345678"); 
+                    customerdb.setCustomerGender("Man");
+                    customerdb.setCustomerBirthday(dateB2c);
                     customerRepository.save(customerdb);
                 }
                 else if(cusName == "Opal"){
                     Customer cusid = customerRepository.findByCusId(5L);
                     customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setAddressCustomer("Khonkan");
+                    customerdb.setCustomerPassword("123456");
+                    customerdb.setCustomerAddress("Khonkan");
+                    customerdb.setCustomerPhone("0912345678"); 
+                    customerdb.setCustomerGender("Man");
+                    customerdb.setCustomerBirthday(dateB1c);
                     customerRepository.save(customerdb);
                 }
                 else if(cusName == "Meen"){
                     Customer cusid = customerRepository.findByCusId(6L);
                     customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setAddressCustomer("Korat");
+                    customerdb.setCustomerPassword("123456");
+                    customerdb.setCustomerAddress("Korat");
+                    customerdb.setCustomerPhone("0912345678"); 
+                    customerdb.setCustomerGender("Man");
+                    customerdb.setCustomerBirthday(dateB2c);
                     customerRepository.save(customerdb);
                 }
             });
@@ -193,7 +224,6 @@ public class Data {
             Customer c4 = customerRepository.findByCusId(4L);
             Customer c5 = customerRepository.findByCusId(5L);
             Customer c6 = customerRepository.findByCusId(6L);
-
             Type type1 = typeRepository.findByTypeIds(1L);
             Stream.of("Dress").forEach(proName ->{
                 Product productName = new Product();
@@ -318,7 +348,6 @@ public class Data {
             Position po6 = positionRepository.findByPositionId(6L);
             Position po7 = positionRepository.findByPositionId(7L);
 
-
             Stream.of("Owner", "Ploy", "Sunvo" , "Au").forEach(staffName -> {
                 Staff staffdb = new Staff();
                 staffdb.setStaffName(staffName);
@@ -327,6 +356,7 @@ public class Data {
                 if (staffName == "Owner") {
                     staffdb.setStaffIds("St"+staffdb.getStaffId());
                     staffdb.setStaffName(staffName);
+                    staffdb.setStaffPassword("123456");
                     staffdb.setEducation(ed1);
                     staffdb.setExperience(ex1);
                     staffdb.setStaffGender("Man");
@@ -340,6 +370,7 @@ public class Data {
                 else    if (staffName == "Ploy") {
                     staffdb.setStaffIds("St"+staffdb.getStaffId());
                     staffdb.setStaffName(staffName);
+                    staffdb.setStaffPassword("123456");
                     staffdb.setStaffGender("Woman");
                     staffdb.setStaffJobtype("Part Time");
                     staffdb.setEducation(ed2);
@@ -353,6 +384,7 @@ public class Data {
                 else    if (staffName == "Sunvo") {
                     staffdb.setStaffIds("St"+staffdb.getStaffId());
                     staffdb.setStaffName(staffName);
+                    staffdb.setStaffPassword("123456");
                     staffdb.setStaffGender("Man");
                     staffdb.setStaffJobtype("Part Time");
                     staffdb.setEducation(ed3);
@@ -366,6 +398,7 @@ public class Data {
                 else    if (staffName == "Au") {
                     staffdb.setStaffIds("St"+staffdb.getStaffId());
                     staffdb.setStaffName(staffName);
+                    staffdb.setStaffPassword("123456");
                     staffdb.setStaffGender("Man");
                     staffdb.setStaffJobtype("Part Time");
                     staffdb.setEducation(ed4);

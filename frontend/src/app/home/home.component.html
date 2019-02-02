@@ -1,31 +1,43 @@
 <mat-tab-group>
   <mat-tab label="Userlogin">
     <div class="example-container" align="center">
-    <mat-form-field class="example-full-width" >
-      <input matInput placeholder="UserName" [(ngModel)]="loginuser.userName" #Username>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="example-full-width" >
-      <input matInput placeholder="password" [(ngModel)]="loginuser.upassword" [type]="hide ? 'password' : 'text'">
-      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </mat-form-field>
-    <br>
-    <button mat-raised-button color="warn" (click)="loginUser()">Login</button>
+
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="UserID" [(ngModel)]="login.userId"  [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" ng-hide="showpassword" type="password" placeholder="PASSWORD" [(ngModel)]="login.upassword"  [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <br>
+        <div class="example-full-width">
+          <button mat-raised-button color="warn" (click)="SignInUser()">Sign in</button>
+          <br>
+        </div>
+      </form>
+      <a mat-button routerLink="." style="color:#33CC33;" routerLink="/signup">Sing Up</a>
+
   </div>
 </mat-tab>
   <mat-tab label="Adminlogin">
     <div class="example-container" align="center">
-      <mat-form-field class="example-full-width" >
-        <input matInput placeholder="adminName" [(ngModel)]="loginuser.adminName" #Username>
-      </mat-form-field>
-      <br>
-      <mat-form-field class="example-full-width" >
-        <input matInput placeholder="password" [(ngModel)]="loginuser.apassword" [type]="hide ? 'password' : 'text'">
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </mat-form-field>
-      <br>
-      <button mat-raised-button color="warn" (click)="loginAdmin()">Login</button>
-    </div> </mat-tab>
+
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Admin" [(ngModel)]="login.admin"  [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" ng-hide="showpassword" type="password" placeholder="password" [(ngModel)]="login.apassword"  [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <br>
+        <div class="example-full-width">
+          <button mat-raised-button color="warn" (click)="SignInAdmin()">Sign in</button>
+          <br>
+        </div>
+      </form>
+  </div> </mat-tab>
 </mat-tab-group>
 
 
