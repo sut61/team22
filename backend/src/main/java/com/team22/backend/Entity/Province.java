@@ -21,4 +21,5 @@ public class Province {
     private Long provinceId;
     private String provinceName;
 
+    
 }
