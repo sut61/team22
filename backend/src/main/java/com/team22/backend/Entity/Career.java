@@ -20,4 +20,5 @@ public class Career {
     private Long careerId;
     private String careerName;
 
+    
 }
