@@ -21,6 +21,7 @@ public class Staff {
     private @NonNull Long staffId;
     private @NonNull String staffIds;
     public           String staffName;
+    private          String staffPassword;
     private          String staffPhone;
     private          int    staffSalary;
     private          String staffStatus;

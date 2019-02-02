@@ -1,8 +1,7 @@
 package com.team22.backend.Entity;
 import lombok.*;
-
 import javax.persistence.*;
-
+import java.time.*;
 @Data
 @Entity
 @Getter @Setter
@@ -16,9 +15,13 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="customer_seq")
     @Column(name="Customer_ID",unique = true, nullable = false)
     private @NonNull Long cusId;
-    private  String customerName;
-    private  String customerIDs;
-    private  String addressCustomer;
+    private String customerIDs;
+    private String customerPassword;
+    private String customerName;
+    private String customerPhone;
+    private String customerGender;
+    private LocalDate customerBirthday;
+    private String customerAddress;
 
 
 }

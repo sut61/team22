@@ -39,7 +39,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material';
 import { PaymentService } from './service/payment.service';
 import { HistoryComponent } from './history/history.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent , Loginfalse } from './home/home.component';
 import { MakeupComponent } from './makeup/makeup.component';
 import { MakeupService } from './service/makeup.service';
 import { SellingService} from './service/selling.service';
@@ -59,6 +59,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
+    Loginfalse,
     PaymentComponent,
     HistoryComponent,
     MakeupComponent,
@@ -117,10 +118,11 @@ const appRoutes: Routes = [
       {path: 'renting', component: RentingComponent},
       {path: 'stock' , component: StockComponent},
       {path: 'register' , component: RegisterComponent},
+      {path: 'loginfalse' , component: Loginfalse},
       {path: '', component: HomeComponent}
     ])
   ],
-  providers: [PaymentService , MakeupService , SellingService , LeaseService , RegisterService , STOCKINGService],
+  providers: [PaymentService , MakeupService , SellingService , LeaseService , RegisterService , STOCKINGService, Loginfalse , HomeComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
