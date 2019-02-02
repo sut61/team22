@@ -52,6 +52,8 @@ import { RegisterService } from './service/register.service';
 import { RegisterComponent } from './register/register.component';
 import { StockComponent} from './stock/stock.component';
 import {STOCKINGService} from './service/stocking.service';
+import { SignupComponent } from './signup/signup.component';
+import { SignupService } from './service/signup.service';
 const appRoutes: Routes = [
 ];
 
@@ -68,7 +70,8 @@ const appRoutes: Routes = [
     MenucustomerComponent,
     MenuadminComponent,
     StockComponent,
-    RegisterComponent
+    RegisterComponent,
+    SignupComponent
 
   ],
   imports: [
@@ -118,11 +121,14 @@ const appRoutes: Routes = [
       {path: 'renting', component: RentingComponent},
       {path: 'stock' , component: StockComponent},
       {path: 'register' , component: RegisterComponent},
+      {path: 'signup' , component: SignupComponent},
       {path: 'loginfalse' , component: Loginfalse},
+
       {path: '', component: HomeComponent}
     ])
   ],
-  providers: [PaymentService , MakeupService , SellingService , LeaseService , RegisterService , STOCKINGService, Loginfalse , HomeComponent],
+  providers: [PaymentService , MakeupService , SellingService ,
+    LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse , HomeComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
