@@ -41,6 +41,11 @@ public class CustomerController {
         public Staff adminLogin(@PathVariable String admin , @PathVariable String Password){
             return this.staffRepository.findByStaffNameAndStaffPassword(admin,Password);
         }
+        
+        @PostMapping("/customerCheck/{customerIDs}")
+        public Customer customerLogin(@PathVariable String customerIDs){
+            return this.customerRepository.findByCustomerIDs(customerIDs);
+        }
 
         @GetMapping("/career")
         public Collection<Career> career() {
@@ -84,7 +89,3 @@ public class CustomerController {
     }
   
 }
-
-    
-
-
