@@ -19,6 +19,7 @@ public class Province {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="province_seq")
     @Column(name="PROVINCE_ID",unique = true, nullable = false)
     private Long provinceId;
+    
     private String provinceName;
 
     

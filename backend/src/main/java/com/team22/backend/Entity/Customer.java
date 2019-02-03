@@ -22,7 +22,9 @@ public class Customer {
     private Long cusId;
 
     private String customerIDs;
+
     private String customerPassword;
+
     private String customerName;
     private String customerPhone;
     private String customerGender;
@@ -34,7 +36,7 @@ public class Customer {
     @JoinColumn(name = "Province_ID", insertable = true)
     private Province province;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Province.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Career.class)
     @JoinColumn(name = "Career_ID", insertable = true)
     private Career career;
 

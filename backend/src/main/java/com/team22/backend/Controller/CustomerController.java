@@ -33,7 +33,7 @@ public class CustomerController {
         } 
     
 
-        @PostMapping("/customerLogin/{customerIDs}/password/{customerPassword}")
+        @PostMapping("/customerSignin/{customerIDs}/{customerPassword}")
         public Customer customerLogin(@PathVariable String customerIDs , @PathVariable String customerPassword){
             return this.customerRepository.findByCustomerIDsAndCustomerPassword(customerIDs,customerPassword);
         }
@@ -43,7 +43,7 @@ public class CustomerController {
         }
         
         @PostMapping("/customerCheck/{customerIDs}")
-        public Customer customerLogin(@PathVariable String customerIDs){
+        public Customer customerCheck(@PathVariable String customerIDs){
             return this.customerRepository.findByCustomerIDs(customerIDs);
         }
 
@@ -58,7 +58,7 @@ public class CustomerController {
                     .collect(Collectors.toList());
         } 
 
-    @PostMapping("/customerRegister/{customerIDs}/{customerPassword}/{customerName}/{customerPhone}/{customerGender}/{customerBirthday}/{customerAddress}/{careerId}/{provinceId}")
+    @PostMapping("/customerSignup/{customerIDs}/{customerPassword}/{customerName}/{customerPhone}/{customerGender}/{customerBirthday}/{customerAddress}/{careerId}/{provinceId}")
     public Customer newCustomer(@PathVariable String customerIDs,@PathVariable String customerPassword,
                                     @PathVariable String customerName,@PathVariable String customerPhone,
                                     @PathVariable String customerGender,@PathVariable String customerBirthday,
@@ -87,5 +87,9 @@ public class CustomerController {
 
         return customerRepository.save(newCustomer); 
     }
+
+
   
+
+   
 }

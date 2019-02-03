@@ -9,13 +9,11 @@ export class SigninService {
 
   constructor(private http: HttpClient) {  }
 
- getCustomerLogin(): Observable<any> {
-  return this.http.get('//localhost:8080/customer');
+ findCustomer(userId: String , pass: String): Observable<any> {
+  return this.http.post('//localhost:8080/customerSignin/' + userId + '/' + pass, {} );
   }
- findCustomer(user: String , pass: String): Observable<any> {
-  return this.http.post('//localhost:8080/customerLogin/' + user + '/password/' + pass, {} );
+
+ findAdmin(admin: String , pass: String): Observable<any> {
+  return this.http.post('//localhost:8080/adminLogin/' + admin + '/password/' + pass, {} );
   }
-  findAdmin(admin: String , pass: String): Observable<any> {
-    return this.http.post('//localhost:8080/adminLogin/' + admin + '/password/' + pass, {} );
-    }
 }

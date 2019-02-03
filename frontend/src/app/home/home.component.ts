@@ -1,4 +1,5 @@
-import { SigninService } from './../service/signin.service';
+import { SigninService } from '../service/signin.service';
+import { SignupService } from '../service/signup.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {MatDialog , MatDialogRef} from '@angular/material';
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
     apassword: ''
   };
 
-  constructor( private signinService: SigninService, private router: Router , public dialog: MatDialog) { }
+  constructor( private signinService: SigninService, private signupService: SignupService
+    , private router: Router , public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -28,8 +30,8 @@ export class HomeComponent implements OnInit {
     this.signinService.findCustomer(this.login.userId , this.login.upassword).subscribe(data => {
        console.log( data );
            if ( data != null ) {
-            localStorage.setItem('customer', JSON.stringify(data));
-                this.router.navigate(['./makeup' , { first: data.name}]);
+            localStorage.setItem('id', JSON.stringify(data));
+                this.router.navigate(['./makeup' , { first: data}]);
            } else {
               const dialogRef = this.dialog.open(Loginfalse, {
                              width: '500px'
@@ -39,7 +41,7 @@ export class HomeComponent implements OnInit {
                              console.log('The dialog was closed');
 
                            });
-            localStorage.setItem('user' , JSON.stringify(data));
+            localStorage.setItem('id' , JSON.stringify(data));
             this.login.upassword = null ;
            }
     });
