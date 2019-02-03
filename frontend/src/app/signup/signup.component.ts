@@ -64,10 +64,10 @@ export class SignupComponent implements OnInit {
      this.customer.province === '' ) {
      alert('ข้อมูลไม่ครบถ้วน');
 } else {
-  this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(data => {
-    console.log( data );
-        if ( data != null ) {
-         localStorage.setItem('customerIDs', JSON.stringify(data));
+  this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(checkCustomerData => {
+    console.log( checkCustomerData );
+        if ( checkCustomerData != null ) {
+         localStorage.setItem('customerIDs', JSON.stringify(checkCustomerData));
          const dialogRef = this.dialog.open(CheckCustomerNotUse, {
           width: '500px'
         });
@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
           console.log('Can Not Use');
         });
         } else {
-          this.httpClient.post('http://localhost:8080/customerRegister/' + this.customer.customerIDs + '/'
+          this.httpClient.post('http://localhost:8080/customerSignup/' + this.customer.customerIDs + '/'
   + this.customer.customerPassword + '/' + this.customer.customerName +
       '/' + this.customer.customerPhone + '/' + this.customer.customerGender +
       '/' + this.pipe.transform(this.customer.customerBirthday, 'dd:MM:yyyy') + '/' +
@@ -83,21 +83,19 @@ export class SignupComponent implements OnInit {
       this.customer.career + '/' +
       this.customer.province, this.customerRegister)
   .subscribe(
-    datas => {
+    dataRegister => {
       window.location.reload();
         window.location.href = '/home';
-        console.log('Post successful', datas);
+        console.log('Post successful', dataRegister);
         alert('สำเร็จ');
-
-    },
+        },
     error => {
         console.log('Error', error);
-    }
-);
-        }
- });
-
-}
+      }
+      );
+      }
+   });
+  }
         console.log( this.customer.customerIDs,
         this.customer.customerPassword,
         this.customer.customerName,
@@ -107,12 +105,12 @@ export class SignupComponent implements OnInit {
         this.customer.customerAddress,
         this.customer.career,
         this.customer.province);
-  }
+ }
   checkId(id) {
-    this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(data => {
-      console.log( data );
-          if ( data != null ) {
-           localStorage.setItem('customerIDs', JSON.stringify(data));
+    this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(checkCustomer => {
+      console.log( checkCustomer );
+          if ( checkCustomer != null ) {
+           localStorage.setItem('customerIDs', JSON.stringify(checkCustomer));
            const dialogRef = this.dialog.open(CheckCustomerNotUse, {
             width: '500px'
           });
@@ -146,7 +144,6 @@ export class CheckCustomerCanUse {
     this.dialogRef.close();
   }
 }
-
 @Component ({
   selector: 'app-checkCustomerNotUse',
   templateUrl: './checkCustomerNotUse.html',
