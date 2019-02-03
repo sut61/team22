@@ -44,7 +44,9 @@ public class Data {
                            StyleRepository styleRepository,
                            LeaseRepository leaseRepository,
                            PayMentRepository  payMentRepository,
-                           ExperienceRepository experienceRepository
+                           ExperienceRepository experienceRepository,
+                           ProvinceRepository provinceRepository,
+                           CareerRepository careerRepository
                            ) {
         return args -> {
 
@@ -497,6 +499,27 @@ public class Data {
                     paymentdb.setStatusPay("paid");
                     payMentRepository.save(paymentdb);
                 }
+            });
+            Stream.of("กระบี่","กรุงเทพมหานคร","กาญจนบุรี","กาฬสินธุ์","กำแพงเพชร",
+            "ขอนแก่น","จันทบุรี","ฉะเชิงเทรา" ,"ชลบุรี","ชัยนาท","ชัยภูมิ","ชุมพร","เชียงราย",
+            "เชียงใหม่","ตรัง","ตราด","ตาก","นครนายก","นครปฐม","นครพนม","นครราชสีมา" ,
+            "นครศรีธรรมราช","นครสวรรค์","นนทบุรี","นราธิวาส","น่าน","บุรีรัมย์","บึงกาฬ","ปทุมธานี",
+            "ประจวบคีรีขันธ์","ปราจีนบุรี","ปัตตานี" ,"พะเยา","พังงา","พัทลุง","พิจิตร","พิษณุโลก","เพชรบุรี",
+            "เพชรบูรณ์","แพร่","ภูเก็ต","มหาสารคาม","มุกดาหาร","แม่ฮ่องสอน" ,"ยโสธร","ยะลา","ร้อยเอ็ด",
+            "ระนอง","ระยอง","ราชบุรี","ลพบุรี","ลำปาง","ลำพูน","เลย","ศรีสะเกษ","สกลนคร","สงขลา" ,
+            "สตูล","สมุทรปราการ","สมุทรสงคราม","สมุทรสาคร","สระแก้ว","สระบุรี","สิงห์บุรี","สุโขทัย","สุพรรณบุรี",
+            "สุราษฎร์ธานี" ,"สุรินทร์","หนองคาย","หนองบัวลำภู","อยุธยา","อ่างทอง","อำนาจเจริญ","อุดรธานี","อุตรดิตถ์",
+            "อุทัยธานี","อุบลราชธานี").forEach(provinceName -> {
+                Province provinces = new Province();
+                provinces.setProvinceName(provinceName);
+                provinceRepository.save(provinces);
+            });
+            Stream.of("ค้าขาย","วิศวกร","หมอ",
+            "พยาบาล","นักดนดรี","ข้าราชการ" ,"นักการเมือง","ครู","ช่าง",
+            "นักเขียนโปรแกรม","นักกีฬา","นักกีฬา","อื่นๆ").forEach(careerName -> {
+                Career career = new Career();
+                career.setCareerName(careerName);
+                careerRepository.save(career);
             });
 
             System.out.println("\n Spring-Boot Complete");
