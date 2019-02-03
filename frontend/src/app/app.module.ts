@@ -52,7 +52,7 @@ import { RegisterService } from './service/register.service';
 import { RegisterComponent } from './register/register.component';
 import { StockComponent} from './stock/stock.component';
 import {STOCKINGService} from './service/stocking.service';
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent , CheckCustomerCanUse , CheckCustomerNotUse} from './signup/signup.component';
 import { SignupService } from './service/signup.service';
 const appRoutes: Routes = [
 ];
@@ -71,7 +71,9 @@ const appRoutes: Routes = [
     MenuadminComponent,
     StockComponent,
     RegisterComponent,
-    SignupComponent
+    SignupComponent,
+    CheckCustomerCanUse,
+    CheckCustomerNotUse
 
   ],
   imports: [
@@ -122,13 +124,16 @@ const appRoutes: Routes = [
       {path: 'stock' , component: StockComponent},
       {path: 'register' , component: RegisterComponent},
       {path: 'signup' , component: SignupComponent},
+      {path: 'checkCustomerCanUse' , component: CheckCustomerCanUse},
+      {path: 'checkCustomerNotUse' , component: CheckCustomerNotUse},
       {path: 'loginfalse' , component: Loginfalse},
 
       {path: '', component: HomeComponent}
     ])
   ],
   providers: [PaymentService , MakeupService , SellingService ,
-    LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse , HomeComponent],
+    LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse ,
+    CheckCustomerCanUse, CheckCustomerNotUse , HomeComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

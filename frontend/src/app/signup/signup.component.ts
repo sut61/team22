@@ -3,7 +3,8 @@ import {FormControl} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import { SignupService } from '../service/signup.service';
-
+import { Router } from '@angular/router';
+import {MatDialog , MatDialogRef} from '@angular/material';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -37,7 +38,7 @@ export class SignupComponent implements OnInit {
     province: ''
   };
 
-  constructor(private signupService: SignupService, private httpClient: HttpClient) { }
+  constructor(private signupService: SignupService, private httpClient: HttpClient, private router: Router , public dialog: MatDialog) { }
 
   ngOnInit() {
     this.signupService.getCareer().subscribe(data => {
@@ -63,7 +64,18 @@ export class SignupComponent implements OnInit {
      this.customer.province === '' ) {
      alert('ข้อมูลไม่ครบถ้วน');
 } else {
-  this.httpClient.post('http://localhost:8080/customerRegister/' + this.customer.customerIDs + '/'
+  this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(data => {
+    console.log( data );
+        if ( data != null ) {
+         localStorage.setItem('customerIDs', JSON.stringify(data));
+         const dialogRef = this.dialog.open(CheckCustomerNotUse, {
+          width: '500px'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('Can Not Use');
+        });
+        } else {
+          this.httpClient.post('http://localhost:8080/customerRegister/' + this.customer.customerIDs + '/'
   + this.customer.customerPassword + '/' + this.customer.customerName +
       '/' + this.customer.customerPhone + '/' + this.customer.customerGender +
       '/' + this.pipe.transform(this.customer.customerBirthday, 'dd:MM:yyyy') + '/' +
@@ -71,10 +83,10 @@ export class SignupComponent implements OnInit {
       this.customer.career + '/' +
       this.customer.province, this.customerRegister)
   .subscribe(
-    data => {
+    datas => {
       window.location.reload();
         window.location.href = '/home';
-        console.log('Post successful', data);
+        console.log('Post successful', datas);
         alert('สำเร็จ');
 
     },
@@ -82,6 +94,9 @@ export class SignupComponent implements OnInit {
         console.log('Error', error);
     }
 );
+        }
+ });
+
 }
         console.log( this.customer.customerIDs,
         this.customer.customerPassword,
@@ -94,7 +109,54 @@ export class SignupComponent implements OnInit {
         this.customer.province);
   }
   checkId(id) {
-
+    this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(data => {
+      console.log( data );
+          if ( data != null ) {
+           localStorage.setItem('customerIDs', JSON.stringify(data));
+           const dialogRef = this.dialog.open(CheckCustomerNotUse, {
+            width: '500px'
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('Can Not Use');
+          });
+          } else {
+             const dialogRef = this.dialog.open(CheckCustomerCanUse, {
+                            width: '500px'
+                          });
+                          dialogRef.afterClosed().subscribe(result => {
+                            console.log('Can Use');
+                          });
+          }
+   });
     console.log(id);
+  }
+
+}
+
+@Component ({
+  selector: 'app-checkCustomerCanUse',
+  templateUrl: './checkCustomerCanUse.html',
+})
+// tslint:disable-next-line:component-class-suffix
+export class CheckCustomerCanUse {
+  constructor(
+    public dialogRef: MatDialogRef<CheckCustomerCanUse>
+    ) {}
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component ({
+  selector: 'app-checkCustomerNotUse',
+  templateUrl: './checkCustomerNotUse.html',
+})
+// tslint:disable-next-line:component-class-suffix
+export class CheckCustomerNotUse {
+  constructor(
+    public dialogRef: MatDialogRef<CheckCustomerNotUse>
+    ) {}
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
