@@ -7,21 +7,21 @@ body{
 .panel{
   position: absolute;
   width: 100%;
-  height: 700px;
+  height: 900px;
   background-color: #ffcfbf;
 }
 .panel1{
   float: left;
   font-size: 30px;
   width: 50%;
-  height: 800px;
+  height: 900px;
   background-color: #eeefd9;
   font-family: 'Montserrat', sans-serif;
 }
 .panel2{
   float: left;
   width: 50%;
-  height: 800px;
+  height: 900px;
   background-color: #eeefd9;
   font-family: 'Montserrat', sans-serif;
 }
