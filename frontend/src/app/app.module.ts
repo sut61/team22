@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -51,7 +51,9 @@ import { MenuadminComponent } from './menuadmin/menuadmin.component';
 import { RegisterService } from './service/register.service';
 import { RegisterComponent } from './register/register.component';
 import { StockComponent} from './stock/stock.component';
+import { CheckproductComponent} from './checkproduct/checkproduct.component';
 import {STOCKINGService} from './service/stocking.service';
+import { CheckproductService } from './service/checkproduct.service';
 import { SignupComponent , Signincomplete , Signinuncomplete} from './signup/signup.component';
 import { SignupService } from './service/signup.service';
 const appRoutes: Routes = [
@@ -74,8 +76,8 @@ const appRoutes: Routes = [
     SignupComponent,
     Signincomplete,
     Signinuncomplete,
-    Paymentcomplete
-
+    Paymentcomplete,
+    CheckproductComponent
   ],
   imports: [
     BrowserModule,
@@ -129,13 +131,13 @@ const appRoutes: Routes = [
       {path: 'signincomplete' , component: Signincomplete},
       {path: 'loginfalse' , component: Loginfalse},
       {path: 'paymentcomplete' , component: Paymentcomplete},
-
+      {path: 'check' , component: CheckproductComponent},
       {path: '', component: HomeComponent}
     ])
   ],
   providers: [PaymentService , MakeupService , SellingService ,
     LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse ,
-    Signincomplete, Signinuncomplete , HomeComponent , Paymentcomplete ],
+    Signincomplete, Signinuncomplete , HomeComponent , Paymentcomplete , CheckproductService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
