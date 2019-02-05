@@ -4,12 +4,14 @@ import {MatSort} from '@angular/material';
 import { HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component ( {
   selector: 'app-renting',
   templateUrl: './renting.component.html',
   styleUrls: ['./renting.component.css']
+  
 })
 export class RentingComponent implements OnInit {
 
@@ -28,6 +30,7 @@ export class RentingComponent implements OnInit {
   productID: Array<any>;
   productPrice: Array<any>;
   statusProduct: Array<any>;
+  commentRenting:Array<any>;
 
   views: any = {
     productID: '',
@@ -39,10 +42,11 @@ export class RentingComponent implements OnInit {
   };
 
   pipe = new DatePipe('en-US');
+
   @ViewChild(MatSort)
   sort: MatSort;
 
-  constructor(private leaseservice: LeaseService, private httpClient: HttpClient, private router: Router) {
+  constructor(private leaseservice: LeaseService, private httpClient: HttpClient, private router: Router,private snackBar: MatSnackBar) {
 
   }
 
@@ -71,16 +75,18 @@ export class RentingComponent implements OnInit {
     + this.views.selectProductName + '/' + this.views.selectProductPrice + '/'
     + this.customerID + '/' + this.staffIDs + '/' +
      this.pipe.transform(this.ReserveDate, 'dd:MM:yyyy') + '/'
-      + this.pipe.transform(this.ReturnDate, 'dd:MM:yyyy'), this.Leases)
+      + this.pipe.transform(this.ReturnDate, 'dd:MM:yyyy')+ '/' + this.commentRenting, this.Leases)
       .subscribe(
         data => {
           console.log('POST Request is successful', data);
-         window.location.reload();
-          alert('Finish');
+         //window.location.reload();
+         this.snackBar.open('input detail ', 'complete', {
+        });
         },
         error => {
-          console.log('Rrror', error);
-          alert(error);
+          this.snackBar.open('input detail ', 'uncomplete', {
+          });
+          console.log('Error', error);
         }
       );
 
