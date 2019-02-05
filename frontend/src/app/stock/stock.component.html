@@ -1,10 +1,13 @@
+
 <app-menuadmin></app-menuadmin>
-<mat-card class="config-check-form">
-  <mat-grid-list cols="2" rowHeight="460px">
-    <mat-grid-tile class="left">
+<body><mat-card class="config-check-form">
+  <mat-grid-list cols="5" rowHeight="460px">
+    <mat-grid-tile class="left" *ngFor="let tile of tiles"
+    [colspan]="tile.cols"
+    [rowspan]="tile.rows">
      <form class="example-form">
        <mat-form-field class="example-full-width">
-         <input  type="text"[(ngModel)]="views.productID" aria-label="Number" matInput [formControl]="myControl" [(value)]="views.selectProductID" name="pid" [value] = "views.productID" >
+         <input matInput type="text"[(ngModel)]="views.productID" aria-label="Number" [(value)]="views.selectProductID" name="pid" [value] = "views.productID" >
          <mat-placeholder class="placeholder">Product  ID</mat-placeholder>
        </mat-form-field>
        <br/>
@@ -37,7 +40,7 @@
        </mat-form-field>
        <mat-form-field class = "select-left">
          <mat-placeholder class="placeholder">Status</mat-placeholder>
-         <mat-select [(ngModel)]="views.statusSelect"name = "statuses" [(value)]="views.selectStatus" >
+         <mat-select [(ngModel)]="views.statusSelect"name = "statuses" [(value)]="views.selectStatus">
            <mat-option>None</mat-option>
            <mat-option *ngFor="let status of status" [value]="status.stateId">
              {{status.statusProduct}}
@@ -71,22 +74,23 @@
        </button>
        <button mat-mini-fab class="bottom-left">
          <mat-icon (click)="updatedetail()" aria-label="Example icon-button with a update icon">edit</mat-icon>
-       </button>
-      </form>
+       </button><br><br>
+      <button class="butt" mat-flat-button color="accent" routerLink="/check">Checking</button>
+     </form>
     </mat-grid-tile>
 
-    <mat-grid-tile >
+    <mat-grid-tile class="example-container mat-elevation-z8" *ngFor="let tile of tile_right"
+    [colspan]="tile.cols"
+    [rowspan]="tile.rows">
       <form class="example-form-right" >
-        <div class="example-container mat-elevation-z8">
-          <br/>
-          <mat-form-field appearance="outline" class="example-width-right">
-            <mat-select placeholder="Product  ID" [(ngModel)]="views.prodID"  [(value)] = "views.prodID"  name = "prod"  >
-              <mat-option>None</mat-option>
-              <mat-option *ngFor="let prod of product" [value]="prod.prodId">
-                {{prod.productIds}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <mat-form-field appearance="outline" class="example-width-right">
+          <mat-select placeholder="Product  ID" [(ngModel)]="views.prodID"  [(value)] = "views.selectPID"  name = "prod"  >
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let prod of product" [value]="prod.prodId">
+              {{prod.productIds}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
           <button mat-mini-fab class="bottom-left">
             <mat-icon (click)="delete()"aria-label="Example icon-button with a bin icon">delete</mat-icon>
           </button>
@@ -94,13 +98,13 @@
           <table mat-table [dataSource]="product" class="mat-elevation-z8">
             <!-- PID Column -->
             <ng-container matColumnDef="PID">
-              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <th mat-header-cell *matHeaderCellDef>Product No. </th>
               <td mat-cell *matCellDef="let element"> {{element.prodId}} </td>
             </ng-container>
 
             <!-- ID Column -->
             <ng-container matColumnDef="productID">
-              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <th mat-header-cell *matHeaderCellDef>Product ID</th>
               <td mat-cell *matCellDef="let element"> {{element.productIds}} </td>
             </ng-container>
 
@@ -136,17 +140,42 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns; "(click)="selectRow(row)"></tr>
           </table>
           <br/>
+          <mat-form-field appearance="outline" class="example-width-right">
+              <mat-select placeholder="Description " [(ngModel)]="views.selectDesID"  [(value)] = "views.selectDesID"  name = "prod"  >
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let des of description" [value]="des.descriptionIds">
+                  {{des.dataDescription}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+              <button mat-mini-fab class="bottom-left">
+                <mat-icon (click)="deleteDes()"aria-label="Example icon-button with a bin icon">delete</mat-icon>
+              </button>
+    
           <table mat-table [dataSource]="description" class="mat-elevation-z8">
-
-            <ng-container matColumnDef="PID">
+            
+            <!-- Description No. Column -->
+            <ng-container matColumnDef="dID">
               <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.descriptionIds}} </td>
+            </ng-container>
+
+            <!-- Product No Column -->
+            <ng-container matColumnDef="PID">
+              <th mat-header-cell *matHeaderCellDef>Product No. </th>
               <td mat-cell *matCellDef="let element"> {{element.product.prodId}} </td>
             </ng-container>
 
-            <!-- ID Column -->
+            <!-- Product ID Column -->
             <ng-container matColumnDef="productID">
-              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <th mat-header-cell *matHeaderCellDef>Product ID</th>
               <td mat-cell *matCellDef="let element"> {{element.product.productIds}} </td>
+            </ng-container>
+
+            <!-- Detail ID Column -->
+            <ng-container matColumnDef="detID">
+              <th mat-header-cell *matHeaderCellDef> Detail ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.detail.detailIds}} </td>
             </ng-container>
 
             <!-- Detail Column -->
@@ -160,13 +189,12 @@
               <th mat-header-cell *matHeaderCellDef> Data </th>
               <td mat-cell *matCellDef="let element"> {{element.dataDescription}} </td>
             </ng-container>
-
-
             <tr mat-header-row *matHeaderRowDef="displayedColumnss; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumnss; "(click)="electRow(row)"></tr>
           </table>
-        </div>
-      </form>
+
+      </form> 
     </mat-grid-tile>
   </mat-grid-list>
 </mat-card>
+</body>
