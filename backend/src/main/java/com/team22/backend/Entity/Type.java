@@ -16,6 +16,7 @@ public class Type {
     @Column(name="Types_ID",unique = true, nullable = false)
     private @NonNull Long typeIds;
     private @NonNull String typeName;
+    
     public Type (String ty){
         this. typeName = ty;
     }
