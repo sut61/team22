@@ -5,6 +5,7 @@ import {DatePipe} from '@angular/common';
 import { SignupService } from '../service/signup.service';
 import { Router } from '@angular/router';
 import {MatDialog , MatDialogRef} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -38,7 +39,8 @@ export class SignupComponent implements OnInit {
     province: ''
   };
 
-  constructor(private signupService: SignupService, private httpClient: HttpClient, private router: Router , public dialog: MatDialog) { }
+  constructor(private signupService: SignupService , private snackBar: MatSnackBar ,
+    private httpClient: HttpClient, private router: Router , public dialog: MatDialog) { }
 
   ngOnInit() {
     this.signupService.getCareer().subscribe(data => {
@@ -53,7 +55,7 @@ export class SignupComponent implements OnInit {
   }
   SignUp() {
     if (
-      this.customer.customerIDs === '' ||
+     this.customer.customerIDs === '' ||
      this.customer.customerPassword === '' ||
      this.customer.customerName === '' ||
      this.customer.customerPhone === '' ||
@@ -62,68 +64,66 @@ export class SignupComponent implements OnInit {
      this.customer.customerAddress === '' ||
      this.customer.career === '' ||
      this.customer.province === '' ) {
-     alert('ข้อมูลไม่ครบถ้วน');
-} else {
-  this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(checkCustomerData => {
-    console.log( checkCustomerData );
-        if ( checkCustomerData != null ) {
-         localStorage.setItem('customerIDs', JSON.stringify(checkCustomerData));
-         const dialogRef = this.dialog.open(CheckCustomerNotUse, {
-          width: '500px'
+          this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ');
+      } else {
+  this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(checkCustomer => {
+    console.log( checkCustomer );
+        if ( checkCustomer != null ) {
+        this.snackBar.open('ไม่สามารถใช้ ID นี้ได้', 'ตกลง', {});
+        } else {
+          this.snackBar.open('สามารถใช้ ID นี้ได้', 'ตกลง', {});
+          this.httpClient.post('http://localhost:8080/customerSignup/' + this.customer.customerIDs + '/'
+         + this.customer.customerPassword + '/' + this.customer.customerName +
+     '/' + this.customer.customerPhone + '/' + this.customer.customerGender +
+     '/' + this.pipe.transform(this.customer.customerBirthday, 'dd:MM:yyyy') + '/' +
+     this.customer.customerAddress + '/' +
+     this.customer.career + '/' +
+     this.customer.province, this.customerRegister)
+
+ .subscribe(
+   dataRegister => {
+       console.log('Post successful', dataRegister);
+       localStorage.setItem('customerIDs', JSON.stringify(checkCustomer));
+       const dialogRef = this.dialog.open(Signincomplete, {
+        width: '500px'
         });
         dialogRef.afterClosed().subscribe(result => {
-          console.log('Can Not Use');
-        });
-        } else {
-          this.httpClient.post('http://localhost:8080/customerSignup/' + this.customer.customerIDs + '/'
-  + this.customer.customerPassword + '/' + this.customer.customerName +
-      '/' + this.customer.customerPhone + '/' + this.customer.customerGender +
-      '/' + this.pipe.transform(this.customer.customerBirthday, 'dd:MM:yyyy') + '/' +
-      this.customer.customerAddress + '/' +
-      this.customer.career + '/' +
-      this.customer.province, this.customerRegister)
-  .subscribe(
-    dataRegister => {
-      window.location.reload();
-        window.location.href = '/home';
-        console.log('Post successful', dataRegister);
-        alert('สำเร็จ');
-        },
-    error => {
-        console.log('Error', error);
-      }
-      );
-      }
-   });
-  }
-        console.log( this.customer.customerIDs,
-        this.customer.customerPassword,
-        this.customer.customerName,
-        this.customer.customerPhone,
-        this.customer.customerGender,
-        this.customer.customerBirthday,
-        this.customer.customerAddress,
-        this.customer.career,
-        this.customer.province);
- }
+          window.location.href = '/home';
+          console.log('Can SignIp');
+          this.snackBar.open('ลงทะเบียนสำเร็จ');
+       },
+   error => {
+    const dialogRe = this.dialog.open(Signinuncomplete, {
+      width: '500px'
+    });
+    dialogRe.afterClosed().subscribe(result => {
+      console.log('Can Not SignIp');
+    });
+       console.log('Error', error);
+     }
+     );
+ });
+}
+     });
+     }
+     console.log( this.customer.customerIDs,
+      this.customer.customerPassword,
+      this.customer.customerName,
+      this.customer.customerPhone,
+      this.customer.customerGender,
+      this.customer.customerBirthday,
+      this.customer.customerAddress,
+      this.customer.career,
+      this.customer.province);
+}
+
   checkId(id) {
     this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(checkCustomer => {
       console.log( checkCustomer );
           if ( checkCustomer != null ) {
-           localStorage.setItem('customerIDs', JSON.stringify(checkCustomer));
-           const dialogRef = this.dialog.open(CheckCustomerNotUse, {
-            width: '500px'
-          });
-          dialogRef.afterClosed().subscribe(result => {
-            console.log('Can Not Use');
-          });
+          this.snackBar.open('ไม่สามารถใช้ ID นี้ได้', 'ตกลง', {});
           } else {
-             const dialogRef = this.dialog.open(CheckCustomerCanUse, {
-                            width: '500px'
-                          });
-                          dialogRef.afterClosed().subscribe(result => {
-                            console.log('Can Use');
-                          });
+            this.snackBar.open('สามารถใช้ ID นี้ได้', 'ตกลง', {});
           }
    });
     console.log(id);
@@ -132,26 +132,26 @@ export class SignupComponent implements OnInit {
 }
 
 @Component ({
-  selector: 'app-checkCustomerCanUse',
-  templateUrl: './checkCustomerCanUse.html',
+  selector: 'app-signincomplete',
+  templateUrl: './signincomplete.html',
 })
 // tslint:disable-next-line:component-class-suffix
-export class CheckCustomerCanUse {
+export class Signincomplete {
   constructor(
-    public dialogRef: MatDialogRef<CheckCustomerCanUse>
+    public dialogRef: MatDialogRef<Signincomplete>
     ) {}
   onNoClick(): void {
     this.dialogRef.close();
   }
 }
 @Component ({
-  selector: 'app-checkCustomerNotUse',
-  templateUrl: './checkCustomerNotUse.html',
+  selector: 'app-signinuncomplete',
+  templateUrl: './signinuncomplete.html',
 })
 // tslint:disable-next-line:component-class-suffix
-export class CheckCustomerNotUse {
+export class Signinuncomplete {
   constructor(
-    public dialogRef: MatDialogRef<CheckCustomerNotUse>
+    public dialogRef: MatDialogRef<Signinuncomplete>
     ) {}
   onNoClick(): void {
     this.dialogRef.close();

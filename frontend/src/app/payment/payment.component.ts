@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PaymentService } from '../service/payment.service';
 import {MatTableDataSource} from '@angular/material';
-
+import {MatDialog , MatDialogRef} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
   export interface Searchidl {
     Memberid: String;
   }
@@ -86,7 +87,8 @@ export class PaymentComponent implements OnInit {
     selectStatusBooking: ''
   };
 
-  constructor(private paymentService: PaymentService, private httpClient: HttpClient) { }
+  constructor(private paymentService: PaymentService, private snackBar: MatSnackBar ,
+     private httpClient: HttpClient , public dialog: MatDialog) { }
 
 
   ngOnInit() {
@@ -162,15 +164,20 @@ viewBooking(row) {
   payLeaseButtom() {
     if ( this.userData.userid === '' ||
      this.payments.selectLeaseId === '' ) {
-     alert('ข้อมูลไม่ครบถ้วน');
+      this.snackBar.open('ข้อมูลไม่ครบถ้วน');
 } else {
   this.httpClient.post('http://localhost:8080/payment/' + 'Lease' + '/' + 'paid' + '/' + this.userData.userid +
                                                     '/' + 0 + '/' + 0 + '/' + this.payments.selectLeaseId, this.payment)
   .subscribe(
     data => {
-      window.location.reload();
         console.log('Post successful', data);
-        alert('สำเร็จ');
+        const dialogRe = this.dialog.open(Paymentcomplete, {
+          width: '500px'
+        });
+        dialogRe.afterClosed().subscribe(result => {
+          window.location.reload();
+          console.log('ชำระสำเร็จ');
+        });
     },
     error => {
         console.log('Error', error);
@@ -192,15 +199,20 @@ this.httpClient.put('http://localhost:8080/lease/' + this.payments.selectLeaseId
 }
   paySellingButtom() {
     if (this.userData.userid === '' || this.payments.selectSellingId === '' ) {
-     alert('ข้อมูลไม่ครบถ้วน');
+      this.snackBar.open('ข้อมูลไม่ครบถ้วน');
 } else {
   this.httpClient.post('http://localhost:8080/payment/' + 'Selling' + '/' + 'paid' + '/' + this.userData.userid +
                                                     '/' + this.payments.selectSellingId + '/' + 0 + '/' + 0, this.payment)
   .subscribe(
     data => {
-      window.location.reload();
         console.log('Post successful', data);
-        alert('สำเร็จ');
+        const dialogRe = this.dialog.open(Paymentcomplete, {
+          width: '500px'
+        });
+        dialogRe.afterClosed().subscribe(result => {
+          window.location.reload();
+          console.log('ชำระสำเร็จ');
+        });
     },
     error => {
         console.log('Error', error);
@@ -221,15 +233,21 @@ this.httpClient.put('http://localhost:8080/selling/' + this.payments.selectSelli
   }
   payBookingButtom() {
     if (this.userData.userid === '' || this.payments.selectBookingId === '' ) {
-   alert('ข้อมูลไม่ครบถ้วน');
+      this.snackBar.open('ข้อมูลไม่ครบถ้วน');
+
 } else {
 this.httpClient.post('http://localhost:8080/payment/' + 'Booking' + '/' + 'paid' + '/' + this.userData.userid +
                                                   '/' + 0 + '/' + this.payments.selectBookingId + '/' + 0, this.payment)
 .subscribe(
   data => {
-    window.location.reload();
       console.log('Post successful', data);
-      alert('สำเร็จ');
+      const dialogRe = this.dialog.open(Paymentcomplete, {
+        width: '500px'
+      });
+      dialogRe.afterClosed().subscribe(result => {
+        window.location.reload();
+        console.log('ชำระสำเร็จ');
+      });
   },
   error => {
       console.log('Error', error);
@@ -253,4 +271,16 @@ this.httpClient.put('http://localhost:8080/booking/' + this.payments.selectBooki
 
 
 
-
+@Component ({
+  selector: 'app-paymentcomplete',
+  templateUrl: './paymentcomplete.html',
+})
+// tslint:disable-next-line:component-class-suffix
+export class Paymentcomplete {
+  constructor(
+    public dialogRef: MatDialogRef<Paymentcomplete>
+    ) {}
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}

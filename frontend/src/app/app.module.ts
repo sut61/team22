@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { PaymentComponent } from './payment/payment.component';
+import { PaymentComponent , Paymentcomplete } from './payment/payment.component';
 import {MatCheckboxModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
@@ -52,7 +52,7 @@ import { RegisterService } from './service/register.service';
 import { RegisterComponent } from './register/register.component';
 import { StockComponent} from './stock/stock.component';
 import {STOCKINGService} from './service/stocking.service';
-import { SignupComponent , CheckCustomerCanUse , CheckCustomerNotUse} from './signup/signup.component';
+import { SignupComponent , Signincomplete , Signinuncomplete} from './signup/signup.component';
 import { SignupService } from './service/signup.service';
 const appRoutes: Routes = [
 ];
@@ -72,8 +72,9 @@ const appRoutes: Routes = [
     StockComponent,
     RegisterComponent,
     SignupComponent,
-    CheckCustomerCanUse,
-    CheckCustomerNotUse
+    Signincomplete,
+    Signinuncomplete,
+    Paymentcomplete
 
   ],
   imports: [
@@ -124,16 +125,17 @@ const appRoutes: Routes = [
       {path: 'stock' , component: StockComponent},
       {path: 'register' , component: RegisterComponent},
       {path: 'signup' , component: SignupComponent},
-      {path: 'checkCustomerCanUse' , component: CheckCustomerCanUse},
-      {path: 'checkCustomerNotUse' , component: CheckCustomerNotUse},
+      {path: 'signinuncomplete' , component: Signinuncomplete},
+      {path: 'signincomplete' , component: Signincomplete},
       {path: 'loginfalse' , component: Loginfalse},
+      {path: 'paymentcomplete' , component: Paymentcomplete},
 
       {path: '', component: HomeComponent}
     ])
   ],
   providers: [PaymentService , MakeupService , SellingService ,
     LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse ,
-    CheckCustomerCanUse, CheckCustomerNotUse , HomeComponent],
+    Signincomplete, Signinuncomplete , HomeComponent , Paymentcomplete ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
