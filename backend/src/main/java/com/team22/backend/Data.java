@@ -46,7 +46,9 @@ public class Data {
                            PayMentRepository  payMentRepository,
                            ExperienceRepository experienceRepository,
                            ProvinceRepository provinceRepository,
-                           CareerRepository careerRepository
+                           CareerRepository careerRepository,
+                           CheckProductRepository checkProductRepository,
+                           CheckingRepository checkingRepository
                            ) {
         return args -> {
 
@@ -65,7 +67,10 @@ public class Data {
                 Detail dprodName = new Detail(dName);
                 detailRepository.save(dprodName);
             });
-
+            Stream.of("Use","Repair","Donate","Reject","Recycle").forEach(checking -> {
+                Checking checkingprod = new Checking (checking);
+                checkingRepository.save(checkingprod);
+            });
             Stream.of("M.3","M.6","Polytechnical College","Technical College","Bachelor Degrees","Master Degrees").forEach(EduName -> {
 				Education educationdb = new Education();
 				educationdb.setEducationName(EduName);
