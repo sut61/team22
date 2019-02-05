@@ -55,8 +55,8 @@ public class SellingController {
         return staff.getPosition().getPositionName().equals("Seller");
     }
 
-    @PostMapping("/sell/{productID}/{productName}/{productPrice}/{customerID}/{staffIDs}/{sellingDate}")
-        public Selling newSSel(@PathVariable String productID,@PathVariable String productName,@PathVariable Integer productPrice,@PathVariable String customerID,@PathVariable String staffIDs,@PathVariable String sellingDate){
+    @PostMapping("/sell/{productID}/{productName}/{productPrice}/{customerID}/{staffIDs}/{sellingDate}/{commentSelling}")
+        public Selling newSSel(@PathVariable String productID,@PathVariable String productName,@PathVariable Integer productPrice,@PathVariable String customerID,@PathVariable String staffIDs,@PathVariable String sellingDate,@PathVariable String commentSelling){
             Selling newSelling = new Selling();
             Product product = productRepository.findByProductIds(productID);
             Customer customer = customerRepository.findByCustomerIDs(customerID);
@@ -70,7 +70,8 @@ public class SellingController {
         newSelling.setCustomer(customer);
         newSelling.setStaff(staff);
         newSelling.setSellingDate(date);
-        System.out.println(date);
+        newSelling.setCommentSelling(commentSelling);
+
         return sellingRepository.save(newSelling);
         }
 
