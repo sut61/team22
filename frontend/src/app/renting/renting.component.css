@@ -7,19 +7,19 @@ button-row{
 .panel{
   position: absolute;
   width: 100%;
-  height: 500px;
+  height: 1000px;
   background-color: #ffcccc;
 }
 .panel1{
   float: left;
   width: 50%;
-  height: 1000px;
+  height: 1100px;
   background-color: #ffb36d;
 }
 .panel2{
   float: left;
   width: 50%;
-  height: 1000px;
+  height: 1100px;
   background-color:#ffb36d;
   font-family: 'Dosis', sans-serif;
 }
@@ -39,7 +39,7 @@ table {
 
 mat-form-field{
   padding-left: 1cm;
-  width: 40%;
+  width: 50%;
   font-size: 20px;
   color: black;
   font-family: 'Dosis', sans-serif;

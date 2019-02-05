@@ -32,7 +32,6 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns1; "(click)="selectRow(row)"></tr>
 
           </table>
-
         </mat-tab>
         <mat-tab label="STAFF">
           <br>
@@ -85,54 +84,55 @@
     </form>
     <div align="center"> <p> กรุณาใส่ข้อมูลลูกค้าให้ถูกต้อง </p></div>
     <br><br>
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-select placeholder="customerID" [(ngModel)]="customerID" name="customerID">
-          <mat-option *ngFor="let Customer of Customers" [value]="Customer.customerIDs">
-            {{Customer.customerIDs}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-    </form>
-
-
-    <mat-form-field color="accent">
-      <mat-label>Reserve Date</mat-label>
-      <input matInput [matDatepicker]="picker1" [(ngModel)]="ReserveDate">
-      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-      <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field color="accent">
-      <mat-label>Return Date</mat-label>
-      <input matInput [matDatepicker]="picker2" [(ngModel)]="ReturnDate">
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2 color="primary"></mat-datepicker>
-    </mat-form-field>
 
 
     <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-select placeholder="customerID" [(ngModel)]="customerID" name="customerID">
+              <mat-option *ngFor="let Customer of Customers" [value]="Customer.customerIDs">
+                {{Customer.customerIDs}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    
       <mat-form-field class="example-full-width">
         <mat-select placeholder="Address" [(ngModel)]="addressCustomer" name="addressCustomer">
-          <mat-option *ngFor="let Customer of Customers" [value]="Customer.addressCustomer">
-            {{Customer.addressCustomer}}
+          <mat-option *ngFor="let Customer of Customers" [value]="Customer.customerAddress">
+            {{Customer.customerAddress}}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
     </form>
+  <mat-form-field>
+      <mat-label>ReserveDate(M/D/Y)</mat-label>
+    <input matInput [matDatepicker]="dp" [(ngModel)]="ReserveDate">
+    <mat-datepicker-toggle matSuffix [for]="dp" disabled></mat-datepicker-toggle>
+    <mat-datepicker #dp></mat-datepicker>
+  </mat-form-field>
 
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-select placeholder="staffIDs" [(ngModel)]="staffIDs" name="staffIDs">
-          <mat-option *ngFor="let Staff of Staffs" [value]="Staff.staffIds">
-            {{Staff.staffIds}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-    </form>
+  
+        <mat-form-field>
+            <mat-label>ReturnDate(M/D/Y)</mat-label>
+          <input matInput [matDatepicker]="dp2" [(ngModel)]="ReturnDate">
+          <mat-datepicker-toggle matSuffix [for]="dp2" disabled></mat-datepicker-toggle>
+          <mat-datepicker #dp2></mat-datepicker>
+        </mat-form-field>
+        
+        <mat-form-field class="example-full-width">
+            <mat-select placeholder="staffIDs" [(ngModel)]="staffIDs" name="staffIDs">
+              <mat-option *ngFor="let Staff of Staffs" [value]="Staff.staffIds">
+                {{Staff.staffIds}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width">
+            <input matInput [(ngModel)]="commentRenting"  name="commentRenting" >
+            <mat-placeholder class="placeholder">commentRenting(ขึ้นต้นด้วยชุด)</mat-placeholder>
+          </mat-form-field>
+  
+ 
 
     <br>
     <div align="center">
