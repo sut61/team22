@@ -4,7 +4,7 @@ import { SellingService } from '../service/selling.service';
 import {MatSort} from '@angular/material';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
-
+import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-sell',
   templateUrl: './sell.component.html',
@@ -24,6 +24,7 @@ export class SellComponent implements OnInit {
   Sellings: Array<any>;
   sellingDate: Array<any>;
   pipe = new DatePipe('en-US');
+  commentSelling: Array<any>;
 
   Products: Array<any>;
   productID: Array<any>;
@@ -42,7 +43,7 @@ export class SellComponent implements OnInit {
 
   @ViewChild(MatSort)
   sort: MatSort;
-  constructor(private sellingService: SellingService, private httpClient: HttpClient, private router:
+  constructor(private sellingService: SellingService, private httpClient: HttpClient, private snackBar: MatSnackBar, private router:
     Router) { }
 
   ngOnInit() {
@@ -66,17 +67,19 @@ export class SellComponent implements OnInit {
   save() {
     this.httpClient.post( 'http://localhost:8080/sell/' + this.views.selectProductID + '/' + this.views.selectProductName + '/'
       + this.views.selectProductPrice + '/' + this.customerID + '/' + this.staffIDs + '/'
-      + this.pipe.transform(this.sellingDate, 'dd:MM:yyyy'), this.Sellings)
+      + this.pipe.transform(this.sellingDate, 'dd:MM:yyyy') + '/' + this.commentSelling,this.Sellings)
       .subscribe(
         data => {
           console.log('POST Request is successful', data);
-          window.location.reload();
-          alert('Finish');
-        },
+          //window.location.reload();
+          this.snackBar.open('input detail ', 'complete', {
+          });
+          },
         error => {
-          console.log('Rrror', error );
-          alert('error');
-        });
+            this.snackBar.open('input detail ', 'uncomplete', {
+            });
+            console.log('Error', error);
+          });
   }
    selectRow(row) {
     this.views.selectProductID = row.productIds;
