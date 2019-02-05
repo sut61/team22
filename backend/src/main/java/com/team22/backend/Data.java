@@ -150,82 +150,127 @@ public class Data {
             DateTimeFormatter lformatterb = DateTimeFormatter.ofPattern("dd:MM:yyyy");
             LocalDate dateB1c = LocalDate.parse(dateB1, lformatterb);
             LocalDate dateB2c = LocalDate.parse(dateB2, lformatterb);
-            Stream.of("Sunvo", "Ploy", "Ao" ,"Wahn","Opal","Meen").forEach(cusName -> {
 
-
-                Customer customerdb = new Customer();
-                customerdb.setCustomerName(cusName);
-                customerRepository.save(customerdb);
-                
-
-                if (cusName == "Sunvo") {
-                    Customer cusid = customerRepository.findByCusId(1L);
-                    customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setCustomerPassword("123456");
-                    customerdb.setCustomerAddress("Korat");
-                    customerdb.setCustomerPhone("0912345678"); 
-                    customerdb.setCustomerGender("Man");
-                    customerdb.setCustomerBirthday(dateB1c);
-                    customerRepository.save(customerdb);
-
-                }
-                else if(cusName == "Ploy"){
-                    Customer cusid = customerRepository.findByCusId(2L);
-                    customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setCustomerPassword("123456");
-                    customerdb.setCustomerAddress("Suranaree");
-                    customerdb.setCustomerPhone("0912345678"); 
-                    customerdb.setCustomerGender("Man");
-                    customerdb.setCustomerBirthday(dateB2c);
-                    customerRepository.save(customerdb);
-                }
-                else if(cusName == "Ao"){
-                    Customer cusid = customerRepository.findByCusId(3L);
-                    customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setCustomerPassword("123456");
-                    customerdb.setCustomerAddress("Sungneon");
-                    customerdb.setCustomerPhone("0912345678"); 
-                    customerdb.setCustomerGender("Man");
-                    customerdb.setCustomerBirthday(dateB1c);
-                    customerRepository.save(customerdb);
-                }
-                else if(cusName == "Wahn"){
-                    Customer cusid = customerRepository.findByCusId(4L);
-                    customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setCustomerPassword("123456");
-                    customerdb.setCustomerAddress("Krathok");
-                    customerdb.setCustomerPhone("0912345678"); 
-                    customerdb.setCustomerGender("Man");
-                    customerdb.setCustomerBirthday(dateB2c);
-                    customerRepository.save(customerdb);
-                }
-                else if(cusName == "Opal"){
-                    Customer cusid = customerRepository.findByCusId(5L);
-                    customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setCustomerPassword("123456");
-                    customerdb.setCustomerAddress("Khonkan");
-                    customerdb.setCustomerPhone("0912345678"); 
-                    customerdb.setCustomerGender("Man");
-                    customerdb.setCustomerBirthday(dateB1c);
-                    customerRepository.save(customerdb);
-                }
-                else if(cusName == "Meen"){
-                    Customer cusid = customerRepository.findByCusId(6L);
-                    customerdb.setCustomerIDs("C"+cusid.getCusId());
-                    customerdb.setCustomerPassword("123456");
-                    customerdb.setCustomerAddress("Korat");
-                    customerdb.setCustomerPhone("0912345678"); 
-                    customerdb.setCustomerGender("Man");
-                    customerdb.setCustomerBirthday(dateB2c);
-                    customerRepository.save(customerdb);
-                }
+            Stream.of("กระบี่","กรุงเทพมหานคร","กาญจนบุรี","กาฬสินธุ์","กำแพงเพชร",
+            "ขอนแก่น","จันทบุรี","ฉะเชิงเทรา" ,"ชลบุรี","ชัยนาท","ชัยภูมิ","ชุมพร","เชียงราย",
+            "เชียงใหม่","ตรัง","ตราด","ตาก","นครนายก","นครปฐม","นครพนม","นครราชสีมา" ,
+            "นครศรีธรรมราช","นครสวรรค์","นนทบุรี","นราธิวาส","น่าน","บุรีรัมย์","บึงกาฬ","ปทุมธานี",
+            "ประจวบคีรีขันธ์","ปราจีนบุรี","ปัตตานี" ,"พะเยา","พังงา","พัทลุง","พิจิตร","พิษณุโลก","เพชรบุรี",
+            "เพชรบูรณ์","แพร่","ภูเก็ต","มหาสารคาม","มุกดาหาร","แม่ฮ่องสอน" ,"ยโสธร","ยะลา","ร้อยเอ็ด",
+            "ระนอง","ระยอง","ราชบุรี","ลพบุรี","ลำปาง","ลำพูน","เลย","ศรีสะเกษ","สกลนคร","สงขลา" ,
+            "สตูล","สมุทรปราการ","สมุทรสงคราม","สมุทรสาคร","สระแก้ว","สระบุรี","สิงห์บุรี","สุโขทัย","สุพรรณบุรี",
+            "สุราษฎร์ธานี" ,"สุรินทร์","หนองคาย","หนองบัวลำภู","อยุธยา","อ่างทอง","อำนาจเจริญ","อุดรธานี","อุตรดิตถ์",
+            "อุทัยธานี","อุบลราชธานี").forEach(provinceName -> {
+                Province provinces = new Province();
+                provinces.setProvinceName(provinceName);
+                provinceRepository.save(provinces);
             });
+            Province province1 = provinceRepository.findByProvinceId(1L);
+            Province province2 = provinceRepository.findByProvinceId(2L);
+            Province province3 = provinceRepository.findByProvinceId(3L);
+            Province province4 = provinceRepository.findByProvinceId(4L);
+            Province province5 = provinceRepository.findByProvinceId(5L);
+            Province province6 = provinceRepository.findByProvinceId(6L);
+
+            Stream.of("ค้าขาย","วิศวกร","หมอ",
+            "พยาบาล","นักดนดรี","ข้าราชการ" ,"นักการเมือง","ครู","ช่าง",
+            "นักเขียนโปรแกรม","นักกีฬา","นักกีฬา","อื่นๆ").forEach(careerName -> {
+                Career career = new Career();
+                career.setCareerName(careerName);
+                careerRepository.save(career);
+            });
+            Career career1 = careerRepository.findByCareerId(1L);
+            Career career2 = careerRepository.findByCareerId(2L);
+            Career career3 = careerRepository.findByCareerId(3L);
+            Career career4 = careerRepository.findByCareerId(4L);
+            Career career5 = careerRepository.findByCareerId(5L);
+            Career career6 = careerRepository.findByCareerId(6L);
+
+                    Customer customerdb1 = new Customer();
+                    customerdb1.setCusId(1L);
+                    customerdb1.setCustomerIDs("C1");
+                    customerdb1.setCustomerName("Sunvo");
+                    customerdb1.setCustomerPassword("123456");
+                    customerdb1.setCustomerAddress("Korat");
+                    customerdb1.setCustomerPhone("0987654321"); 
+                    customerdb1.setCustomerGender("Man");
+                    customerdb1.setCustomerBirthday(dateB1c);
+                    customerdb1.setCareer(career1); 
+                    customerdb1.setProvince(province1);
+                    customerRepository.save(customerdb1);
+                
+                    Customer customerdb2 = new Customer();
+                    customerdb2.setCusId(2L);
+                    customerdb2.setCustomerIDs("C2");
+                    customerdb2.setCustomerName("Ploy");
+                    customerdb2.setCustomerPassword("123456");
+                    customerdb2.setCustomerAddress("Suranaree");
+                    customerdb2.setCustomerPhone("0987654321"); 
+                    customerdb2.setCustomerGender("Man");
+                    customerdb2.setCustomerBirthday(dateB2c);
+                    customerdb1.setCareer(career2); 
+                    customerdb1.setProvince(province2);
+                    customerRepository.save(customerdb2);
+                
+                    Customer customerdb3 = new Customer();
+                    customerdb3.setCusId(3L);
+                    customerdb3.setCustomerIDs("C3");
+                    customerdb3.setCustomerName("Ao");
+                    customerdb3.setCustomerPassword("123456");
+                    customerdb3.setCustomerAddress("Sungneon");
+                    customerdb3.setCustomerPhone("0987654321"); 
+                    customerdb3.setCustomerGender("Man");
+                    customerdb3.setCustomerBirthday(dateB1c);
+                    customerdb1.setCareer(career3); 
+                    customerdb1.setProvince(province3);
+                    customerRepository.save(customerdb3);
+                
+                    Customer customerdb4 = new Customer();
+                    customerdb4.setCusId(4L);
+                    customerdb4.setCustomerIDs("C4");
+                    customerdb4.setCustomerName("Wahn");
+                    customerdb4.setCustomerPassword("123456");
+                    customerdb4.setCustomerAddress("Krathok");
+                    customerdb4.setCustomerPhone("0987654321"); 
+                    customerdb4.setCustomerGender("Man");
+                    customerdb4.setCustomerBirthday(dateB2c);
+                    customerdb1.setCareer(career4); 
+                    customerdb1.setProvince(province4);
+                    customerRepository.save(customerdb4);
+                
+                    Customer customerdb5 = new Customer();
+                    customerdb5.setCusId(5L);
+                    customerdb5.setCustomerIDs("C5");
+                    customerdb5.setCustomerName("Opal");
+                    customerdb5.setCustomerPassword("123456");
+                    customerdb5.setCustomerAddress("Khonkan");
+                    customerdb5.setCustomerPhone("0987654321"); 
+                    customerdb5.setCustomerGender("Man");
+                    customerdb5.setCustomerBirthday(dateB1c);
+                    customerdb1.setCareer(career5); 
+                    customerdb1.setProvince(province5);
+                    customerRepository.save(customerdb5);
+                
+                    Customer customerdb6 = new Customer();
+                    customerdb6.setCusId(6L);
+                    customerdb6.setCustomerIDs("C6");
+                    customerdb6.setCustomerName("Meen");
+                    customerdb6.setCustomerPassword("123456");
+                    customerdb6.setCustomerAddress("Korat");
+                    customerdb6.setCustomerPhone("0987654321"); 
+                    customerdb6.setCustomerGender("Man");
+                    customerdb6.setCustomerBirthday(dateB2c);
+                    customerdb1.setCareer(career6); 
+                    customerdb1.setProvince(province6);
+                    customerRepository.save(customerdb6);
+                
             Customer c1 = customerRepository.findByCusId(1L);
             Customer c2 = customerRepository.findByCusId(2L);
             Customer c3 = customerRepository.findByCusId(3L);
             Customer c4 = customerRepository.findByCusId(4L);
             Customer c5 = customerRepository.findByCusId(5L);
             Customer c6 = customerRepository.findByCusId(6L);
+
             Type type1 = typeRepository.findByTypeIds(1L);
             Stream.of("Dress").forEach(proName ->{
                 Product productName = new Product();
@@ -350,7 +395,7 @@ public class Data {
             Position po6 = positionRepository.findByPositionId(6L);
             Position po7 = positionRepository.findByPositionId(7L);
 
-            Stream.of("Owner", "Ploy", "Sunvo" , "Au").forEach(staffName -> {
+            Stream.of("Owner", "Ploy", "Sunvo" , "Au" , "Admin" ).forEach(staffName -> {
                 Staff staffdb = new Staff();
                 staffdb.setStaffName(staffName);
                 staffRepository.save(staffdb);
@@ -408,6 +453,20 @@ public class Data {
                     staffdb.setStaffPhone("081-103-6559");
                     staffdb.setStaffSalary(2500);
                     staffdb.setPosition(po3);
+                    staffdb.setStaffStatus("Un Paid");
+                    staffRepository.save(staffdb);
+                }
+                else (staffName == "Admin") {
+                    staffdb.setStaffIds("St"+staffdb.getStaffId());
+                    staffdb.setStaffName(staffName);
+                    staffdb.setStaffPassword("123456");
+                    staffdb.setStaffGender("Man");
+                    staffdb.setStaffJobtype("Part Time");
+                    staffdb.setEducation(ed2);
+                    staffdb.setExperience(ex2);
+                    staffdb.setStaffPhone("081-108-6599");
+                    staffdb.setStaffSalary(29000);
+                    staffdb.setPosition(po5);
                     staffdb.setStaffStatus("Un Paid");
                     staffRepository.save(staffdb);
                 }
@@ -500,27 +559,7 @@ public class Data {
                     payMentRepository.save(paymentdb);
                 }
             });
-            Stream.of("กระบี่","กรุงเทพมหานคร","กาญจนบุรี","กาฬสินธุ์","กำแพงเพชร",
-            "ขอนแก่น","จันทบุรี","ฉะเชิงเทรา" ,"ชลบุรี","ชัยนาท","ชัยภูมิ","ชุมพร","เชียงราย",
-            "เชียงใหม่","ตรัง","ตราด","ตาก","นครนายก","นครปฐม","นครพนม","นครราชสีมา" ,
-            "นครศรีธรรมราช","นครสวรรค์","นนทบุรี","นราธิวาส","น่าน","บุรีรัมย์","บึงกาฬ","ปทุมธานี",
-            "ประจวบคีรีขันธ์","ปราจีนบุรี","ปัตตานี" ,"พะเยา","พังงา","พัทลุง","พิจิตร","พิษณุโลก","เพชรบุรี",
-            "เพชรบูรณ์","แพร่","ภูเก็ต","มหาสารคาม","มุกดาหาร","แม่ฮ่องสอน" ,"ยโสธร","ยะลา","ร้อยเอ็ด",
-            "ระนอง","ระยอง","ราชบุรี","ลพบุรี","ลำปาง","ลำพูน","เลย","ศรีสะเกษ","สกลนคร","สงขลา" ,
-            "สตูล","สมุทรปราการ","สมุทรสงคราม","สมุทรสาคร","สระแก้ว","สระบุรี","สิงห์บุรี","สุโขทัย","สุพรรณบุรี",
-            "สุราษฎร์ธานี" ,"สุรินทร์","หนองคาย","หนองบัวลำภู","อยุธยา","อ่างทอง","อำนาจเจริญ","อุดรธานี","อุตรดิตถ์",
-            "อุทัยธานี","อุบลราชธานี").forEach(provinceName -> {
-                Province provinces = new Province();
-                provinces.setProvinceName(provinceName);
-                provinceRepository.save(provinces);
-            });
-            Stream.of("ค้าขาย","วิศวกร","หมอ",
-            "พยาบาล","นักดนดรี","ข้าราชการ" ,"นักการเมือง","ครู","ช่าง",
-            "นักเขียนโปรแกรม","นักกีฬา","นักกีฬา","อื่นๆ").forEach(careerName -> {
-                Career career = new Career();
-                career.setCareerName(careerName);
-                careerRepository.save(career);
-            });
+            
 
             System.out.println("\n Spring-Boot Complete");
         };
