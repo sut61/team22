@@ -5,7 +5,6 @@ import com.team22.backend.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -56,7 +55,6 @@ public class ProductController {
         newProduct.setProductQuantity(productQuantity);
         newProduct.setProductPrice(productPrice);
         newProduct.setProductDate(productDate);
-  //      newProduct.setProductImg(productImg);/{productImg},@PathVariable String productImg
         newProduct.setStatus(setStatus);
         newProduct.setType(setType);
         return productRepository.save(newProduct);
@@ -71,14 +69,18 @@ public class ProductController {
         newDes.setProduct(setProd);
         return descriptionRepository.save(newDes);
     }
-    @PutMapping("/product/updateproduct/{prodId}/{productID}/{productName}/{productPrice}/{productQuantity}")
-    public Product editProduct(@RequestBody Product prod, @PathVariable Long prodId, @PathVariable String productID, @PathVariable String productName, @PathVariable Integer productPrice
+    @PutMapping("/product/updateproduct/{prodId}/{productID}/{productName}/{productPrice}/{productQuantity}/{state}/{type}")
+    public Product editProduct(@RequestBody Product prod, @PathVariable Long prodId, @PathVariable String productID, @PathVariable String productName, @PathVariable Integer productPrice, @PathVariable Long state, @PathVariable Long type
             , @PathVariable Integer productQuantity) {
         return productRepository.findById(prodId).map(prodEdit -> {
+            Status setStatus = statusRepository.findByStateId(state);
+            Type setType = typeRepository.findByTypeIds(type);
                     prodEdit.setProductIds(productID);
                     prodEdit.setProductName(productName);
                     prodEdit.setProductPrice(productPrice);
                     prodEdit.setProductQuantity(productQuantity);
+                    prodEdit.setStatus(setStatus);
+                    prodEdit.setType(setType);
                     return productRepository.save(prodEdit);
                 }
         ).orElseGet(() -> {
@@ -100,5 +102,9 @@ public class ProductController {
     @DeleteMapping("/product/delete/{prodId}")
     public void deleteProduct(@PathVariable Long prodId) {
          productRepository.deleteById(prodId);
+    }
+    @DeleteMapping("/description/delete/{descriptionIds}")
+    public void deletedescription(@PathVariable Long descriptionIds) {
+        descriptionRepository.deleteById(descriptionIds);
     }
 }

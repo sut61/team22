@@ -16,7 +16,7 @@ public class Description {
     @Column(name="Description_ID",unique = true, nullable = false)
 
     private @NonNull
-    Long DescriptionIds;
+    Long descriptionIds;
     private
     String dataDescription;
 
