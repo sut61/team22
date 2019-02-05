@@ -17,10 +17,11 @@ export class LeaseService {
   getCustomer(): Observable<any> {
     return this.http.get('//localhost:8080/customer');
   }
-  getProduct(): Observable<any> {
-    return this.http.get('//localhost:8080/product');
-  }
+
   getLease(): Observable<any> {
     return this.http.get('//localhost:8080/lease');
+  }
+  getProduct(): Observable<any>{
+    return this.http.get('//localhost:8080/productRenting');
   }
 }
