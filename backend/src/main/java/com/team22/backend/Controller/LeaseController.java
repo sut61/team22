@@ -53,9 +53,9 @@ public class LeaseController {
         return staff.getPosition().getPositionName().equals("Renter");
     }
 
-    @PostMapping("/renting/{productID}/{productName}/{productPrice}/{customerID}/{staffIDs}/{ReserveDate}/{ReturnDate}")
+    @PostMapping("/renting/{productID}/{productName}/{productPrice}/{customerID}/{staffIDs}/{ReserveDate}/{ReturnDate}/{commentRenting}")
     public Lease newRenting(@PathVariable String productID,@PathVariable String productName,@PathVariable String productPrice,@PathVariable String customerID, @PathVariable String staffIDs
-       , @PathVariable String ReserveDate, @PathVariable String ReturnDate){
+       , @PathVariable String ReserveDate, @PathVariable String ReturnDate,  @PathVariable String commentRenting){
 
          String sDate1 = ReserveDate;
          String sDate2 = ReturnDate;
@@ -65,6 +65,7 @@ public class LeaseController {
 
          Lease newLease = new Lease();
          newLease.setStatus("not paid");
+         newLease.setLeaseStatus("Rent");
          Customer customer1= customerRepository.findByCustomerIDs(customerID);
          newLease.setCustomer(customer1);
          newLease.setDateStart(date);
@@ -73,6 +74,7 @@ public class LeaseController {
          newLease.setStaff(staff);
          Product product = productRepository.findByProductIds(productID);
          newLease.setProduct(product);
+         newLease.setCommentRenting(commentRenting);
          return leaseRepository.save(newLease);
 
 }
