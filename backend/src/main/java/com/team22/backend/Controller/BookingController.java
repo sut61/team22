@@ -40,7 +40,7 @@ public class BookingController {
             return customerRepository.findAll().stream()
             .collect(Collectors.toList());
         }
-        @RequestMapping("/style")
+    @RequestMapping("/style")
         public Collection<Style> style() {
         return styleRepository.findAll().stream()
                  .collect(Collectors.toList());
@@ -56,11 +56,12 @@ public class BookingController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/makeupBooking/{styleID}/{styleIDs}/{styleName}/{stylePrice}/{stID}/{staffIDs}/{staffName}/{bookingDate}/{cusId}/{customerIDs}/{customerName}/{addressCustomer}")
+    @PostMapping("/makeupBooking/{styleID}/{styleIDs}/{styleName}/{stylePrice}/{stID}/{staffIDs}/{staffName}/{bookingDate}/{category}/{cusId}/{customerIDs}/{customerName}/{addressCustomer}")
     public Booking newMakeupBooking(@PathVariable Long cusId,@PathVariable String customerIDs,
                                     @PathVariable String customerName, @PathVariable String addressCustomer,
                                     @PathVariable Long stID, @PathVariable String staffIDs,
                                     @PathVariable String staffName, @PathVariable String bookingDate,
+                                    @PathVariable String category,
                                     @PathVariable Long styleID, @PathVariable String styleIDs,
                                     @PathVariable String styleName, @PathVariable int stylePrice) {
 
@@ -70,6 +71,7 @@ public class BookingController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
         LocalDate date = LocalDate.parse(sDate1, formatter);
         newBooking.setBookingDate(date);
+        newBooking.setCategory(category);
 
         Customer customer0 = customerRepository.findByCusId(cusId);
         newBooking.setCustomer(customer0);
@@ -79,7 +81,8 @@ public class BookingController {
 
         Style    style0 =  styleRepository.findBystyleID(styleID);
         newBooking.setStyle(style0);
-        newBooking.setStatus("not paid");
+        newBooking.setStatus("Not paid");
+        newBooking.setStatusBooking("Booking");
         return bookingRepository.save(newBooking);
     }
 }
