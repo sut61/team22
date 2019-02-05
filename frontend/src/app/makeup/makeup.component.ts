@@ -22,10 +22,11 @@ export class MakeupComponent implements OnInit {
   Positions: Array<any>;
 
   bookingDate: Array<any>;
+  category: Array<any>;
   cusId: Array<any>;
   customerIDs: Array<any>;
   customerName: Array<any>;
-  addressCustomer: Array<any>;
+  customerAddress: Array<any>;
 
   stID: Array<any>;
   staffIDs: Array<any>;
@@ -89,8 +90,9 @@ export class MakeupComponent implements OnInit {
         this.viewStaff.selectstID + '/' + this.viewStaff.selectstaffIDs + '/' +
         this.viewStaff.selectstaffName + '/' +
         this.pipe.transform(this.bookingDate, 'dd:MM:yyyy') + '/' +
+        this.category + '/' +
         this.cusId + '/' + this.customerIDs + '/' +
-        this.customerName + '/' + this.addressCustomer , this.Bookings)
+        this.customerName + '/' + this.customerAddress , this.Bookings)
         .subscribe(
           data => {
             console.log('PUT Request is successful', data);
@@ -99,6 +101,7 @@ export class MakeupComponent implements OnInit {
           },
           error => {
             console.log('Error', error);
+            alert('error');
           }
         );
   }

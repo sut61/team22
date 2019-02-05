@@ -8,7 +8,6 @@
           <p>กรุณาเลือกสไตล์ ที่ท่านต้องการ</p>
           <br>
           <table mat-table [dataSource]="Styles" class="mat-elevation-z8">
-
             <ng-container matColumnDef="styleID">
               <th mat-header-cell *matHeaderCellDef> Style ID </th>
               <td mat-cell *matCellDef="let element"> {{element.styleID}} </td>
@@ -115,10 +114,6 @@
         <mat-placeholder class="placeholder">staffName</mat-placeholder>
       </mat-form-field>
 
-      <!--<mat-form-field class="example-full-width">-->
-        <!--<input matInput [(ngModel)]="viewStaff.positionName"  [(value)]="viewStaff.selectpositionName" name="positionName" [value] = "viewStaff.positionName">-->
-        <!--<mat-placeholder class="placeholder">positionName</mat-placeholder>-->
-      <!--</mat-form-field>-->
     </form>
 <!--------------------------------------------------------------------------------------------------->
     <p>กรุณาเลือกวันที่ ที่ท่านต้องการจอง</p>
@@ -130,6 +125,12 @@
         <mat-datepicker touchUi #picker></mat-datepicker>
       </mat-form-field>
     </form>
+
+    <p>คุณจะแต่งหน้าไปที่ไหน?</p>
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="category" >
+        <mat-placeholder class="placeholder">Category</mat-placeholder>
+      </mat-form-field>
 
     <p>กรุณาใส่ข้อมูลส่วนตัวของท่านให้ถูกต้อง</p>
     <!--Combo box = cusId,customerAddress-->
@@ -159,9 +160,9 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <mat-select placeholder="Customer Address" [(ngModel)]="addressCustomer" name="addressCustomer">
-          <mat-option *ngFor="let Customer of Customers" [value]="Customer.addressCustomer">
-            {{Customer.addressCustomer}}
+        <mat-select placeholder="Customer Address" [(ngModel)]="customerAddress" name="customerAddress">
+          <mat-option *ngFor="let Customer of Customers" [value]="Customer.customerAddress">
+            {{Customer.customerAddress}}
           </mat-option>
         </mat-select>
       </mat-form-field>
