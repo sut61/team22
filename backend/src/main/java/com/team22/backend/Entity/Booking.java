@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import javax.validation.constraints.*;
 
 @Data
 @Entity
@@ -20,6 +21,12 @@ public class Booking {
     private @NonNull Long bookingId;
     private  LocalDate bookingDate;
     private String status;
+    private String statusBooking;
+
+    @NotNull(message="category must not be null to be valid")
+    @Pattern(regexp ="(งาน).+")
+    @Size(min=5 ,max=30)
+    private String category;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Staff.class)
     @JoinColumn(name = "stID", insertable = true)
