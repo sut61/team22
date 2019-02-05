@@ -1,0 +1,180 @@
+<app-menuadmin></app-menuadmin>
+<body><mat-card class="config-check-form">
+  <mat-grid-list cols="3" rowHeight="460px">
+    <mat-grid-tile class="left" *ngFor="let tile of tiles"
+    [colspan]="tile.cols"
+    [rowspan]="tile.rows">
+     <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="views.productID" aria-label="Number"  [(value)]="views.selectProductID" name="pid" [value] = "views.productID" disabled>
+        <mat-placeholder class="placeholder">Product  ID</mat-placeholder>
+      </mat-form-field>
+      <br/>
+      <mat-form-field class="example-full-width">
+     <input matInput [(ngModel)]="views.productName"  [(value)]="views.selectProductName" name="names" [value] = "views.productName"disabled>
+        <mat-placeholder class="placeholder">Name</mat-placeholder>
+      </mat-form-field><br/>
+   <mat-form-field class="example-width">
+     <input matInput [(ngModel)]="views.productPrice"  [(value)]="views.selectProductPrice" name="price" [value] = "views.productPrice"disabled>
+     <mat-placeholder class="placeholder">Price</mat-placeholder>
+   </mat-form-field>
+      <mat-form-field class="example-width">
+      <input matInput [(ngModel)]="views.productQuantity"[(value)]="views.selectProductQuantity" name="quantity" [value]="views.ProductQuantity"disabled>
+        <mat-placeholder class="placeholder">Quantity</mat-placeholder>
+      </mat-form-field><br/>
+      <br/>
+      CHECK :
+      <mat-form-field class="check-width">
+        <input matInput name="level"[(ngModel)]="views.level"[(value)]="views.selectCheckProductLevel"name = "lev" [value]="views.level">
+        <span matSuffix>%&nbsp;</span>
+      </mat-form-field><br/>
+      <mat-slider [max]="max"
+      [min]="min"
+      [step]="step"
+      thumbLabel [(ngModel)]="views.level"[(value)]="views.selectCheckProductLevel"name = "lev" [value]="views.level"></mat-slider>
+    COMMENT :
+    <mat-form-field class="example-full-width">
+      <textarea matInput [(ngModel)]="views.comment" [(value)]="views.selectCheckProductComment" name="comm" [value] = "views.comment"></textarea>
+    </mat-form-field><br/>
+    <mat-form-field class="example-date">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="checkDate"name="date" [(value)]="selectchecktDate" [value]="checkDate">
+        <mat-placeholder class="placeholder">Date</mat-placeholder>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="example-width">
+        <mat-placeholder class="placeholder">Checking</mat-placeholder>
+        <mat-select [(ngModel)]="views.checkingSelect" name = "checking" [(value)]="views.selectChecking">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let checking of checking" [value]="checking.checkingId">
+            {{checking.checking}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br/>
+    <button mat-mini-fab class="bottom-left">
+      <mat-icon (click)="save()" aria-label="Example icon-button with a save icon">save</mat-icon>
+    </button>
+    <button mat-mini-fab class="bottom-left">
+      <mat-icon (click)="editcheck()"aria-label="Example icon-button with a update icon">edit</mat-icon>
+    </button>
+    <br/><br/>
+     </form>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="example-container mat-elevation-z8" *ngFor="let tile of tile_right"
+    [colspan]="tile.cols"
+    [rowspan]="tile.rows">
+      <form class="example-form-right" >
+        <mat-form-field appearance="outline" class="example-width-right">
+          <mat-select placeholder="Product  ID" [(ngModel)]="views.prodID"  [(value)] = "views.selectPID"  name = "prod"  >
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let prod of product" [value]="prod.prodId">
+              {{prod.productIds}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+          <table mat-table [dataSource]="product" class="mat-elevation-z8">
+            <!-- PID Column -->
+            <ng-container matColumnDef="PID">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.prodId}} </td>
+            </ng-container>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="productID">
+              <th mat-header-cell *matHeaderCellDef>Product ID </th>
+              <td mat-cell *matCellDef="let element"> {{element.productIds}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="productName">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+            </ng-container>
+
+            <!-- Price Column -->
+            <ng-container matColumnDef="productPrice">
+              <th mat-header-cell *matHeaderCellDef> Price </th>
+              <td mat-cell *matCellDef="let element"> {{element.productPrice}} </td>
+            </ng-container>
+            <!-- Quantity Column -->
+            <ng-container matColumnDef="productQuantity">
+              <th mat-header-cell *matHeaderCellDef> Quantity </th>
+              <td mat-cell *matCellDef="let element"> {{element.productQuantity}} </td>
+            </ng-container>
+
+            <!-- Type Column -->
+            <ng-container matColumnDef="types">
+              <th mat-header-cell *matHeaderCellDef> Type </th>
+              <td mat-cell *matCellDef="let element"> {{element.type.typeName}} </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="statuses">
+              <th mat-header-cell *matHeaderCellDef> Status </th>
+              <td mat-cell *matCellDef="let element"> {{element.status.statusProduct}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; "(click)="selectRow(row)"></tr>
+          </table>
+          
+          <br/>
+          <mat-form-field appearance="outline" class="example-width-right">
+            <mat-select placeholder="Check Product" [(ngModel)]="views.CheckId"  [(value)] = "views.selectCheckId"  name = "check"  >
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let ch of checkproduct" [value]="ch.checkId">
+                {{ch.checkId}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+            <button mat-mini-fab class="bottom-left">
+              <mat-icon (click)="delete()"aria-label="Example icon-button with a bin icon">delete</mat-icon>
+            </button>
+
+          <table mat-table [dataSource]="checkproduct" class="mat-elevation-z8">
+
+             <!-- PID Column -->
+             <ng-container matColumnDef="PID">
+                <th mat-header-cell *matHeaderCellDef>Product No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.product.prodId}} </td>
+              </ng-container>
+
+            <!-- CID Column -->
+            <ng-container matColumnDef="CID">
+              <th mat-header-cell *matHeaderCellDef> Check No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.checkId}} </td>
+            </ng-container>
+
+            <!-- Level Column -->
+            <ng-container matColumnDef="level">
+              <th mat-header-cell *matHeaderCellDef> Level </th>
+              <td mat-cell *matCellDef="let element"> {{element.checkLevel}} </td>
+            </ng-container>
+
+            <!-- Comment Column -->
+            <ng-container matColumnDef="comment">
+              <th mat-header-cell *matHeaderCellDef> Comment </th>
+              <td mat-cell *matCellDef="let element"> {{element.checkComment}} </td>
+            </ng-container>
+
+            <!-- Date Column -->
+             <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef> Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.checkDate}} </td>
+            </ng-container>
+
+            <!-- checking Column -->
+            <ng-container matColumnDef="checking">
+              <th mat-header-cell *matHeaderCellDef> Checking </th>
+              <td mat-cell *matCellDef="let element"> {{element.checking.checking}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnss; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnss; "(click)="electRow(row)"></tr>
+          </table>
+      </form>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card></body>

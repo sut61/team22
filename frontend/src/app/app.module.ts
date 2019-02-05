@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { PaymentComponent , Paymentcomplete } from './payment/payment.component';
+import { PaymentComponent } from './payment/payment.component';
 import {MatCheckboxModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
@@ -39,7 +39,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material';
 import { PaymentService } from './service/payment.service';
 import { HistoryComponent } from './history/history.component';
-import { HomeComponent , Loginfalse } from './home/home.component';
+import { HomeComponent } from './home/home.component';
 import { MakeupComponent } from './makeup/makeup.component';
 import { MakeupService } from './service/makeup.service';
 import { SellingService} from './service/selling.service';
@@ -51,9 +51,9 @@ import { MenuadminComponent } from './menuadmin/menuadmin.component';
 import { RegisterService } from './service/register.service';
 import { RegisterComponent } from './register/register.component';
 import { StockComponent} from './stock/stock.component';
+import { CheckproductComponent} from './checkproduct/checkproduct.component';
 import {STOCKINGService} from './service/stocking.service';
-import { SignupComponent , Signincomplete , Signinuncomplete} from './signup/signup.component';
-import { SignupService } from './service/signup.service';
+import { CheckproductService } from './service/checkproduct.service';
 const appRoutes: Routes = [
 ];
 
@@ -61,7 +61,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    Loginfalse,
     PaymentComponent,
     HistoryComponent,
     MakeupComponent,
@@ -71,11 +70,7 @@ const appRoutes: Routes = [
     MenuadminComponent,
     StockComponent,
     RegisterComponent,
-    SignupComponent,
-    Signincomplete,
-    Signinuncomplete,
-    Paymentcomplete
-
+    CheckproductComponent
   ],
   imports: [
     BrowserModule,
@@ -123,19 +118,12 @@ const appRoutes: Routes = [
       {path: 'selling', component: SellComponent},
       {path: 'renting', component: RentingComponent},
       {path: 'stock' , component: StockComponent},
+      {path: 'check' , component: CheckproductComponent},
       {path: 'register' , component: RegisterComponent},
-      {path: 'signup' , component: SignupComponent},
-      {path: 'signinuncomplete' , component: Signinuncomplete},
-      {path: 'signincomplete' , component: Signincomplete},
-      {path: 'loginfalse' , component: Loginfalse},
-      {path: 'paymentcomplete' , component: Paymentcomplete},
-
       {path: '', component: HomeComponent}
     ])
   ],
-  providers: [PaymentService , MakeupService , SellingService ,
-    LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse ,
-    Signincomplete, Signinuncomplete , HomeComponent , Paymentcomplete ],
+  providers: [PaymentService , MakeupService , SellingService , LeaseService , RegisterService , STOCKINGService,CheckproductService], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }
