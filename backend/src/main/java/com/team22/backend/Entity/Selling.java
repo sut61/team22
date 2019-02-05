@@ -2,7 +2,7 @@ package com.team22.backend.Entity;
 import javax.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
-
+import javax.validation.constraints.*;
 
 @Entity
 @Data
@@ -18,7 +18,13 @@ public class Selling {
     @Column(name="Selling_ID",unique = true, nullable = false)
     private @NonNull Long sellingId;
     private  LocalDate sellingDate;
-    private   @NonNull String status;
+    private  @NonNull String status;
+
+
+    @NotNull
+    @Size(min=5,max=70)
+    @Pattern(regexp = "[ร้าน].+")
+    private String commentSelling;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
     @JoinColumn(name = "customerId", insertable = true)
