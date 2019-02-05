@@ -1,0 +1,101 @@
+.config-check-form{
+  margin-left:10%;
+  margin-right: 10%;
+  height: 465px;
+  background-color:whitesmoke;
+  opacity: .9;
+}
+mat-grid-list{
+  margin-top: 0%;
+  margin-bottom: 0%;
+  height: auto;
+}
+mat-grid-tile{
+  margin-top: 0%;
+  margin-bottom: 0%;
+  height: auto;
+}
+.left{
+  text-align: right;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  height: 460px;
+  font-size: 15px;
+  color: black;
+  margin-right: 5%;
+}
+.example-form-right{
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  height: 460px;
+  font-size: 15px;
+  color: black;
+}
+.example-full-width {
+  width: fit-content;
+  color: black;
+  font-size: 12px;
+  margin-right: 5%;
+}
+.example-width{
+  width: 30%;
+  color: black;
+  font-size: 12px;
+  margin-right: 5%;
+}
+.check-width{
+  width: 15%;
+  color: black;
+  font-size: 15px;
+  text-align: center;
+  margin-right: 5%;
+}
+.bottom-left{
+  margin-right: 5%;
+  margin-bottom: 0%;
+  margin-right: 5%;
+}
+.example-width-right{
+  width: 40%;
+  color: black;
+  font-size: 15px;
+  margin-left: 30%;
+  margin-right: 5%;
+}
+.example-container {
+  height: 460px;
+  overflow: auto;
+}
+table {
+  width: 100%;
+  background-color:#e4d1d1;
+  font-size: 15px;
+}
+.mat-row:hover{
+  background-color: #d1c7c7;
+}
+.placeholder{
+  color: rgb(0, 0, 0);
+}
+mat-slider {
+  width: 250px;
+}
+body{
+  background-image: url("/img/OLF8ED0.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 561px;
+  top: 10;
+  bottom: 0;
+}
+.example-date{
+  color: black;
+  font-size: 12px;
+  margin-right: 5%;
+  width: 30%;
+}
