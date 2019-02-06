@@ -13,6 +13,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class SignupComponent implements OnInit {
   disableSelect = new FormControl(false);
+
   pipe = new DatePipe('en-US');
   hide = true;
   customerRegister: Array<any>;
@@ -26,6 +27,7 @@ export class SignupComponent implements OnInit {
   customerAddress: Array<any>;
   career: Array<any>;
   province: Array<any>;
+  num: '10';
   customer = {
     cusId : '',
     customerIDs : '',
@@ -54,6 +56,9 @@ export class SignupComponent implements OnInit {
 
   }
   SignUp() {
+    const rex = new RegExp('0');
+    this.customer.customerPhone.charAt(0);
+    console.log(this.customer.customerPhone.charAt(0));
     if (
      this.customer.customerIDs === '' ||
      this.customer.customerPassword === '' ||
@@ -65,44 +70,50 @@ export class SignupComponent implements OnInit {
      this.customer.career === '' ||
      this.customer.province === '' ) {
           this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ');
-      } else {
+    } else {
   this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(checkCustomer => {
     console.log( checkCustomer );
         if ( checkCustomer != null ) {
         this.snackBar.open('ไม่สามารถใช้ ID นี้ได้', 'ตกลง', {});
-        } else {
-          this.snackBar.open('สามารถใช้ ID นี้ได้', 'ตกลง', {});
-          this.httpClient.post('http://localhost:8080/customerSignup/' + this.customer.customerIDs + '/'
-         + this.customer.customerPassword + '/' + this.customer.customerName +
-     '/' + this.customer.customerPhone + '/' + this.customer.customerGender +
-     '/' + this.pipe.transform(this.customer.customerBirthday, 'dd:MM:yyyy') + '/' +
-     this.customer.customerAddress + '/' +
-     this.customer.career + '/' +
-     this.customer.province, this.customerRegister)
+      } else {
 
- .subscribe(
-   dataRegister => {
-       console.log('Post successful', dataRegister);
-       localStorage.setItem('customerIDs', JSON.stringify(checkCustomer));
-       const dialogRef = this.dialog.open(Signincomplete, {
-        width: '500px'
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          window.location.href = '/home';
-          console.log('Can SignIp');
-          this.snackBar.open('ลงทะเบียนสำเร็จ');
-       },
-   error => {
-    const dialogRe = this.dialog.open(Signinuncomplete, {
-      width: '500px'
+          if (rex.test(this.customer.customerPhone)) {
+            this.httpClient.post('http://localhost:8080/customerSignup/' + this.customer.customerIDs + '/'
+            + this.customer.customerPassword + '/' + this.customer.customerName +
+        '/' + this.customer.customerPhone + '/' + this.customer.customerGender +
+        '/' + this.pipe.transform(this.customer.customerBirthday, 'dd:MM:yyyy') + '/' +
+        this.customer.customerAddress + '/' +
+        this.customer.career + '/' +
+        this.customer.province, this.customerRegister)
+
+    .subscribe(
+      dataRegister => {
+          console.log('Post successful', dataRegister);
+          localStorage.setItem('customerIDs', JSON.stringify(checkCustomer));
+          const dialogRef = this.dialog.open(Signincomplete, {
+           width: '500px'
+           });
+           dialogRef.afterClosed().subscribe(result => {
+             window.location.href = '/home';
+             console.log('Can SignIp');
+             this.snackBar.open('ลงทะเบียนสำเร็จ');
+          },
+      error => {
+       const dialogRe = this.dialog.open(Signinuncomplete, {
+         width: '500px'
+       });
+       dialogRe.afterClosed().subscribe(result => {
+         console.log('Can Not SignIp');
+       });
+          console.log('Error', error);
+        }
+        );
     });
-    dialogRe.afterClosed().subscribe(result => {
-      console.log('Can Not SignIp');
-    });
-       console.log('Error', error);
-     }
-     );
- });
+        } else {
+          this.snackBar.open('เบอร์โทรไม่ถูกต้อง');
+          }
+
+
 }
      });
      }
@@ -116,6 +127,7 @@ export class SignupComponent implements OnInit {
       this.customer.career,
       this.customer.province);
 }
+
 
   checkId(id) {
     this.signupService.CheckCustomer(this.customer.customerIDs).subscribe(checkCustomer => {
