@@ -46,7 +46,8 @@ public class CustomerController {
         public Customer customerCheck(@PathVariable String customerIDs){
             return this.customerRepository.findByCustomerIDs(customerIDs);
         }
-
+       
+        
         @GetMapping("/career")
         public Collection<Career> career() {
             return careerRepository.findAll().stream()

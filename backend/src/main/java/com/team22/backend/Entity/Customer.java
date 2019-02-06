@@ -2,9 +2,7 @@ package com.team22.backend.Entity;
 import lombok.*;
 import javax.persistence.*;
 import java.time.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 @Data
 @Entity
 @Getter @Setter
@@ -21,12 +19,21 @@ public class Customer {
     @NotNull
     private Long cusId;
 
+    @NotNull(message="customerIDs Null")
+    @Column(unique = true)
     private String customerIDs;
+    
+    @NotNull(message="CustomerName Null")
+    private String customerName;
 
+    @NotNull(message="CustomerPassword Null")
     private String customerPassword;
 
-    private String customerName;
+    @NotNull(message="CustomerPhone Null")
+    @Pattern(regexp = "([0]\\d{9})")
+    @Size(min = 10, max = 10)
     private String customerPhone;
+
     private String customerGender;
     private LocalDate customerBirthday;
     private String customerAddress;
