@@ -166,7 +166,7 @@ viewBooking(row) {
      this.payments.selectLeaseId === '' ) {
       this.snackBar.open('ข้อมูลไม่ครบถ้วน');
 } else {
-  this.httpClient.post('http://localhost:8080/payment/' + 'Lease' + '/' + 'paid' + '/' + this.userData.userid +
+  this.httpClient.post('http://localhost:8080/payment/' + 'Renting' + '/' + 'paid' + '/' + this.userData.userid +
                                                     '/' + 0 + '/' + 0 + '/' + this.payments.selectLeaseId, this.payment)
   .subscribe(
     data => {
