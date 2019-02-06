@@ -2,7 +2,7 @@ package com.team22.backend.Entity;
 import javax.persistence.*;
 import lombok.*;
 import java.util.*;
-
+import javax.validation.constraints.*;
 @Data
 @Entity
 @Getter @Setter
@@ -15,9 +15,17 @@ public class PayMent {
     @SequenceGenerator(name="payMent_seq",sequenceName="payMent_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="payMent_seq")
     @Column(name="PayMent_ID",unique = true, nullable = false)
-    private @NonNull Long pmId;
-    private @NonNull Date datePay;
+    @NotNull
+    private Long pmId;
+
+    private Date datePay;
+
+    @NotNull(message="typePay Null")      
+    @Pattern(regexp = "[RSB]\\w{6}")
+    @Size(min = 7, max = 7)
     private String typePay;
+
+    @NotNull(message="statusPay Null")
     private String statusPay;
 
     @OneToOne(fetch = FetchType.EAGER)

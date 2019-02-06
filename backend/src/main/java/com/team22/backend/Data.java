@@ -549,21 +549,15 @@ public class Data {
 
             Lease lid = leaseRepository.findByLeaseId(1L);
 
-            Stream.of(1L).forEach(pmid -> {
-                PayMent paymentdb = new PayMent();
-                paymentdb.setPmId(pmid);
-                Date paydate = new Date();
-                payMentRepository.save(paymentdb);
-
-                if (pmid == 1L) {
-                    paymentdb.setTypePay("Lease");
+            PayMent paymentdb = new PayMent();
+                    paymentdb.setPmId(1L);
+                    Date paydate = new Date();
+                    paymentdb.setTypePay("Renting");
+                    paymentdb.setStatusPay("paid");
                     paymentdb.setCustomer(c1);
                     paymentdb.setDatePay(paydate);
                     paymentdb.setLease(lid);
-                    paymentdb.setStatusPay("paid");
                     payMentRepository.save(paymentdb);
-                }
-            });
             
 
             System.out.println("\n Spring-Boot Complete");
