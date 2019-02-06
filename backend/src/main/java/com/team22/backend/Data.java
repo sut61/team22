@@ -48,7 +48,9 @@ public class Data {
                            ProvinceRepository provinceRepository,
                            CareerRepository careerRepository,
                            CheckProductRepository checkProductRepository,
-                           CheckingRepository checkingRepository
+                           CheckingRepository checkingRepository,
+                           SalaryRepository salaryRepository,
+                           PayerRepository payerRepository
                            ) {
         return args -> {
 
@@ -400,15 +402,9 @@ public class Data {
             Position po6 = positionRepository.findByPositionId(6L);
             Position po7 = positionRepository.findByPositionId(7L);
 
-            Stream.of("Owner", "Ploy", "Sunvo" , "Au" , "Admin" ).forEach(staffName -> {
-                Staff staffdb = new Staff();
-                staffdb.setStaffName(staffName);
-                staffRepository.save(staffdb);
-
-                if (staffName == "Owner") {
-                    staffdb.setStaffIds("St"+staffdb.getStaffId());
-                    staffdb.setStaffName(staffName);
-                    staffdb.setStaffPassword("123456");
+            Staff staffdb = new Staff();
+                    staffdb.setStaffIds("St1");
+                    staffdb.setStaffName("Owner");
                     staffdb.setEducation(ed1);
                     staffdb.setExperience(ex1);
                     staffdb.setStaffGender("Man");
@@ -416,68 +412,110 @@ public class Data {
                     staffdb.setStaffPhone("086-141-9833");
                     staffdb.setStaffSalary(50000);
                     staffdb.setPosition(po6);
-                    staffdb.setStaffStatus("Un Paid");
+                    staffdb.setStaffStatus("UnPaid");
                     staffRepository.save(staffdb);
-                }
-                else    if (staffName == "Ploy") {
-                    staffdb.setStaffIds("St"+staffdb.getStaffId());
-                    staffdb.setStaffName(staffName);
-                    staffdb.setStaffPassword("123456");
-                    staffdb.setStaffGender("Woman");
-                    staffdb.setStaffJobtype("Part Time");
-                    staffdb.setEducation(ed2);
-                    staffdb.setExperience(ex2);
-                    staffdb.setStaffPhone("081-108-6599");
-                    staffdb.setStaffSalary(29000);
-                    staffdb.setPosition(po5);
-                    staffdb.setStaffStatus("Un Paid");
-                    staffRepository.save(staffdb);
-                }
-                else    if (staffName == "Sunvo") {
-                    staffdb.setStaffIds("St"+staffdb.getStaffId());
-                    staffdb.setStaffName(staffName);
-                    staffdb.setStaffPassword("123456");
-                    staffdb.setStaffGender("Man");
-                    staffdb.setStaffJobtype("Part Time");
-                    staffdb.setEducation(ed3);
-                    staffdb.setExperience(ex3);
-                    staffdb.setStaffPhone("081-105-6559");
-                    staffdb.setStaffSalary(20000);
-                    staffdb.setPosition(po4);
-                    staffdb.setStaffStatus("Un Paid");
-                    staffRepository.save(staffdb);
-                }
-                else    if (staffName == "Au") {
-                    staffdb.setStaffIds("St"+staffdb.getStaffId());
-                    staffdb.setStaffName(staffName);
-                    staffdb.setStaffPassword("123456");
-                    staffdb.setStaffGender("Man");
-                    staffdb.setStaffJobtype("Part Time");
-                    staffdb.setEducation(ed4);
-                    staffdb.setExperience(ex4);
-                    staffdb.setStaffPhone("081-103-6559");
-                    staffdb.setStaffSalary(2500);
-                    staffdb.setPosition(po3);
-                    staffdb.setStaffStatus("Un Paid");
-                    staffRepository.save(staffdb);
-                }
-                else (staffName == "Admin") {
-                    staffdb.setStaffIds("St"+staffdb.getStaffId());
-                    staffdb.setStaffName(staffName);
-                    staffdb.setStaffPassword("123456");
-                    staffdb.setStaffGender("Man");
-                    staffdb.setStaffJobtype("Part Time");
-                    staffdb.setEducation(ed2);
-                    staffdb.setExperience(ex2);
-                    staffdb.setStaffPhone("081-108-6599");
-                    staffdb.setStaffSalary(29000);
-                    staffdb.setPosition(po5);
-                    staffdb.setStaffStatus("Un Paid");
-                    staffRepository.save(staffdb);
-                }
-            });
+                
+                Staff staffdb1 = new Staff();
+                    staffdb1.setStaffIds("St2");
+                    staffdb1.setStaffName("Ploy");
+                    staffdb1.setStaffGender("Woman");
+                    staffdb1.setStaffJobtype("Part Time");
+                    staffdb1.setEducation(ed2);
+                    staffdb1.setExperience(ex2);
+                    staffdb1.setStaffPhone("081-108-6599");
+                    staffdb1.setStaffSalary(29000);
+                    staffdb1.setPosition(po5);
+                    staffdb1.setStaffStatus("UnPaid");
+                    staffRepository.save(staffdb1);
+
+                Staff staffdb2 = new Staff();
+                    staffdb2.setStaffIds("St3");
+                    staffdb2.setStaffName("Sunvo");
+                    staffdb2.setStaffGender("Man");
+                    staffdb2.setStaffJobtype("Part Time");
+                    staffdb2.setEducation(ed3);
+                    staffdb2.setExperience(ex3);
+                    staffdb2.setStaffPhone("081-105-6559");
+                    staffdb2.setStaffSalary(20000);
+                    staffdb2.setPosition(po4);
+                    staffdb2.setStaffStatus("UnPaid");
+                    staffRepository.save(staffdb2);
+
+                Staff staffdb3 = new Staff();
+                    staffdb3.setStaffIds("St4");
+                    staffdb3.setStaffName("Ao");
+                    staffdb3.setStaffGender("Man");
+                    staffdb3.setStaffJobtype("Part Time");
+                    staffdb3.setEducation(ed4);
+                    staffdb3.setExperience(ex4);
+                    staffdb3.setStaffPhone("081-103-6559");
+                    staffdb3.setStaffSalary(2500);
+                    staffdb3.setPosition(po3);
+                    staffdb3.setStaffStatus("UnPaid");
+                    staffRepository.save(staffdb3);
+
             Staff st1 = staffRepository.findByStaffId(1L);
             Staff st2 = staffRepository.findByStaffId(2L);
+            Staff st3 = staffRepository.findByStaffId(3L);
+            Staff st4 = staffRepository.findByStaffId(4L);
+
+            Stream.of("Admin1", "Admin2").forEach(PayerName -> {
+				Payer payerdb = new Payer();
+				payerdb.setPayerName(PayerName);
+				payerRepository.save(payerdb);
+
+				if (PayerName == "Admin1") {
+					payerdb.setPayerIds("PA"+payerdb.getPayerId());
+					payerdb.setPayerName(PayerName);
+					payerRepository.save(payerdb);
+				}
+				else if(PayerName == "Admin2") {
+					payerdb.setPayerIds("PA"+payerdb.getPayerId());
+					payerdb.setPayerName(PayerName);
+					payerRepository.save(payerdb);
+				}
+			});
+			Payer pa1 = payerRepository.findByPayerId(1L);
+			Payer pa2 = payerRepository.findByPayerId(2L);
+            
+
+            Date sadate = new Date();
+
+                Salary salarydb = new Salary();
+                    salarydb.setSalaryIds("SA1");
+                    salarydb.setStaff(st1);
+                    salarydb.setPayer(pa1);
+                    salarydb.setSalaryDate(sadate);
+                    salarydb.getStaff().getStaffStatus();
+                    salarydb.getStaff().getStaffSalary();
+                    salaryRepository.save(salarydb);
+
+                Salary salarydb2 = new Salary();
+                    salarydb2.setSalaryIds("SA2");
+                    salarydb2.setStaff(st2);
+                    salarydb2.setPayer(pa1);
+                    salarydb2.setSalaryDate(sadate);
+                    salarydb2.getStaff().getStaffStatus();
+                    salarydb2.getStaff().getStaffSalary();
+                    salaryRepository.save(salarydb2);
+
+                Salary salarydb3 = new Salary();
+                    salarydb3.setSalaryIds("SA3");
+                    salarydb3.setStaff(st3);
+                    salarydb3.setPayer(pa2);
+                    salarydb3.setSalaryDate(sadate);
+                    salarydb3.getStaff().getStaffStatus();
+                    salarydb3.getStaff().getStaffSalary();
+                    salaryRepository.save(salarydb3);
+
+                Salary salarydb4 = new Salary();
+                    salarydb4.setSalaryIds("SA4");
+                    salarydb4.setStaff(st4);
+                    salarydb4.setPayer(pa2);
+                    salarydb4.setSalaryDate(sadate);
+                    salarydb4.getStaff().getStaffStatus();
+                    salarydb4.getStaff().getStaffSalary();
+                    salaryRepository.save(salarydb4);
 
             Booking bookingdb = new Booking();
             String bDate1 = "20:04:1998";
