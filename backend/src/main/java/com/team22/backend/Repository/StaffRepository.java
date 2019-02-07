@@ -11,5 +11,6 @@ public
 interface  StaffRepository extends JpaRepository<Staff, Long> {
     Staff findByStaffId(Long id);
     Staff findByStaffIds(String staffIds);
+    Staff findByStaffName(String staffName);
     Staff findByStaffNameAndStaffPassword(String staffName,String staffPassword);
 }

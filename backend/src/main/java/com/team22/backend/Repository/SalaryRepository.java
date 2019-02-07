@@ -8,7 +8,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins = "http://localhost:4200")
 public
 interface  SalaryRepository extends JpaRepository<Salary, Long> {
-    Salary findBySalaryId(long id);
-    // Staff findByStaffName(String staffName);
-    
+    Salary findBySalaryId(long id);    
 }
