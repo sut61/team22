@@ -2,6 +2,7 @@ package com.team22.backend.Entity;
 import javax.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import javax.validation.constraints.*;
 
 
 @Entity
@@ -16,21 +17,30 @@ public class Review {
     @SequenceGenerator(name="review_seq",sequenceName="review_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="review_seq")
     @Column(name="Review_ID",unique = true, nullable = false)
-     
-    private @NonNull Long reviewId;
-    private @NonNull String reviewComment;
-    private @NonNull LocalDate reviewDate;
 
-    // @OneToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "HistoryReviewId")
-    // private HistoryReview historyReview;
+    private Long reviewId;
 
+    @NotNull
+    @Size(min=5,max=20)
+    @Pattern(regexp = "(ควร).+")
+    @Column(unique = true)
+    private  String reviewComment;
+
+    @NotNull
+    private String ment2;
+
+    @NotNull
+    private LocalDate reviewDate;
+
+    @NotNull
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sellingId")
     private Selling selling;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "LevelReviewId")
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = LevelReview.class)
+    @JoinColumn(name = "levelReviewId", insertable = true)
     private LevelReview levelReview;
 
 	
