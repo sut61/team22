@@ -85,6 +85,8 @@ public class ReviewController {
             return reviewRepository.save(newReview); 
         }
 
+
+        
         @PutMapping("/sellingRe/{id}/{status}")
         Selling replaceSelling(Selling newSelling, @PathVariable String status, @PathVariable Long id){
     
