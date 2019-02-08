@@ -547,18 +547,18 @@ public class Data {
                     salarydb4.getStaff().getStaffSalary();
                     salaryRepository.save(salarydb4);
 
-            Booking bookingdb = new Booking();
-            String bDate1 = "20:04:1998";
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-            LocalDate bdate = LocalDate.parse(bDate1, formatter);
-            bookingRepository.save(bookingdb);
-
-            bookingdb.setBookingDate(bdate);
-            bookingdb.setCustomer(c3);
-            bookingdb.setStatus("not paid");
-            bookingdb.setStaff(st1);
-            bookingdb.setStyle(sy1);
-            bookingRepository.save(bookingdb);
+                    Booking bookingdb = new Booking();
+                    String bDate1 = "20:04:1998";
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+                    LocalDate bdate = LocalDate.parse(bDate1, formatter);
+                    bookingRepository.save(bookingdb);
+        
+                    bookingdb.setBookingDate(bdate);
+                    bookingdb.setCustomer(c3);
+                    bookingdb.setStatus("not paid");
+                    bookingdb.setStaff(st1);
+                    bookingdb.setStyle(sy1);
+                    bookingRepository.save(bookingdb);
 
             
 
