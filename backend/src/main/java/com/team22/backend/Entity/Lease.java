@@ -1,11 +1,8 @@
 package com.team22.backend.Entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
-
 import java.time.LocalDate;
 
 
@@ -22,16 +19,23 @@ public class Lease {
     @SequenceGenerator(name = "lease_seq", sequenceName = "lease_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lease_seq")
     @Column(name = "Lease_ID", unique = true, nullable = false)
+
     private Long leaseId;
-
+    @NotNull
     private LocalDate dateStart;
+    @NotNull
     private LocalDate dateEnd;
-    private @NonNull String status;
-    private @NonNull String leaseStatus;
 
-    @NotNull(message = "comment must not be null to be valid")
+    @NotNull
+    private  String status;
+
+    @NotNull
+    private  String leaseStatus;
+
+    @NotNull
     @Pattern(regexp = "[ชุด].+")
     @Size(min=5,max=50)
+    @Column(unique=true)
     private    String commentRenting;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)

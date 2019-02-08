@@ -1,17 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LeaseService } from '../service/lease.service';
-import {MatSort} from '@angular/material';
-import { HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {DatePipe} from '@angular/common';
-import {MatSnackBar} from '@angular/material';
+import { MatSort } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 
 
-@Component ( {
+@Component({
   selector: 'app-renting',
   templateUrl: './renting.component.html',
   styleUrls: ['./renting.component.css']
-  
+
 })
 export class RentingComponent implements OnInit {
 
@@ -30,15 +31,17 @@ export class RentingComponent implements OnInit {
   productID: Array<any>;
   productPrice: Array<any>;
   statusProduct: Array<any>;
-  commentRenting:Array<any>;
+  commentRenting: Array<any>;
+  
 
-  views: any = {
+  views = {
     productID: '',
     productName: '',
-    productPrice : '',
+    productPrice: '',
     selectProductID: '',
     selectProductName: '',
-    selectProductPrice : ''
+    selectProductPrice: '',
+    commentRenting: '',
   };
 
   pipe = new DatePipe('en-US');
@@ -46,7 +49,7 @@ export class RentingComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
-  constructor(private leaseservice: LeaseService, private httpClient: HttpClient, private router: Router,private snackBar: MatSnackBar) {
+  constructor(private leaseservice: LeaseService, private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) {
 
   }
 
@@ -67,30 +70,57 @@ export class RentingComponent implements OnInit {
       this.Product = data;
       console.log(this.Product);
     });
-
   }
 
   save() {
-    this.httpClient.post('http://localhost:8080/renting/' + this.views.selectProductID + '/'
-    + this.views.selectProductName + '/' + this.views.selectProductPrice + '/'
-    + this.customerID + '/' + this.staffIDs + '/' +
-     this.pipe.transform(this.ReserveDate, 'dd:MM:yyyy') + '/'
-      + this.pipe.transform(this.ReturnDate, 'dd:MM:yyyy')+ '/' + this.commentRenting, this.Leases)
-      .subscribe(
-        data => {
-          console.log('POST Request is successful', data);
-         //window.location.reload();
-         this.snackBar.open('input detail ', 'complete', {
-        });
-        },
-        error => {
-          this.snackBar.open('input detail ', 'uncomplete', {
-          });
-          console.log('Error', error);
-        }
-      );
+    const rex = new RegExp('[ชุด].+');
 
-  }
+    console.log(this.commentRenting);
+    
+    if (this.views.selectProductID == null || this.views.selectProductName == null || this.views.selectProductPrice == null
+      || this.customerID == null || this.addressCustomer == null || this.ReserveDate == null || this.ReturnDate == null
+      || this.staffIDs == null || this.views.commentRenting == null) {
+      alert("กรุณาเลือกข้อมูลให้ครบ")
+    }
+    else {
+      if (this.views.commentRenting != null) {
+
+        if(rex.test(this.views.commentRenting)){
+
+          this.leaseservice
+          .CheckCommentRenting(this.views.commentRenting)
+          .subscribe(checkCommentRenting => {
+            console.log(checkCommentRenting);
+            if (checkCommentRenting != null) {
+              this.snackBar.open('คอมเม้นซ้ำ ' , 'ตกลง', {});
+            } else {
+          this.httpClient.post('http://localhost:8080/renting/' + this.views.selectProductID + '/'
+          + this.views.selectProductName + '/' + this.views.selectProductPrice + '/'
+          + this.customerID + '/' + this.staffIDs + '/' +
+          this.pipe.transform(this.ReserveDate, 'dd:MM:yyyy') + '/'
+          + this.pipe.transform(this.ReturnDate, 'dd:MM:yyyy') + '/' + this.views.commentRenting, this.Leases)
+          .subscribe(
+            data => {
+              console.log('POST Request is successful', data);
+              //window.location.reload();
+              this.snackBar.open('input detail ', 'complete', {
+              });
+            },
+            error => {
+              this.snackBar.open('input detail ', 'uncomplete', {
+              });
+              console.log('Error', error);
+            }
+          );
+          }
+        });
+        } else {
+          this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่าชุด');
+          
+        }
+      }
+    }
+}
   selectRow(row) {
     this.views.selectProductID = row.productIds;
     this.views.selectProductName = row.productName;

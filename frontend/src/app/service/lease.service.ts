@@ -24,4 +24,7 @@ export class LeaseService {
   getProduct(): Observable<any>{
     return this.http.get('//localhost:8080/productRenting');
   }
+  CheckCommentRenting(commentRenting: String ): Observable<any> {
+    return this.http.post('//localhost:8080/CheckCommentRenting/' + commentRenting , {} );
+    }
 }
