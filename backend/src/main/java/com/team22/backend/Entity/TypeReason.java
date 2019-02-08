@@ -17,7 +17,5 @@ public class TypeReason {
     private @NonNull Long typeReasonID;
     private @NonNull String typeReasonName;
     
-    public TypeReason(String typeReasondb){
-        this.typeReasonName = typeReasondb;
-    }
+   
 }
