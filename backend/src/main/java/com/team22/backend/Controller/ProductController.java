@@ -46,6 +46,11 @@ public class ProductController {
     public Collection<Description> description() {
         return descriptionRepository.findAll().stream().collect(Collectors.toList());
     }
+    @PostMapping("/checkproductids/{productID}")
+    public Product CheckProductId(@PathVariable String productID)
+    {
+        return  this.productRepository.findByProductIds(productID);
+    }
     @PostMapping("/product/add/{productID}/{productName}/{productPrice}/{productQuantity}/{prodDate}/{state}/{type}")
     public Product addnewProduct(@PathVariable String productID, @PathVariable String productName
             , @PathVariable Integer productPrice, @PathVariable Integer productQuantity, @PathVariable String prodDate, @PathVariable Long state, @PathVariable Long type
