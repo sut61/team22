@@ -1,7 +1,9 @@
 package com.team22.backend.Entity;
+
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -15,9 +17,13 @@ public class Style {
     @SequenceGenerator(name="style_seq",sequenceName="style_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="style_seq")
     @Column(name="StyleId",unique = true, nullable = false)
-    private @NonNull Long styleID;
+    @NotNull
+    private  Long styleID;
+    @NotNull
     private  String styleIDs;
+    @NotNull
     private  String styleName;
-    private  int stylePrice;
+    @NotNull
+    private  Integer stylePrice;
 
 }
