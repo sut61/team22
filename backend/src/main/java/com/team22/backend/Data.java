@@ -543,33 +543,7 @@ public class Data {
             bookingdb.setStyle(sy1);
             bookingRepository.save(bookingdb);
 
-            Lease leasedb = new Lease();
-            String lDate1 = "20:04:1998";
-            String lDate2 = "21:05:1998";
-            DateTimeFormatter lformatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-            LocalDate ldate = LocalDate.parse(lDate1, lformatter);
-            LocalDate ldate1 = LocalDate.parse(lDate2, lformatter);
-            leasedb.setCustomer(c3);
-            leasedb.setDateStart(ldate);
-            leasedb.setDateEnd(ldate1);
-            leasedb.setStatus("paid");
-            leasedb.setStaff(st1);
-            leasedb.setProduct(pt1);
-            leaseRepository.save(leasedb);
-
-            Lease leasedb2 = new Lease();
-            String l2Date1 = "11:11:1998";
-            String l2Date2 = "12:12:1998";
-            DateTimeFormatter l2formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-            LocalDate l2date = LocalDate.parse(l2Date1, l2formatter);
-            LocalDate l2date1 = LocalDate.parse(l2Date2, l2formatter);
-            leasedb2.setCustomer(c1);
-            leasedb2.setDateStart(l2date);
-            leasedb2.setDateEnd(l2date1);
-            leasedb2.setStatus("not paid");
-            leasedb2.setStaff(st1);
-            leasedb2.setProduct(pt1);
-            leaseRepository.save(leasedb2);
+            
 
             Lease leasedb3 = new Lease();
             String l2Date12 = "07:07:1998";
@@ -580,10 +554,14 @@ public class Data {
             leasedb3.setCustomer(c2);
             leasedb3.setDateStart(l2date2);
             leasedb3.setDateEnd(l2date12);
-            leasedb3.setStatus("not paid");
+            leasedb3.setStatus("paid");
+            leasedb3.setLeaseStatus("Rent");
+            leasedb3.setCommentRenting("ชุดสวย");
             leasedb3.setStaff(st1);
             leasedb3.setProduct(pt1);
             leaseRepository.save(leasedb3);
+             Lease lid = leaseRepository.findByLeaseId(1L);
+
 
             Selling sellingdb = new Selling();
             sellingRepository.save(sellingdb);
