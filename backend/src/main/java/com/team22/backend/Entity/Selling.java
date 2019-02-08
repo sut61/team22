@@ -16,31 +16,36 @@ public class Selling {
     @SequenceGenerator(name="selling_seq",sequenceName="selling_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="selling_seq")
     @Column(name="Selling_ID",unique = true, nullable = false)
-    private @NonNull Long sellingId;
-    private  LocalDate sellingDate;
-    private  @NonNull String status;
+
+    private Long sellingId;
+
+    @NotNull
+    private LocalDate sellingDate;
+
+    @NotNull
+    private  String status;
 
 
     @NotNull
     @Size(min=5,max=70)
-    @Pattern(regexp = "[ร้าน].+")
+    @Pattern(regexp = "(ร้าน).+")
+    @Column(unique = true)
     private String commentSelling;
 
+
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
     @JoinColumn(name = "customerId", insertable = true)
     private Customer customer;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Staff.class)
     @JoinColumn(name = "staffId", insertable = true)
     private Staff staff;
 
+
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
-    @JoinColumn(name = "productId", insertable = true)
+    @JoinColumn(name = "ProdId", insertable = true)
     private Product product;
-
-
-
-
-
+    
 }
-

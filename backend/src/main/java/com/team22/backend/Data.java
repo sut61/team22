@@ -50,9 +50,26 @@ public class Data {
                            CheckProductRepository checkProductRepository,
                            CheckingRepository checkingRepository,
                            SalaryRepository salaryRepository,
-                           PayerRepository payerRepository
+                           PayerRepository payerRepository,
+                           ReviewRepository reviewRepository,
+                           LevelReviewRepository levelReviewRepository
                            ) {
         return args -> {
+
+            Stream.of("มาก", "ปานกลาง","น้อย").forEach(levelReview -> {
+                LevelReview level = new LevelReview();
+                level.setLevelName(levelReview);
+                if(levelReview=="มาก"){
+                    level.setLevelReviewId(1L);
+                    levelReviewRepository.save(level);
+                }else if(levelReview=="ปานกลาง"){
+                    level.setLevelReviewId(2L);
+                    levelReviewRepository.save(level);
+                }else if(levelReview=="น้อย"){
+                    level.setLevelReviewId(3L);
+                    levelReviewRepository.save(level);
+            }
+            });
 
             Stream.of("Renting", "Selling", "Stocking").forEach(status -> {
                 Status state = new Status(status);
@@ -563,20 +580,36 @@ public class Data {
              Lease lid = leaseRepository.findByLeaseId(1L);
 
 
-            Selling sellingdb = new Selling();
-            sellingRepository.save(sellingdb);
-            String sDate2 = "20:04:1998";
-            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-            LocalDate sdate = LocalDate.parse(sDate2, formatter2);
+             Selling sellingdb = new Selling();
+             String sDate2 = "20:04:1998";
+             DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+             LocalDate sdate = LocalDate.parse(sDate2, formatter2);
+             sellingdb.setSellingId(1L);
+             sellingdb.setSellingDate(sdate);
+             sellingdb.setCustomer(c2);
+             sellingdb.setStaff(st1);
+             sellingdb.setStatus("not paid");
+             sellingdb.setProduct(pt1);
+             sellingdb.setCommentSelling("ร้านชุดสวย");
+             sellingRepository.save(sellingdb);
+ 
+             Selling sl1 = sellingRepository.findBySellingId(1L);
+ 
+             Review reviewdb = new Review();
+             String RDate1 = "20:04:1998";
+             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+             LocalDate rdate = LocalDate.parse(RDate1, formatter1);
+             reviewdb.setReviewId(1L);
+             reviewdb.setReviewDate(rdate);
+             reviewdb.setSelling(sl1);
+             LevelReview LR1 = levelReviewRepository.findByLevelReviewId(1L);
+             reviewdb.setLevelReview(LR1);
+             reviewdb.setReviewComment("ควรมีชุดมากกว่านี้");
+             reviewdb.setMent2("ชุดเยอะมาก");
+             reviewRepository.save(reviewdb);
+             Review R1 = reviewRepository.findByReviewId(1L);
 
-            sellingdb.setSellingDate(sdate);
-            sellingdb.setCustomer(c2);
-            sellingdb.setStaff(st1);
-            sellingdb.setStatus("not paid");
-            sellingdb.setProduct(pt1);
-            sellingRepository.save(sellingdb);
 
-            Lease lid = leaseRepository.findByLeaseId(1L);
 
             PayMent paymentdb = new PayMent();
                     paymentdb.setPmId(1L);

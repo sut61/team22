@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public
 interface  LevelReviewRepository extends JpaRepository<LevelReview, Long> {
     LevelReview findByLevelReviewId(long id);
-    LevelReview findByLevelName(Integer levelName);
+    LevelReview findByLevelName(String levelName);
 
 }
