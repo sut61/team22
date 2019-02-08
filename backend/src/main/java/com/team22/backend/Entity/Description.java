@@ -1,6 +1,6 @@
 package com.team22.backend.Entity;
 import lombok.*;
-
+import javax.validation.constraints.*;
 import javax.persistence.*;
 
 @Entity  //บอกว่าเป็น class entity class ที่เก็บขอมูล
@@ -10,20 +10,26 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Table(name="Description") //ชื่อตาราง
 public class Description {
-    @Id  //  Annotations  @Id  บอกว่าเป็น  Primary  key
+    public Description() {
+	}
+
+	@Id  //  Annotations  @Id  บอกว่าเป็น  Primary  key
     @SequenceGenerator(name="description_seq",sequenceName="description_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="description_seq")
     @Column(name="Description_ID",unique = true, nullable = false)
 
     private @NonNull
     Long descriptionIds;
-    private
-    String dataDescription;
 
+    @NotNull
+    private  String dataDescription;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Detail.class)
     @JoinColumn(name = "Detail_ID", insertable = true)
     private  Detail detail;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
     @JoinColumn(name = "Product_ID", insertable = true)
     private  Product product;
