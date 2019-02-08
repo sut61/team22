@@ -52,7 +52,9 @@ public class Data {
                            SalaryRepository salaryRepository,
                            PayerRepository payerRepository,
                            ReviewRepository reviewRepository,
-                           LevelReviewRepository levelReviewRepository
+                           LevelReviewRepository levelReviewRepository,
+                           TypeReasonRepository typeReasonRepository,
+                           BookingCancleRepository bookingCancleRepository
                            ) {
         return args -> {
 
@@ -323,54 +325,56 @@ public class Data {
             Customer c6 = customerRepository.findByCusId(6L);
 
             
-            Stream.of("korea style", "thai style", "laos style","wedding", "thai wedding", "chinese style").forEach(styName -> {
-                Style styledb = new Style();
-                styledb.setStyleName(styName);
-                styleRepository.save(styledb);
+           
+                        
+            Style styledb1 = new Style();
+            styledb1.setStyleID(1L);
+            styledb1.setStyleIDs("Sy1");
+            styledb1.setStyleName("korea style");
+            styledb1.setStylePrice(3000);
+            styleRepository.save(styledb1);
 
-                if (styName == "korea style") {
-                    Style styleID = styleRepository.findBystyleID(1L);
-                    styledb.setStyleIDs("Sy"+styleID.getStyleID());
-                    styledb.setStylePrice(3000);
-                    styleRepository.save(styledb);
-                }
-                else if(styName == "thai style"){
-                    Style styleID = styleRepository.findBystyleID(2L);
-                    styledb.setStyleIDs("Sy"+styleID.getStyleID());
-                    styledb.setStylePrice(2000);
-                    styleRepository.save(styledb);
-                }
-                else if(styName == "laos style"){
-                    Style styleID = styleRepository.findBystyleID(3L);
-                    styledb.setStyleIDs("Sy"+styleID.getStyleID());
-                    styledb.setStylePrice(1700);
-                    styleRepository.save(styledb);
-                }
-                else if(styName == "wedding"){
-                    Style styleID = styleRepository.findBystyleID(4L);
-                    styledb.setStyleIDs("Sy"+styleID.getStyleID());
-                    styledb.setStylePrice(5000);
-                    styleRepository.save(styledb);
-                }
-                else if(styName == "thai wedding"){
-                    Style styleID = styleRepository.findBystyleID(5L);
-                    styledb.setStyleIDs("Sy"+styleID.getStyleID());
-                    styledb.setStylePrice(4500);
-                    styleRepository.save(styledb);
-                }
-                else if(styName == "chinese style"){
-                    Style styleID = styleRepository.findBystyleID(6L);
-                    styledb.setStyleIDs("Sy"+styleID.getStyleID());
-                    styledb.setStylePrice(2500);
-                    styleRepository.save(styledb);
-                }
-            });
-            Style sy1 = styleRepository.findBystyleID(1L);
-            Style sy2 = styleRepository.findBystyleID(2L);
-            Style sy3 = styleRepository.findBystyleID(3L);
-            Style sy4 = styleRepository.findBystyleID(4L);
-            Style sy5 = styleRepository.findBystyleID(5L);
-            Style sy6 = styleRepository.findBystyleID(6L);
+            Style styledb2 = new Style();
+            styledb2.setStyleID(2L);
+            styledb2.setStyleIDs("Sy2");
+            styledb2.setStyleName("thai style");
+            styledb2.setStylePrice(2000);
+            styleRepository.save(styledb2);
+
+            Style styledb3 = new Style();
+            styledb3.setStyleID(3L);
+            styledb3.setStyleIDs("Sy3");
+            styledb3.setStyleName("laos style");
+            styledb3.setStylePrice(1700);
+            styleRepository.save(styledb3);
+
+            Style styledb4 = new Style();
+            styledb4.setStyleID(4L);
+            styledb4.setStyleIDs("Sy4");
+            styledb4.setStyleName("wedding");
+            styledb4.setStylePrice(5000);
+            styleRepository.save(styledb4);
+
+            Style styledb5 = new Style();
+            styledb5.setStyleID(5L);
+            styledb5.setStyleIDs("Sy5");
+            styledb5.setStyleName("thai wedding");
+            styledb5.setStylePrice(4500);
+            styleRepository.save(styledb5);
+
+            Style styledb6 = new Style();
+            styledb6.setStyleID(6L);
+            styledb6.setStyleIDs("Sy6");
+            styledb6.setStyleName("chinese style");
+            styledb6.setStylePrice(2500);
+            styleRepository.save(styledb6);
+       
+Style sy1 = styleRepository.findBystyleID(1L);
+Style sy2 = styleRepository.findBystyleID(2L);
+Style sy3 = styleRepository.findBystyleID(3L);
+Style sy4 = styleRepository.findBystyleID(4L);
+Style sy5 = styleRepository.findBystyleID(5L);
+Style sy6 = styleRepository.findBystyleID(6L);
 
             Stream.of("Stylist","Service","HairStylist", "MakeupArtist","Renter","Seller","Accountant").forEach(posName -> {
                 Position positiondb = new Position();
@@ -548,17 +552,18 @@ public class Data {
                     salaryRepository.save(salarydb4);
 
                     Booking bookingdb = new Booking();
-                    String bDate1 = "20:04:1998";
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
-                    LocalDate bdate = LocalDate.parse(bDate1, formatter);
-                    bookingRepository.save(bookingdb);
-        
-                    bookingdb.setBookingDate(bdate);
-                    bookingdb.setCustomer(c3);
-                    bookingdb.setStatus("not paid");
-                    bookingdb.setStaff(st1);
-                    bookingdb.setStyle(sy1);
-                    bookingRepository.save(bookingdb);
+            String bDate1 = "20:04:1998";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+            LocalDate bdate = LocalDate.parse(bDate1, formatter);
+            bookingdb.setBookingId(1L);
+            bookingdb.setBookingDate(bdate);
+            bookingdb.setStatus("not paid");
+            bookingdb.setStatusBooking("Booking");
+            bookingdb.setCategory("งานวันเกิด");
+            bookingdb.setStaff(st1);
+            bookingdb.setCustomer(c3);
+            bookingdb.setStyle(sy1);
+            bookingRepository.save(bookingdb);
 
             
 
@@ -621,7 +626,34 @@ public class Data {
                     paymentdb.setLease(lid);
                     payMentRepository.save(paymentdb);
             
-
+                    Stream.of("การบริการ", "ราคา", "ธุระส่วนตัวของลูกค้า").forEach(typeReasonName -> {
+                        TypeReason typeReasondb = new TypeReason();
+                        typeReasondb.setTypeReasonName(typeReasonName);
+                        if(typeReasonName=="การบริการ"){
+                            typeReasondb.setTypeReasonID(1L);
+                            typeReasonRepository.save(typeReasondb);
+                        }else if(typeReasonName=="ราคา"){
+                            typeReasondb.setTypeReasonID(2L);
+                            typeReasonRepository.save(typeReasondb);
+                        }else if(typeReasonName=="ธุระส่วนตัวของลูกค้า"){
+                            typeReasondb.setTypeReasonID(3L);
+                            typeReasonRepository.save(typeReasondb);
+                    }
+                    });
+                    
+                    TypeReason tr1 = typeReasonRepository.findByTypeReasonID(1L);
+                    Booking b1 = bookingRepository.findByBookingId(1L);
+                    BookingCancle bookingCancledb = new BookingCancle();
+                    Date bookingCancleDate = new Date();
+                    bookingCancledb.setBookingCancleID(1L);
+                    bookingCancledb.setBookingCancleIDs("Bc1");
+                    bookingCancledb.setBookingCancleDate(bookingCancleDate);
+                    bookingCancledb.setBookingCancleStatus("cancled");
+                    bookingCancledb.setBookingCancleReason("เพราะไม่ว่าง");
+                    bookingCancledb.setBooking(b1);
+                    bookingCancledb.setTypeReason(tr1);
+                    bookingCancleRepository.save(bookingCancledb);
+        
             System.out.println("\n Spring-Boot Complete");
         };
     }

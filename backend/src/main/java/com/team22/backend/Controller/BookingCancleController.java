@@ -72,7 +72,7 @@ public class BookingCancleController {
         Date bookingCancleDate = new Date();
         newBookingCancle.setBookingCancleDate(bookingCancleDate);
 
-        Booking booking = bookingRepository.findBybookingId(bookingId);
+        Booking booking = bookingRepository.findByBookingId(bookingId);
         newBookingCancle.setBooking(booking);
 
         TypeReason setTR = typeReasonRepository.findByTypeReasonID(typeReasonName);
@@ -96,7 +96,7 @@ public class BookingCancleController {
                 return bookingCancleRepository.save(booking);
             }
             ).orElseGet(() ->{
-                Booking booking1 = bookingRepository.findBybookingId(bookingId); 
+                Booking booking1 = bookingRepository.findByBookingId(bookingId); 
                 newBookingCancle.setBooking(booking1);
                 newBookingCancle.setBookingCancleID(bookingCancleID);
                 return bookingCancleRepository.save(newBookingCancle);
