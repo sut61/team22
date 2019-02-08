@@ -5,8 +5,10 @@ import com.team22.backend.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.Collection;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -44,10 +46,15 @@ public class ProductController {
     public Collection<Description> description() {
         return descriptionRepository.findAll().stream().collect(Collectors.toList());
     }
-    @PostMapping("/product/add/{productID}/{productName}/{productPrice}/{productQuantity}/{productDate}/{state}/{type}")
-    public Product newProduct(@RequestBody Product newProduct, @PathVariable String productID, @PathVariable String productName
-            , @PathVariable Integer productPrice, @PathVariable Integer productQuantity, @PathVariable Date productDate, @PathVariable Long state, @PathVariable Long type
+    @PostMapping("/product/add/{productID}/{productName}/{productPrice}/{productQuantity}/{prodDate}/{state}/{type}")
+    public Product addnewProduct(@PathVariable String productID, @PathVariable String productName
+            , @PathVariable Integer productPrice, @PathVariable Integer productQuantity, @PathVariable String prodDate, @PathVariable Long state, @PathVariable Long type
     ) {
+        Product newProduct = new Product();
+        String pDate = prodDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        LocalDate productDate = LocalDate.parse(pDate,formatter);
+       
         Status setStatus = statusRepository.findByStateId(state);
         Type setType = typeRepository.findByTypeIds(type);
         newProduct.setProductIds(productID);
