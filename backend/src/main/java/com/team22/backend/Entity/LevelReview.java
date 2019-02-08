@@ -3,12 +3,12 @@ import javax.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 import java.util.*;
-
+import javax.validation.constraints.*;
 
 @Entity
 @Data
 @Getter @Setter
-//@NoArgsConstructor
+@NoArgsConstructor
 @ToString
 @EqualsAndHashCode
 @Table(name="LevelReview")
@@ -18,11 +18,10 @@ public class LevelReview {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="levelReview_seq")
     @Column(name="LevelReview_ID",unique = true, nullable = false)
      
-    private @NonNull Long levelReviewId;
-    private @NonNull String levelName;
+    private Long levelReviewId;
+    @NotNull
+    private  String levelName;
 
-    public LevelReview(String level){
-        this.levelName = level;
-    }
+
   
 }

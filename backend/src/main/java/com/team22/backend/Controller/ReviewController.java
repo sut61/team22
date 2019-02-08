@@ -56,14 +56,15 @@ public class ReviewController {
        return Selling.getStatus().equals("paid");
     }
 
-    @PostMapping("/Rev/{productID}/{productName}/{status}/{customerName}/{levelName}/{reviewDate}/{reviewComment}")
+    @PostMapping("/Rev/{productID}/{productName}/{status}/{customerName}/{levelName}/{reviewDate}/{reviewComment}/{ment2}")
         public Review newRev(@PathVariable String productID,
                             @PathVariable String productName,
                             @PathVariable Long status,
                             @PathVariable String customerName,
                             @PathVariable Long levelName,
                             @PathVariable String reviewDate,
-                            @PathVariable String reviewComment){
+                            @PathVariable String reviewComment,
+                             @PathVariable String ment2){
             Review newReview = new Review();
             Product product = productRepository.findByProductIds(productID);
             Customer customer = customerRepository.findByCustomerIDs(customerName);
@@ -74,6 +75,7 @@ public class ReviewController {
             newReview.setLevelReview(setlevelReview);
             newReview.setReviewDate(date);
             newReview.setReviewComment(reviewComment);
+            newReview.setMent2(ment2);
 
              Selling sellingid = sellingRepository.findBySellingId(status);
              newReview.setSelling(sellingid);
