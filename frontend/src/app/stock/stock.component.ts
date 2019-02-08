@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit ,ViewChild} from '@angular/core';
+import {DatePipe} from '@angular/common';
+import {MatSort} from '@angular/material';
 import { HttpClient} from '@angular/common/http';
 import {STOCKINGService} from '../service/stocking.service';
 import { DataSource } from '@angular/cdk/collections';
@@ -19,7 +21,6 @@ export interface StockElement {
   status: {
     statusProduct: String;
   };
-  productDate: Date;
 }
 @Component({
   selector: 'app-stock',
@@ -39,6 +40,13 @@ export class StockComponent implements OnInit {
   description: Array<any>;
   status: Array<any>;
   product: Array<any>;
+  productDate: Array<any>;
+  selectproductDate: Array<any>;
+  
+  pipe = new DatePipe('en-US');
+  @ViewChild(MatSort)
+  sort: MatSort;
+
   views: any = {
     productID: '',
     productName: '',
@@ -54,7 +62,6 @@ export class StockComponent implements OnInit {
     selectProductID: '',
     selectProductName: '',
     selectProductQuantity: '',
-    selectProductDate: '',
     selectProductPrice : '',
     selectStatus : '',
     selectType : '',
@@ -219,41 +226,59 @@ export class StockComponent implements OnInit {
     );
   }
   addproduct() {
-    if (this.views.productName === '') {
-      alert('Please insert Product Name');
-    } else if (this.views.productPrice === '') {
-      alert('Please insert Product Price');
-    } else if (this.views.productQuantity === '') {
-      alert('Please insert Product Quantity');
-    } else if (this.views.productDate === '') {
-      alert('Please insert Date');
+    const rex = new RegExp('P');
+    this.views.productID.charAt(0);
+    console.log(this.views.productID.charAt(0));
+    if (this.views.productName === ''|| this.views.productPrice === ''||
+      this.views.productQuantity === '' || this.views.productDate === '' ||
+      this.views.productID === ''){
+      this.snackBar.open('โปรดใส่ข้อมูลให้ครบ', 'OK', {  });
     } else {
-    this.httpClient.post('http://localhost:8080/product/add/' + this.views.productID + '/' + this.views.productName
-    + '/' + this.views.productPrice + '/' + this.views.productQuantity + '/' + this.views.productDate + '/'
-    + this.views.statusSelect + '/' + this.views.typeSelect, this.views)
-    .subscribe(
-        data => {
-          this.snackBar.open('input ', 'complete', {
-          });
-          console.log('INPUT Request is successful', data);
-        },
-        error => {
-          this.snackBar.open('input ', 'uncomplete', {
-          });
-          console.log('Error', error);
+        this.STOCKService.CheckProductIDs(this.views.productID).subscribe(checkProductIDs => {
+        console.log( checkProductIDs );
+        if ( checkProductIDs != null ) {
+              this.snackBar.open('Cannot Use ProductID ', 'OK', {});
+        }else {     
+            if (rex.test(this.views.productID)) {
+            this.httpClient.post('http://localhost:8080/product/add/' + this.views.productID + '/' + this.views.productName
+            + '/' + this.views.productPrice + '/' + this.views.productQuantity + '/'
+            + this.pipe.transform(this.productDate,'dd:MM:yyyy') + '/'
+            + this.views.statusSelect + '/' + this.views.typeSelect, this.views)
+            .subscribe(
+                data => {
+                  this.snackBar.open('input ', 'complete', {
+                  });
+                  console.log('INPUT Request is successful', data);
+                },
+                error => {
+                  this.snackBar.open('input ', 'uncomplete', {
+                  });
+                  console.log('Error', error);
+                }
+              );
+            }
+            else{
+              this.snackBar.open('Fisr ProductID is P ', 'OK', {
+              });
+            }
         }
-      );
-    }
-    console.log(this.views.productID);
-    console.log(this.views.productName);
-    console.log(this.views.productPrice);
-    console.log(this.views.productQuantity);
-    console.log(this.views.productDate);
-    console.log(this.views.statusSelect);
-    console.log(this.views.typeSelect);
+      console.log(this.views.productID);
+      console.log(this.views.productName);
+      console.log(this.views.productPrice);
+      console.log(this.views.productQuantity);
+      console.log(this.views.productDate);
+      console.log(this.views.statusSelect);
+      console.log(this.views.typeSelect);
+    });
   }
+}
   adddetail() {
     this.views.prodID = this.views.selectPID;
+    if (this.views.data === '')
+        {  this.snackBar.open('โปรดใส่ข้อมูล', 'OK', {
+            });
+        }
+    else {     
     this.httpClient.post('http://localhost:8080/description/' +  this.views.prodID + '/' + this.views.detID + '/' + this.views.data,
     this.views, ) .subscribe(
       data => {
@@ -267,6 +292,7 @@ export class StockComponent implements OnInit {
         console.log('Error', error);
       }
     );
+  }
   }
 }
 export class StockDataSource extends DataSource<any> {
