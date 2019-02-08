@@ -52,7 +52,10 @@ public class LeaseController {
     private boolean isStaff(Staff staff){
         return staff.getPosition().getPositionName().equals("Renter");
     }
-
+    @PostMapping("/CheckCommentRenting/{comment}")
+    public Lease CheckCommentRenting(@PathVariable String comment) {
+        return this.leaseRepository.findByCommentRenting(comment);
+    }
     @PostMapping("/renting/{productID}/{productName}/{productPrice}/{customerID}/{staffIDs}/{ReserveDate}/{ReturnDate}/{commentRenting}")
     public Lease newRenting(@PathVariable String productID,@PathVariable String productName,@PathVariable String productPrice,@PathVariable String customerID, @PathVariable String staffIDs
        , @PathVariable String ReserveDate, @PathVariable String ReturnDate,  @PathVariable String commentRenting){
