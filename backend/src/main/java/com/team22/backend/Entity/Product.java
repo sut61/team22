@@ -1,7 +1,7 @@
 package com.team22.backend.Entity;
 import lombok.*;
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,20 +26,25 @@ public class Product {
     @Column(name="Products_ID",unique = true, nullable = false)
 
     private @NonNull Long prodId;
+    
     @NotNull 
     @Pattern(regexp = "[P]\\d{1,5}")
     @Column(unique = true)
     private  String productIds;
     
+    @NotNull 
     @Size(min=3 ,max=30)
-    private @NonNull String productName;
+    private  String productName;
 
-    private @NonNull Integer productQuantity;
+    @NotNull 
+    private  Integer productQuantity;
 
-    private @NonNull Date productDate;
+    @NotNull 
+    private LocalDate  productDate;
     
-    private @NonNull Integer productPrice ;
-
+    @NotNull 
+    private  Integer productPrice ;
+    
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Type.class)
     @JoinColumn(name = "typeIds", insertable = true)
     private Type type;
