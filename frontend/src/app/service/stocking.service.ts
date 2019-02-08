@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,5 +25,8 @@ export class STOCKINGService {
   }
   getStatus(): Observable<any> {
     return this.http.get(this.API + '/status');
+  }
+  CheckProductIDs(productIDs: String ): Observable<any> {
+    return this.http.post(this.API + '/checkproductids/'+ productIDs,{});
   }
 }
