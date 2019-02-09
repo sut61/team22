@@ -2,10 +2,15 @@ package com.team22.backend.Entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
+import io.micrometer.core.annotation.Timed;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -13,24 +18,27 @@ import java.util.Collection;
 
 @Data
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name="Salary")
+@Table(name = "Salary")
 public class Salary {
     @Id
-    @SequenceGenerator(name="salary_seq",sequenceName="salary_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="salary_seq")
-    @Column(name="Salary_ID",unique = true, nullable = false)
+    @SequenceGenerator(name = "salary_seq", sequenceName = "salary_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salary_seq")
+    @Column(name = "Salary_ID", unique = true, nullable = false)
 
     @NotNull
-    private  Long   salaryId;
+    private Long salaryId;
 
     @NotNull(message = "SalaryIds not null")
-    private  String salaryIds;
+    private String salaryIds;
 
-    private  Date salaryDate;
+    @JsonFormat(pattern = "yyyy-MM-dd || hh:mm a", timezone = "GMT+7")
+    @NotNull(message = "salaryDate not null")
+    private Date salaryDate;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Staff.class)
     @JoinColumn(name = "staffId", insertable = true)
