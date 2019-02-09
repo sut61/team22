@@ -1,7 +1,9 @@
 package com.team22.backend.Entity;
+
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity  
 @Data 
@@ -14,8 +16,10 @@ public class TypeReason {
     @SequenceGenerator(name="typereason_seq",sequenceName="typereason_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="typereason_seq")
     @Column(name="TypeReasonID",unique = true, nullable = false)
-    private @NonNull Long typeReasonID;
-    private @NonNull String typeReasonName;
+    @NotNull
+    private Long typeReasonID;
+    @NotNull
+    private String typeReasonName;
     
-   
+    
 }
