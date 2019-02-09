@@ -24,7 +24,7 @@ import com.team22.backend.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-
+@SpringBootTest
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class ReviewTests {
@@ -63,7 +63,6 @@ public class ReviewTests {
         r.setLevelReview(lr);
         try {
             entityManager.persist(r);
-            //entityManager.flush();
             System.out.println();
             System.out.println();
             System.out.println("\n\n\n\n\n\n\n\n\n----------->> 1.Test Review Insert DataSuccess \n\n\n\n\n\n\n\n\n\n\n");
@@ -92,7 +91,7 @@ public class ReviewTests {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
             System.out.println();
             System.out.println();
-            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> 2.1 \n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> ReviewNull \n\n\n\n\n\n\n\n\n\n\n");
             System.out.println();
             System.out.println();
             assertEquals(violations.isEmpty(), false);
@@ -120,7 +119,7 @@ public class ReviewTests {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
             System.out.println();
             System.out.println();
-            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> 2.3 \n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> ReviewSize \n\n\n\n\n\n\n\n\n\n\n");
             System.out.println();
             System.out.println();
             assertEquals(violations.isEmpty(), false);
@@ -148,7 +147,7 @@ public class ReviewTests {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
             System.out.println();
             System.out.println();
-            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> 2.2 \n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> ReviewSize \n\n\n\n\n\n\n\n\n\n\n");
             System.out.println();
             System.out.println();
             assertEquals(violations.isEmpty(), false);
@@ -176,7 +175,7 @@ public class ReviewTests {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
             System.out.println();
             System.out.println();
-            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> 2.4 \n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> ReviewRattern \n\n\n\n\n\n\n\n\n\n\n");
             System.out.println();
             System.out.println();
             assertEquals(violations.isEmpty(), false);
