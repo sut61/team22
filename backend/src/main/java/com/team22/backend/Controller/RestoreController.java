@@ -62,6 +62,11 @@ public class RestoreController {
     public Collection<RestoreType> restoreType() {
         return restoreTypeRepository.findAll().stream().collect(Collectors.toList());
     }
+
+    @PostMapping("/CheckCommentRestore/{comment}")
+    public Restore CheckCommentRestore(@PathVariable String comment) {
+        return this.restoreRepository.findByCommentRestore(comment);
+    }
   
     @PostMapping("/restore1/{customerIDs}/{customerName}/{leaseId}/{productName}/{commentRestore}/{typeRestoreName}")
      public Restore newRestore(@PathVariable Long leaseId,@PathVariable String commentRestore,
