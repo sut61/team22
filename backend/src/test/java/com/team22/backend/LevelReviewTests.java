@@ -24,7 +24,7 @@ import com.team22.backend.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-
+@SpringBootTest
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class LevelReviewTests {
@@ -50,13 +50,13 @@ public class LevelReviewTests {
         try {
             entityManager.persist(e1);
             entityManager.flush();
-            fail("Test Selling Not Null Error");
+            fail("Test Review Not Null Error");
 
         } catch(javax.validation.ConstraintViolationException e) {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
             System.out.println();
             System.out.println();
-            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> 2.1 \n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> ReviewNull \n\n\n\n\n\n\n\n\n\n\n");
             System.out.println();
             System.out.println();
             assertEquals(violations.isEmpty(), false);
