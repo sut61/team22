@@ -73,7 +73,7 @@ class SalaryController {
     public Salary Salary1(
         @PathVariable String   staffName,
         @PathVariable Long   payerId,
-        @PathVariable String   staffStatus,        
+        @PathVariable String   staffStatus, 
         @PathVariable int   staffSalary
          ){
         Salary salary = new Salary();
@@ -84,9 +84,7 @@ class SalaryController {
             }
         }
 
-        Date datePay = new Date();
-        salary.setSalaryDate(datePay);
-
+        salary.setSalaryDate(new Date());
         Staff staff1 = staffRepository.findByStaffName(staffName);
         Payer payer1 = payerRepository.findByPayerId(payerId);
         salary.setStaff(staff1);
@@ -96,18 +94,20 @@ class SalaryController {
     return salaryRepository.save(salary);
     }
 
-    @PutMapping("/salary/{salaryId}/{staffId}/{staffStatus}/{salaryDate}")
+    @PutMapping("/salary/{salaryId}/{staffId}/{staffStatus}/{salaryDate}/{staffSalary}")
     Salary Salary2(
             Salary newSalary,
             @PathVariable String staffStatus,
             @PathVariable Long staffId,
             @PathVariable Long salaryId,
+            @PathVariable int staffSalary,
             @PathVariable Date salaryDate
             ) {
         Staff staff1 = staffRepository.findByStaffId(staffId);
         return salaryRepository.findById(salaryId)
                 .map(salary -> {
                     salary.setSalaryDate(new Date());
+                    salary.getStaff().setStaffSalary(staffSalary);
                     salary.getStaff().setStaffStatus(staffStatus);
                     return salaryRepository.save(salary);
                 }
