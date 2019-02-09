@@ -34,6 +34,10 @@ getLease(): Observable<any> {
 getCustomerSearchL(id): Observable<any> {
   return this.http.get('//localhost:8080/please/' + id);
 }
+
+customerCheckPayment(customerIDs: String ): Observable<any> {
+  return this.http.post('//localhost:8080/customerCheckPayment/' + customerIDs , {} );
+  }
 }
 
 
