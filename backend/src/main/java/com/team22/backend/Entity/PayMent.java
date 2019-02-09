@@ -25,6 +25,7 @@ public class PayMent {
     @NotNull(message="BillPayment Null")    
     private String billPayment;
 
+    @JsonFormat(pattern = "yyyy-MM-dd : HH-mm" ,timezone = "GMT+7")
     @NotNull(message="DatePay Null")    
     private Date datePay;
 

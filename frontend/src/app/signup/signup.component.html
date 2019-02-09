@@ -1,88 +1,154 @@
 <fieldset>
   <legend><h2>Sign Up</h2></legend>
   <div align="center">
-  <mat-card class="example-card" align="panal2" >
-        <form class="example-form">
-        <form class="example-form">
-            <mat-form-field class="example-full-width">
-              <input matInput [(ngModel)]="customer.customerIDs"  [(value)]="customerIDs" name="customerIDs" [value] = "customerIDs">
-              <mat-placeholder class="placeholder">ID</mat-placeholder>
-            </mat-form-field>
-            <br>
-            &nbsp;&nbsp;
-              <button mat-button (click)="checkId(customer.customerIDs)">Check Id</button>
-              &nbsp;&nbsp;
-              <br>
-              <mat-form-field>
-                  <input matInput [(ngModel)]="customer.customerPassword" placeholder="customerPassword" [type]="hide ? 'password' : 'text'" [(value)]="customerPassword" name="customerPassword" [value] = "customerPassword">
-                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </mat-form-field>
-            </form><br>
-
+    <mat-card class="example-card" align="panal2">
       <form class="example-form">
-        <mat-form-field class="example-full-width2">
-          <input matInput [(ngModel)]="customer.customerName"  [(value)]="customerName" name="customerName" [value] = "customerName">
-          <mat-placeholder class="placeholder">Name</mat-placeholder>
-        </mat-form-field>
-        &nbsp;&nbsp;
-      </form><br>
-      <form class="example-form">
+        <form class="example-form">
           <mat-form-field class="example-full-width">
-            <input matInput [(ngModel)]="customer.customerPhone"  [(value)]="customerPhone"
-            name="customerPhone" [value] = "customerPhone" maxlength="10">
+            <input
+              matInput
+              [(ngModel)]="customer.customerIDs"
+              [(value)]="customerIDs"
+              name="customerIDs"
+              [value]="customerIDs"
+            />
+            <mat-placeholder class="placeholder">ID</mat-placeholder>
+          </mat-form-field>
+          <br />
+          &nbsp;&nbsp;
+          <button mat-button (click)="checkId(customer.customerIDs)">
+            Check Id
+          </button>
+          &nbsp;&nbsp;
+          <br />
+          <mat-form-field>
+            <input
+              matInput
+              [(ngModel)]="customer.customerPassword"
+              placeholder="customerPassword"
+              [type]="hide ? 'password' : 'text'"
+              [(value)]="customerPassword"
+              name="customerPassword"
+              [value]="customerPassword"
+            />
+            <mat-icon matSuffix (click)="hide = !hide">{{
+              hide ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </mat-form-field>
+        </form>
+        <br />
+
+        <form class="example-form">
+          <mat-form-field class="example-full-width2">
+            <input
+              matInput
+              [(ngModel)]="customer.customerName"
+              [(value)]="customerName"
+              name="customerName"
+              [value]="customerName"
+            />
+            <mat-placeholder class="placeholder">Name</mat-placeholder>
+          </mat-form-field>
+          &nbsp;&nbsp;
+        </form>
+        <br />
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              [(ngModel)]="customer.customerPhone"
+              [(value)]="customerPhone"
+              name="customerPhone"
+              [value]="customerPhone"
+              maxlength="10"
+            />
             <mat-placeholder class="placeholder">Phone</mat-placeholder>
             <mat-icon matSuffix>phone</mat-icon>
           </mat-form-field>
           &nbsp;&nbsp;
+        </form>
+        <br />
+        <mat-radio-group
+          class="example-radio-group"
+          [(ngModel)]="customer.customerGender"
+          name="customerGender"
+        >
+          <mat-radio-button value="Man">Man</mat-radio-button>&nbsp;
+          <mat-radio-button value="Woman">Woman</mat-radio-button>
+        </mat-radio-group>
 
+        <form>
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              [matDatepicker]="picker"
+              placeholder="Birthday"
+              [(ngModel)]="customer.customerBirthday"
+              name="bookingDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
+        </form>
 
-        </form><br>
-          <mat-radio-group class="example-radio-group" [(ngModel)]="customer.customerGender" name = "customerGender">
-              <mat-radio-button value="Man" >Man</mat-radio-button>&nbsp;
-              <mat-radio-button value="Woman" >Woman</mat-radio-button>
-              </mat-radio-group>
+        <mat-form-field class="example-full-width2">
+          <textarea
+            matInput
+            placeholder="Address"
+            [(ngModel)]="customer.customerAddress"
+            minlength="2"
+            maxlength="100"
+            name="Address"
+          ></textarea>
+        </mat-form-field>
 
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-select
+              placeholder="career"
+              [disabled]="disableSelect.value"
+              [(ngModel)]="customer.career"
+              name="career"
+            >
+              <mat-option
+                *ngFor="let career of career"
+                [value]="career.careerId"
+              >
+                {{ career.careerName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        <br />
 
-            <form>
-                <mat-form-field class="example-full-width">
-                  <input matInput [matDatepicker]="picker" placeholder="Birthday"[(ngModel)]="customer.customerBirthday" name="bookingDate">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker touchUi #picker></mat-datepicker>
-                </mat-form-field>
-              </form>
-
-      <mat-form-field class="example-full-width2">
-        <textarea matInput placeholder="Address" [(ngModel)]="customer.customerAddress" name = "Address"></textarea>
-      </mat-form-field>
-
-
-            <form class="example-form">
-
-            <mat-form-field class="example-full-width">
-              <mat-select placeholder="career" [disabled]="disableSelect.value" [(ngModel)]="customer.career" name="career">
-                <mat-option *ngFor="let career of career" [value]="career.careerId">
-                  {{career.careerName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </form><br>
-
-          <form class="example-form">
-            <mat-form-field class="example-full-width">
-                <mat-select placeholder="province" [value]="customer.province" [(ngModel)]="customer.province" name="province">
-                    <mat-option *ngFor="let province of province" [value]="province.provinceId">
-                      {{province.provinceName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </form><br>
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-select
+              placeholder="province"
+              [value]="customer.province"
+              [(ngModel)]="customer.province"
+              name="province"
+            >
+              <mat-option
+                *ngFor="let province of province"
+                [value]="province.provinceId"
+              >
+                {{ province.provinceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        <br />
 
         <p>
-          <button mat-raised-button color="warn" (click)="SignUp()">SignUp</button>
+          <button mat-raised-button color="warn" (click)="SignUp()">
+            SignUp
+          </button>
         </p>
       </form>
-
-</mat-card>
-</div>
+    </mat-card>
+  </div>
 </fieldset>
-
