@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {ViewChild} from '@angular/core';
-import {MatSort} from '@angular/material';
-import {CancleService} from '../service/cancle.service';
-import { HttpClient} from '@angular/common/http';
-import { Router} from '@angular/router';
-import {DatePipe} from '@angular/common';
-import {MatSnackBar} from '@angular/material';
+import { ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material';
+import { CancleService } from '../service/cancle.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 
-@Component ({
+@Component({
   selector: 'app-cancle',
   templateUrl: './cancle.component.html',
   styleUrls: ['./cancle.component.css']
@@ -15,7 +16,7 @@ import {MatSnackBar} from '@angular/material';
 export class CancleComponent implements OnInit {
   bookingColumns: string[] = ['customerIDs', 'bookingId', 'staffName', 'styleName', 'bookingDate', 'statusBooking', 'category'];
   bookingCancleColumn1: string[] = ['bookingId', 'bookingCancleID', 'bookingCancleDate',
-  'statusBooking', 'typeReasonName'];
+    'statusBooking', 'typeReasonName'];
 
 
   customerIDs: Array<any>;
@@ -43,15 +44,18 @@ export class CancleComponent implements OnInit {
   statusPay: Array<any>;
   typePay: Array<any>;
 
-    views: any = {
-      customerIDs: '',
-      bookingId: '',
-      staffName: '',
-      styleName: '',
-      bookingDate: '',
-      statusBooking: '',
-      category: ''
-    };
+  views: any = {
+    customerIDs: '',
+    bookingId: '',
+    staffName: '',
+    styleName: '',
+    bookingDate: '',
+    statusBooking: '',
+    category: '',
+    bookingCancleReason: '',
+    typeReasonName: '',
+    BookingCancles: ''
+  };
 
   pipe = new DatePipe('en-US');
   @ViewChild(MatSort)
@@ -81,39 +85,80 @@ export class CancleComponent implements OnInit {
 
 
   OK() {
-    this.httpClient.post('http://localhost:8080/bookingCancle/' +
-    this.views.selectBookingId + '/' +
-    this.bookingCancleReason + '/' +
-    this.typeReasonName, this.BookingCancles)
-    .subscribe(
-      data => {
-        console.log('POST Request is successful', data);
-        this.snackBar.open('input detail ', 'ยกเลิกการจองสำเร็จ', {
-        });
-      },
-      error => {
-        this.snackBar.open('input detail ', 'ยกเลิกการจองไม่สำเร็จ', {
-        });
-        console.log('Error', error);
-      });
-}
-UPDATE() { this.httpClient.put('http://localhost:8080/cancleStatus/' + this.bookingCancleID + '/' +
-this.views.selectBookingId + '/' + 'Cancled', this.BookingCancles)
-          .subscribe(
-            data => {
-              if (data) {
-                console.log('put Request is successful', data);
-                this.snackBar.open('input detail ', 'อัพเดทข้อมูลสำเร็จ', {
-                });
-              }
-            },
-            error => {
-              this.snackBar.open('input detail ', 'อัพเดทข้อมูลไม่สำเร็จ', {
-              });
-            console.log('error', error);
-          });
+    const rex = new RegExp('[Because].+[a-z]{8,20}');
+    console.log(this.views.bookingCancleReason
+      , this.views.selectBookingId,
+      this.views.typeReasonName,
+      this.views.BookingCancles,
+      this.views.selectCustomerIDs,
+      this.views.selectBookingId,
+      this.views.selectStyleName,
+      this.views.selectBookingDate,
+      this.views.selectStatusBooking,
+      this.views.selectCategory,
+      this.views.selectStaffName
+    );
+
+    if (this.views.bookingCancleReason === ''
+      || this.views.typeReasonName === '' ||
+      this.views.selectBookingId === '' ||
+      this.views.selectCustomerIDs === '' ||
+      this.views.selectStyleName === '' ||
+      this.views.selectBookingDate === '' ||
+      this.views.selectStatusBooking === '' ||
+      this.views.selectStaffName === '') {
+      alert("กรุณาใส่ข้อมูลให้ครบ")
+    } else {
+      if (this.views.bookingCancleReason != null) {
+        if (rex.test(this.views.bookingCancleReason)) {
+
+          this.cancleservice
+            .CheckbookingCancleReason(this.views.bookingCancleReason)
+            .subscribe(checkbookingCancleReason => {
+              console.log(checkbookingCancleReason);
+              if (checkbookingCancleReason != null) {
+                this.snackBar.open('คอมเม้นซ้ำ ', 'ตกลง', {});
+              } else {
+                this.httpClient.post('http://localhost:8080/bookingCanclecon/' +
+                  this.views.selectBookingId + '/' +
+                  this.views.typeReasonName
+                  + '/' +  this.views.bookingCancleReason
+                  , this.views.BookingCancles, this.views)
+                  .subscribe(
+                    data => {
+                      console.log('POST Request is successful', data);
+                      this.snackBar.open('input detail ', 'สำเร็จ', {
+                      });
+                    },
+                  );
+              }  
+            });
+        } else {
+          this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่า Because');
+        }
+      } else {
+        this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่า Because');
+      }
+    } 
   }
-selectRowBooking(row) {
+  UPDATE() {
+    this.httpClient.put('http://localhost:8080/cancleStatus/' + this.bookingCancleID + '/' +
+      this.views.selectBookingId + '/' + 'Cancled', this.BookingCancles)
+      .subscribe(
+        data => {
+          if (data) {
+            console.log('put Request is successful', data);
+            this.snackBar.open('input detail ', 'อัพเดทข้อมูลสำเร็จ', {
+            });
+          }
+        },
+        error => {
+          this.snackBar.open('input detail ', 'อัพเดทข้อมูลไม่สำเร็จ', {
+          });
+          console.log('error', error);
+        });
+  }
+  selectRowBooking(row) {
     this.views.selectCustomerIDs = row.customer.customerIDs;
     this.views.selectBookingId = row.bookingId;
     this.views.selectStyleName = row.style.styleName;
@@ -130,7 +175,8 @@ selectRowBooking(row) {
     console.log(this.views.selectCategory);
   }
   getUrl() {
-  return "url('https://images.pexels.com/photos/1470165/pexels-photo-1470165.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')";
-}
+    return "url('https://images.pexels.com/photos/1470165/pexels-photo-1470165.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')";
+  }
 }
 
+/*  */

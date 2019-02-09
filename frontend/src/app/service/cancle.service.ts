@@ -15,4 +15,7 @@ export class CancleService {
   getTypeReason(): Observable<any> {
     return this.http.get('//localhost:8080/typeReason');
   }
+  CheckbookingCancleReason(CancleReason: String ): Observable<any> {
+    return this.http.post('//localhost:8080/checkbookingCancleReason/'+ CancleReason,{});
+  }
 }

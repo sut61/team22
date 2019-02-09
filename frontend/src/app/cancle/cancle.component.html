@@ -132,11 +132,11 @@
   <form class="example-form">
     <p>กรุณาระบุสาเหตุที่ยกเลิกการจอง</p>
     <mat-form-field class="example-full-width">
-        <input matInput [(ngModel)]="bookingCancleReason" [ngModelOptions]="{standalone: true}">
+        <input matInput [(ngModel)]="views.bookingCancleReason" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
     <p>กรุณาระบุประเภทของสาเหตุที่ยกเลิกการจอง</p>
       <mat-form-field class="example-full-width">
-        <mat-select placeholder="Type Reason Name" [(ngModel)]="typeReasonName" name="TypeReason">
+        <mat-select placeholder="Type Reason Name" [(ngModel)]="views.typeReasonName" name="TypeReason">
           <mat-option *ngFor="let TypeReason of TypeReasons" [value]="TypeReason.typeReasonID">
             {{TypeReason.typeReasonName}}
           </mat-option>
