@@ -19,7 +19,6 @@ public class Review {
     @Column(name="Review_ID",unique = true, nullable = false)
 
     private Long reviewId;
-
     @NotNull
     @Size(min=5,max=20)
     @Pattern(regexp = "(ควร).+")
@@ -37,11 +36,8 @@ public class Review {
     @JoinColumn(name = "sellingId")
     private Selling selling;
 
-
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = LevelReview.class)
     @JoinColumn(name = "levelReviewId", insertable = true)
     private LevelReview levelReview;
-
-	
  }
