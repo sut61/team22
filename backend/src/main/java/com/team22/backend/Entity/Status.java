@@ -1,6 +1,6 @@
 package com.team22.backend.Entity;
 import lombok.*;
-
+import javax.validation.constraints.*;
 import javax.persistence.*;
 
 @Entity  //บอกว่าเป็น class entity class ที่เก็บขอมูล
@@ -16,13 +16,18 @@ public class Status {
     @Column(name="State_ID",unique = true, nullable = false)
 
     private @NonNull    Long stateId;
-    private @NonNull    String statusProduct;
+
+    @NotNull
+    private  String statusProduct;
 
     public Status(String state){
         this.statusProduct = state;
     }
 
-    public void setStateId(Long id){
+    public Status() {
+	}
+
+	public void setStateId(Long id){
         this.stateId = id;
     }
     public Long getStateId(){

@@ -1,11 +1,10 @@
 package com.team22.backend.Entity;
 import lombok.*;
-
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
-
-@Entity  //บอกว่าเป็น class entity class ที่เก็บขอมูล
-@Data  // lombox จะสร้าง method getter setter ให้เอง
+@Entity  
+@Data 
 @Getter @Setter
 @ToString
 @EqualsAndHashCode
@@ -15,11 +14,16 @@ public class Detail {
     @SequenceGenerator(name="detail_seq",sequenceName="detail_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="detail_seq")
     @Column(name="Details_ID",unique = true, nullable = false)
+    
     private  @NonNull Long detailIds;
 
-    private @NonNull String detailName;
+    @NotNull
+    private String detailName;
 
     public Detail (String det){
         this.detailName = det;
     }
+
+	public Detail() {
+	}
 }
