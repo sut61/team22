@@ -30,7 +30,7 @@ public class Restore {
     @NotNull
     private String statusRestore;
 
-    @NotBlank
+    @NotNull
     @Size(min=5,max=20)
     @Pattern(regexp = "[ชุด].+")
     @Column(unique = true)
