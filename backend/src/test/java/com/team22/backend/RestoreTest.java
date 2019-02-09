@@ -23,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 @RunWith(SpringRunner.class)
+@SpringBootTest
 @DataJpaTest
 public class RestoreTest {
 
@@ -50,7 +51,7 @@ public class RestoreTest {
         r1.setDateRestore(null);
         r1.setStatusRestore(null);
         r1.setLease(null);
-        r1.setRestoreType(null);
+        r1.setCommentRestore(null);
        
         try {
             entityManager.persist(r1);
@@ -181,34 +182,7 @@ public class RestoreTest {
             assertEquals(violations.size(), 1);
         }
     }
-    @Test
-    public void testCommentRestoreNotBlank(){
-        Restore r6 = new Restore();
-        Date restoreDate = new Date();
-        Lease lease5 = leaseRepository.findByLeaseId(1L);
-        RestoreType RT1 = restoreTypeRepository.findByRestoreTypeId(1L);
-        r6.setCommentRestore(" ");
-        r6.setStatusRestore("restore");
-        r6.setDateRestore(restoreDate);
-        r6.setLease(lease5);
-        r6.setRestoreType(RT1);
-        try {
-            entityManager.persist(r6);
-            entityManager.flush();
-            fail("Test CommentRestore NotBlank");
-        } catch(javax.validation.ConstraintViolationException e) {
-            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-            System.out.println();
-			System.out.println();
-			System.out.println();
-			System.out.println("Test CommentRestore NotBlank :" + e +"\n");
-			System.out.println();
-			System.out.println();
-			System.out.println(); 
-            assertEquals(violations.isEmpty(), false);
-            assertEquals(violations.size(), 3);
-        }
-    }
+
 
     @Test
     public void testCommentRestoreMustBeUnique() {
