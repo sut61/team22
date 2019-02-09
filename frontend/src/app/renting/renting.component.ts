@@ -32,7 +32,7 @@ export class RentingComponent implements OnInit {
   productPrice: Array<any>;
   statusProduct: Array<any>;
   commentRenting: Array<any>;
-  
+
 
   views = {
     productID: '',
@@ -73,19 +73,17 @@ export class RentingComponent implements OnInit {
   }
 
   save() {
-    const rex = new RegExp('[ชุด].+');
+    const rex = new RegExp('[ชุด].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{4,50}');
+    console.log(this.views.commentRenting);
 
-    console.log(this.commentRenting);
-    
     if (this.views.selectProductID == null || this.views.selectProductName == null || this.views.selectProductPrice == null
       || this.customerID == null || this.addressCustomer == null || this.ReserveDate == null || this.ReturnDate == null
       || this.staffIDs == null || this.views.commentRenting == null) {
-      alert("กรุณาเลือกข้อมูลให้ครบ")
-    }
-    else {
+      alert('กรุณาเลือกข้อมูลให้ครบ');
+    } else {
       if (this.views.commentRenting != null) {
 
-        if(rex.test(this.views.commentRenting)){
+        if (rex.test(this.views.commentRenting)) {
 
           this.leaseservice
           .CheckCommentRenting(this.views.commentRenting)
@@ -102,7 +100,6 @@ export class RentingComponent implements OnInit {
           .subscribe(
             data => {
               console.log('POST Request is successful', data);
-              //window.location.reload();
               this.snackBar.open('input detail ', 'complete', {
               });
             },
@@ -116,7 +113,7 @@ export class RentingComponent implements OnInit {
         });
         } else {
           this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่าชุด');
-          
+
         }
       }
     }
