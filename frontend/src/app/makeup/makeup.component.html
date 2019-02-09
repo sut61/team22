@@ -120,7 +120,7 @@
     <!--Combo box = bookingDate-->
     <form>
       <mat-form-field class="example-full-width">
-        <input matInput [matDatepicker]="picker" placeholder="bookingDate"[(ngModel)]="bookingDate" name="bookingDate">
+        <input matInput [matDatepicker]="picker" placeholder="bookingDate"[(ngModel)]="views.bookingDate" name="bookingDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker></mat-datepicker>
       </mat-form-field>
@@ -128,7 +128,7 @@
 
     <p>คุณจะแต่งหน้าไปที่ไหน?</p>
       <mat-form-field class="example-full-width">
-        <input matInput [(ngModel)]="category" >
+        <input matInput [(ngModel)]="views.category" >
         <mat-placeholder class="placeholder">Category</mat-placeholder>
       </mat-form-field>
 
@@ -136,14 +136,14 @@
     <!--Combo box = cusId,customerAddress-->
     <form class="example-form">
       <mat-form-field class="example-full-width">
-        <mat-select placeholder="Customer ID" [(ngModel)]="cusId" name="cusId">
+        <mat-select placeholder="Customer ID" [(ngModel)]="views.cusId" name="cusId">
           <mat-option *ngFor="let Customer of Customers" [value]="Customer.cusId">
             {{Customer.cusId}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <mat-select placeholder="Customer IDs" [(ngModel)]="customerIDs" name="customerIDs">
+        <mat-select placeholder="Customer IDs" [(ngModel)]="views.customerIDs" name="customerIDs">
           <mat-option *ngFor="let Customer of Customers" [value]="Customer.customerIDs">
             {{Customer.customerIDs}}
           </mat-option>
@@ -153,14 +153,14 @@
 
     <form class="example-form">
       <mat-form-field class="example-full-width">
-        <mat-select placeholder="Customer Name" [(ngModel)]="customerName" name="customerName">
+        <mat-select placeholder="Customer Name" [(ngModel)]="views.customerName" name="customerName">
           <mat-option *ngFor="let Customer of Customers" [value]="Customer.customerName">
             {{Customer.customerName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <mat-select placeholder="Customer Address" [(ngModel)]="customerAddress" name="customerAddress">
+        <mat-select placeholder="Customer Address" [(ngModel)]="views.customerAddress" name="customerAddress">
           <mat-option *ngFor="let Customer of Customers" [value]="Customer.customerAddress">
             {{Customer.customerAddress}}
           </mat-option>

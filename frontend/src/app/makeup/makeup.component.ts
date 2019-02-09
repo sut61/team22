@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {ViewChild} from '@angular/core';
-import {MatSort} from '@angular/material';
-import {MakeupService} from '../service/makeup.service';
-import { HttpClient} from '@angular/common/http';
-import { Router} from '@angular/router';
-import {DatePipe} from '@angular/common';
+import { ViewChild } from '@angular/core';
+import { MatSort, MatSnackBar } from '@angular/material';
+import { MakeupService } from '../service/makeup.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
-@Component ({
+@Component({
   selector: 'app-makeup',
   templateUrl: './makeup.component.html',
   styleUrls: ['./makeup.component.css']
@@ -38,6 +38,15 @@ export class MakeupComponent implements OnInit {
   styleName: Array<any>;
   stylePrice: Array<any>;
 
+  views: any = {
+    category: '',
+    cusId: '',
+    customerIDs: '',
+    customerAddress: '',
+    customerName: '',
+    bookingDate: ''
+  }
+
   viewStyle: any = {
     styleIDs: '',
     styleID: '',
@@ -56,7 +65,7 @@ export class MakeupComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
-  constructor(private makeupservice: MakeupService, private httpClient: HttpClient, private router: Router) {
+  constructor(private makeupservice: MakeupService, private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -84,28 +93,69 @@ export class MakeupComponent implements OnInit {
   }
 
   OK() {
-        this.httpClient.post('http://localhost:8080/makeupBooking/' +
-        this.viewStyle.selectstyleID + '/' + this.viewStyle.selectstyleIDs + '/' +
-        this.viewStyle.selectstyleName + '/' + this.viewStyle.selectstylePrice + '/' +
-        this.viewStaff.selectstID + '/' + this.viewStaff.selectstaffIDs + '/' +
-        this.viewStaff.selectstaffName + '/' +
-        this.pipe.transform(this.bookingDate, 'dd:MM:yyyy') + '/' +
-        this.category + '/' +
-        this.cusId + '/' + this.customerIDs + '/' +
-        this.customerName + '/' + this.customerAddress , this.Bookings)
-        .subscribe(
-          data => {
-            console.log('PUT Request is successful', data);
-            window.location.reload();
-            alert('ยืนยันการจองเรียบร้อยแล้ว');
-          },
-          error => {
-            console.log('Error', error);
-            alert('error');
-          }
-        );
-  }
+    const rex = new RegExp('[งาน].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{4,50}');
+    console.log(this.views.commentRenting);
+    console.log(this.viewStyle.selectstyleID,
+    this.viewStyle.selectstyleIDs,
+    this.viewStyle.selectstyleName,
+    this.viewStyle.selectstylePrice,
+    this.viewStaff.selectstID,
+    this.viewStaff.selectstaffIDs,
+    this.viewStaff.selectstaffIDs,
+    this.pipe.transform(this.views.bookingDate, 'dd:MM:yyyy'),
+    this.views.category, this.views.cusId , this.views.customerIDs,
+    this.views.customerName, this.views.customerAddress 
+    );
 
+    if (this.viewStyle.selectstyleID === '' ||
+      this.viewStyle.selectstyleIDs === '' ||
+      this.viewStyle.selectstyleName === '' ||
+      this.viewStyle.selectstylePrice === '' ||
+      this.viewStaff.selectstID === '' ||
+      this.viewStaff.selectstaffIDs === '' ||
+      this.viewStaff.selectstaff์Name === '' ||
+      this.pipe.transform(this.views.bookingDate, 'dd:MM:yyyy') === '' ||
+      this.views.category === '' || this.views.cusId === '' || this.views.customerIDs === '' ||
+      this.views.customerName === '' || this.views.customerAddress === '' ) {
+        this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ');
+    } else {
+      if (this.views.category != null) {
+        if (rex.test(this.views.category)) {
+          this.makeupservice
+            .Checkcategory(this.views.category)
+            .subscribe(Checkcategory => {
+              console.log(Checkcategory);
+              if (Checkcategory != null) {
+                this.snackBar.open('คอมเม้นซ้ำ ', 'ตกลง', {});
+              } else {
+                this.httpClient.post('http://localhost:8080/makeupBooking/' +
+                  this.viewStyle.selectstyleID + '/' + this.viewStyle.selectstyleIDs + '/' +
+                  this.viewStyle.selectstyleName + '/' + this.viewStyle.selectstylePrice + '/' +
+                  this.viewStaff.selectstID + '/' + this.viewStaff.selectstaffIDs + '/' +
+                  this.viewStaff.selectstaff์Name + '/' +
+                  this.pipe.transform(this.views.bookingDate, 'dd:MM:yyyy') + '/' +
+                  this.views.category + '/' +
+                  this.views.cusId + '/' + this.views.customerIDs + '/' +
+                  this.views.customerName + '/' + this.views.customerAddress, this.Bookings)
+                  .subscribe(
+                    data => {
+                      console.log('PUT Request is successful', data);
+                      this.snackBar.open('ยืนยันการจองเรียบร้อยแล้ว');
+                    },
+                    error => {
+                      this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ');
+                    }
+                  );
+              }
+            });
+        } else {
+          this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่า งาน');
+        }
+      } else {
+        this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่า งาน');
+      }
+    }
+  }
   selectRowStyle(row) {
     this.viewStyle.selectstyleID = row.styleID;
     this.viewStyle.selectstyleIDs = row.styleIDs;
