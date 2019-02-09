@@ -20,4 +20,7 @@ export class MakeupService {
   getStyle(): Observable<any> {
     return this.http.get('//localhost:8080/style');
   }
+  Checkcategory(Category: String ): Observable<any> {
+    return this.http.post('//localhost:8080/checkcategory/'+ Category,{});
+  }
 }
