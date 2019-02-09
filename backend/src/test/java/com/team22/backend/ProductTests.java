@@ -9,6 +9,10 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.time.*;
+import java.time.format.*;
+import java.util.*;
+import java.text.*;
 import org.junit.Before;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +27,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 public class ProductTests {
 
 	@Autowired
-	private ProductRepository productRepository;
+    private DetailRepository detailRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private StatusRepository statusRepository;
+    @Autowired
+    private TypeRepository typeRepository;
+    @Autowired
+    private DescriptionRepository descriptionRepository;
+
 	@Autowired
     private TestEntityManager entityManager;
 
@@ -182,6 +195,93 @@ public class ProductTests {
             System.out.println(e);
             assertEquals(violations.isEmpty(), false);
             assertEquals(violations.size(), 5);
+        }
+    }
+    @Test
+    public void testDetailCannotBeNull() {
+        Detail dt = new Detail();
+        dt.setDetailName(null);
+		   try {
+            entityManager.persist(dt);
+            entityManager.flush();
+            fail("Detail must not be null to be valid");
+        } catch(javax.validation.ConstraintViolationException e) {
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            assertEquals(violations.isEmpty(), false);
+            assertEquals(violations.size(), 1);
+        }
+    }
+    @Test
+    public void testStatusCannotBeNull() {
+        Status st = new Status();
+        st.setStatusProduct(null);
+		   try {
+            entityManager.persist(st);
+            entityManager.flush();
+            fail("Status must not be null to be valid");
+        } catch(javax.validation.ConstraintViolationException e) {
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            assertEquals(violations.isEmpty(), false);
+            assertEquals(violations.size(), 1);
+        }
+    }
+    @Test
+    public void testTypeCannotBeNull() {
+        Type ty = new Type();
+        ty.setTypeName(null);
+		   try {
+            entityManager.persist(ty);
+            entityManager.flush();
+            fail("Type must not be null to be valid");
+        } catch(javax.validation.ConstraintViolationException e) {
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            assertEquals(violations.isEmpty(), false);
+            assertEquals(violations.size(), 1);
+        }
+    }
+    @Test
+    public void testDescriptionCannotBeNull() {
+        Description de = new Description();
+        de.setDataDescription(null);
+        de.setProduct(null);
+        de.setDetail(null);
+		   try {
+            entityManager.persist(de);
+            entityManager.flush();
+            fail("dataDescription must not be null to be valid");
+        } catch(javax.validation.ConstraintViolationException e) {
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            assertEquals(violations.isEmpty(), false);
+            assertEquals(violations.size(), 3);
+        }
+    }
+    @Test
+    public void testDescriptionComplete() {
+        Description de1 = new Description();
+        Status sta1 = statusRepository.findByStateId(1L);
+        Type type1 = typeRepository.findByTypeIds(1L);
+        String cDate = ("01:02:2019");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        LocalDate Date = LocalDate.parse(cDate,formatter);
+        Product product = new Product();
+        product.setProductName("dress");
+        product.setProductIds("P45");
+        product.setProductPrice(1000);
+        product.setProductQuantity(18);
+        product.setProductDate(Date);
+        product.setStatus(sta1);
+        product.setType(type1);
+        productRepository.save(product);
+        Detail dt = detailRepository.findByDetailIds(1L);
+        de1.setDataDescription("ppppp");
+        de1.setDetail(dt);
+        de1.setProduct(product);
+		   try {
+            entityManager.persist(de1);
+        } catch(javax.validation.ConstraintViolationException e) {
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            assertEquals(violations.isEmpty(), false);
+            assertEquals(violations.size(), 3);
         }
     }
 }
