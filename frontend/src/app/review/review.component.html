@@ -1,0 +1,148 @@
+<app-menucustomer></app-menucustomer>
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<div class="panel">
+  <div class="panel1">
+
+            <p>ข้อมูลรีวิวสินค้า</p>
+        <!--<br>-->
+        <table mat-table [dataSource]="Reviews" class="mat-elevation-z8">
+
+
+          <ng-container matColumnDef="levelName">
+            <th mat-header-cell *matHeaderCellDef> ระดับความพอใจ </th>
+            <td mat-cell *matCellDef="let element"> {{element.levelReview.levelName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="reviewComment">
+            <th mat-header-cell *matHeaderCellDef> ข้อเสีย </th>
+            <td mat-cell *matCellDef="let element"> {{element.reviewComment}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ment2">
+            <th mat-header-cell *matHeaderCellDef> ข้อดี </th>
+            <td mat-cell *matCellDef="let element"> {{element.ment2}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="reviewDate">
+            <th mat-header-cell *matHeaderCellDef> วันที่รีวิว </th>
+            <td mat-cell *matCellDef="let element"> {{element.reviewDate}} </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+        </table>
+
+    </div>
+
+
+  <div class="panel2">
+    <mat-tab-group>
+      <mat-tab label="Review">
+        <p>Review</p>
+    <br>
+    <table mat-table [dataSource]="Selling" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="productID">
+          <th mat-header-cell *matHeaderCellDef> productID </th>
+          <td mat-cell *matCellDef="let element"> {{element.product.productIds}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productName">
+          <th mat-header-cell *matHeaderCellDef> productName </th>
+          <td mat-cell *matCellDef="let element"> {{element.product.productName}} </td>
+        </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> status </th>
+        <td mat-cell *matCellDef="let element"> {{element.product.status.stateId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef> customerName </th>
+        <td mat-cell *matCellDef="let element"> {{element.customer.customerName}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns2;"(click)="selectRow(row)"></tr>
+    </table>
+    </mat-tab>
+    </mat-tab-group>
+    <br>
+
+    <p>
+    เลือกข้อมูลของตนเองที่ท่านต้องการรีวิว</p>
+    <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="views.productID"  [(value)]="views.selectProductID" name="productID" [value] = "views.productID">
+      <mat-placeholder class="placeholder">productID</mat-placeholder>
+    </mat-form-field><br/>
+    </form>
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="views.productName"  [(value)]="views.selectProductName" name="productName" [value] = "views.productName">
+        <mat-placeholder class="placeholder">productName</mat-placeholder>
+      </mat-form-field><br/>
+    </form>
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="views.status"  [(value)]="views.selectStatus" name="status" [value] = "views.status">
+        <mat-placeholder class="placeholder">status</mat-placeholder>
+      </mat-form-field><br/>
+    </form>
+
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="views.customerName"  [(value)]="views.selectCustomerName" name="customerName" [value] = "views.customerName">
+        <mat-placeholder class="placeholder">customerName</mat-placeholder>
+      </mat-form-field><br/>
+    </form>
+
+
+
+
+    <p>กรุณาเลือกความพึงพอใจ</p>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="level" [(ngModel)]="views.levelName" name="levelName" [ngModelOptions]="{standalone: true}">
+          <mat-option *ngFor="let LevelReview of LevelReviews" [value]="LevelReview.levelReviewId">
+            {{LevelReview.levelName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+
+    <p>เลือกวันที่รีวิวสินค้า
+        <mat-form-field color="accent">
+          <mat-label>Review Date</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="views.reviewDate" [ngModelOptions]="{standalone: true}">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </p>
+
+      <p>ข้อเสีย  (ขึ้นต้นด้วยคำว่า ควร*)
+        <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="views.reviewComment" pattern="[ควร].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{4,20}">
+        <mat-placeholder class="placeholder">reviewComment</mat-placeholder>
+        </mat-form-field><br>
+        </p>
+
+    <p>ข้อดี
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="views.ment2" >
+        <mat-placeholder class="placeholder">ment2</mat-placeholder>
+      </mat-form-field><br>
+    </p>
+
+
+    <div align="center">
+      <div class="button-row">
+        <button mat-flat-button color="primary" (click) = save()>OK</button>
+      </div>
+    </div>
+
+  </div>
+</div>
