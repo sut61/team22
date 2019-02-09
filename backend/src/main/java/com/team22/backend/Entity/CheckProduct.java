@@ -2,7 +2,7 @@ package com.team22.backend.Entity;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.time.LocalDate;
+import java.time.*;
 
 @Entity
 @Data
@@ -17,16 +17,30 @@ public class CheckProduct {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="checkproduct_seq")
     @Column(name="CheckProduct_ID",unique = true, nullable = false)
   
-    private @NonNull Long checkId;
-    private @NonNull String checkComment;
+    private @NonNull Long checkId; 
+    
+    @NotNull
+    @Size(min=3 ,max=500)
+    private String checkComment;
+    
+    @NotNull
     private LocalDate checkDate;
-    private @NonNull Integer checkLevel;
 
+    @NotNull
+    private LocalTime checkTime;
+
+    @NotNull
+    @DecimalMax(value = "100")
+    @DecimalMin(value = "0")
+    private Integer checkLevel;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Product.class)
     @JoinColumn(name = "Product_ID", insertable = true)
     private  Product product;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Checking.class)
     @JoinColumn(name = "CheckingId", insertable = true)
-    private Checking checking;
+    private Checking checked;
 }
