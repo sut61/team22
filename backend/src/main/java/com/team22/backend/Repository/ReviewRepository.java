@@ -9,5 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public
 interface  ReviewRepository extends JpaRepository<Review, Long> {
     Review findByReviewId(long id);
+    Review findByReviewComment(String commentRe);
 
 }
