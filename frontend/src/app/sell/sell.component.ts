@@ -1,17 +1,22 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { SellingService } from '../service/selling.service';
-import {MatSort} from '@angular/material';
-import {Router} from '@angular/router';
-import {DatePipe} from '@angular/common';
-import {MatSnackBar} from '@angular/material';
+import { MatSort } from '@angular/material';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-sell',
   templateUrl: './sell.component.html',
   styleUrls: ['./sell.component.css']
 })
 export class SellComponent implements OnInit {
-  displayedColumns1: string[] = ['productID', 'productName', 'productPrice', 'statusProduct'];
+  displayedColumns1: string[] = [
+    'productID',
+    'productName',
+    'productPrice',
+    'statusProduct'
+  ];
   displayedColumns2: string[] = ['staffIDs', 'staffName', 'position'];
   Customers: Array<any>;
   customerID: Array<any>;
@@ -35,17 +40,25 @@ export class SellComponent implements OnInit {
   views: any = {
     productID: '',
     productName: '',
-    productPrice : '',
+    productPrice: '',
     selectProductID: '',
     selectProductName: '',
-    selectProductPrice : '',
-    commentSelling : '',
+    selectProductPrice: '',
+    commentSelling: '',
+    customerID: '',
+    staffIDs: '',
+    sellingDate: ''
+
   };
 
   @ViewChild(MatSort)
   sort: MatSort;
-  constructor(private sellingService: SellingService, private httpClient: HttpClient, private snackBar: MatSnackBar, private router:
-    Router) { }
+  constructor(
+    private sellingService: SellingService,
+    private httpClient: HttpClient,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.sellingService.getCustomer().subscribe(data => {
@@ -65,46 +78,85 @@ export class SellComponent implements OnInit {
       console.log(this.Products);
     });
   }
-   save() {
-     const rex = new RegExp('[ร้าน].+');
-     console.log(this.commentSelling);
+  save() {
+    const rex = new RegExp(
+      '[ร้าน].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{4,20}'
+    );
+    console.log(
+      this.views.commentSelling,
+      this.views.selectProductID,
+      this.views.selectProductName,
+      this.views.selectProductPrice,
+      this.views.customerID,
+      this.views.staffIDs,
+      this.views.sellingDate
+    );
 
-     if (this.views.selectProductID == null || this.views.selectProductName == null || this.views.selectProductPrice == null
-       || this.customerID == null || this.staffIDs == null || this.sellingDate == null
-       || this.views.commentSelling == null) {
-       alert('กรุณาเลือกและใส่ข้อมูลให้ครบ');
-     } else {
-       if (this.views.commentSelling != null) {
-         if (rex.test(this.views.commentSelling)) {
-           this.sellingService
-             .CheckCommentSelling(this.views.commentSelling)
-             .subscribe(CheckCommentSelling => {
-               console.log(CheckCommentSelling);
-               if (CheckCommentSelling != null) {
-                 this.snackBar.open('คอมเม้นซ้ำ ', 'ตกลง', {});
-               } else {
-                 this.httpClient.post('http://localhost:8080/sell/' + this.views.selectProductID + '/' + this.views.selectProductName + '/'
-                   + this.views.selectProductPrice + '/' + this.customerID + '/' + this.staffIDs + '/'
-                   + this.pipe.transform(this.sellingDate, 'dd:MM:yyyy') + '/' + this.views.commentSelling, this.Sellings)
-                   .subscribe(
-                     data => {
-                       console.log('POST Request is successful', data);
-                       this.snackBar.open('input detail ', 'complete', {});
-                     },
-                     error => {
-                       this.snackBar.open('input detail ', 'uncomplete', {});
-                       console.log('Error', error);
-                     }
-                   );
-               }
-             });
-         } else {
-           this.snackBar.open('กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าร้าน');
-         }
-       }
-     }
-   }
-   selectRow(row) {
+    if (
+      this.views.selectProductID === '' ||
+      this.views.selectProductName === '' ||
+      this.views.selectProductPrice === '' ||
+      this.views.customerID === '' ||
+      this.views.staffIDs === '' ||
+      this.views.sellingDate === '' ||
+      this.views.commentSelling === ''
+    ) {
+      alert('กรุณาเลือกและใส่ข้อมูลให้ครบ');
+    } else {
+      if (this.views.commentSelling != null) {
+        if (rex.test(this.views.commentSelling)) {
+          this.sellingService
+            .CheckCommentSelling(this.views.commentSelling)
+            .subscribe(CheckCommentSelling => {
+              console.log(CheckCommentSelling);
+              if (CheckCommentSelling != null) {
+                this.snackBar.open('คอมเม้นซ้ำ ', 'ตกลง', {});
+              } else {
+                this.httpClient
+                  .post(
+                    'http://localhost:8080/sell/' +
+                      this.views.selectProductID +
+                      '/' +
+                      this.views.selectProductName +
+                      '/' +
+                      this.views.selectProductPrice +
+                      '/' +
+                      this.views.customerID +
+                      '/' +
+                      this.views.staffIDs +
+                      '/' +
+                      this.pipe.transform(this.views.sellingDate, 'dd:MM:yyyy') +
+                      '/' +
+                      this.views.commentSelling,
+                    this.Sellings
+                  )
+                  .subscribe(
+                    data => {
+                      console.log('POST Request is successful', data);
+                      this.snackBar.open('input detail ', 'complete', {});
+                    },
+                    error => {
+                      this.snackBar.open('input detail ', 'uncomplete', {});
+                      console.log('Error', error);
+                    }
+                  );
+              }
+            });
+        } else {
+          this.snackBar.open(
+            'กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าร้าน'
+          );
+        }
+        } else {
+          this.snackBar.open(
+            'กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าร้าน'
+          );
+      }
+    }
+
+
+  }
+  selectRow(row) {
     this.views.selectProductID = row.productIds;
     this.views.selectProductName = row.productName;
     this.views.selectProductPrice = row.productPrice;
@@ -112,6 +164,4 @@ export class SellComponent implements OnInit {
     console.log(this.views.selectProductName);
     console.log(this.views.selectProductPrice);
   }
-
 }
-

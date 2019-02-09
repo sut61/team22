@@ -93,7 +93,7 @@
     <p>เลือกรหัสของลุกค้า</p>
     <form class="example-form">
       <mat-form-field class="example-full-width">
-        <mat-select placeholder="customerID" [(ngModel)]="customerID" name="customerID" [ngModelOptions]="{standalone: true}">
+        <mat-select placeholder="customerID" [(ngModel)]="views.customerID" name="customerID" [ngModelOptions]="{standalone: true}">
           <mat-option *ngFor="let Customer of Customers" [value]="Customer.customerIDs">
             {{Customer.customerIDs}}
           </mat-option>
@@ -105,7 +105,7 @@
     <p>เลือกรหัสของพนักงาน</p>
     <form class="example-form">
       <mat-form-field class="example-full-width">
-        <mat-select placeholder="staffIDs" [(ngModel)]="staffIDs" name="staffIDs" [ngModelOptions]="{standalone: true}">
+        <mat-select placeholder="staffIDs" [(ngModel)]="views.staffIDs" name="staffIDs" [ngModelOptions]="{standalone: true}">
           <mat-option *ngFor="let Staff of Staffs" [value]="Staff.staffIds">
             {{Staff.staffIds}}
           </mat-option>
@@ -116,7 +116,7 @@
     <p>เลือกวันที่จะมารับสินค้า
       <mat-form-field color="accent">
         <mat-label>Selling Date</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="sellingDate" [ngModelOptions]="{standalone: true}">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="views.sellingDate" [ngModelOptions]="{standalone: true}">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
