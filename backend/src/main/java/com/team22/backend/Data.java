@@ -80,8 +80,7 @@ public class Data {
         Status sta2 = statusRepository.findByStateId(2L);
         Status sta3 = statusRepository.findByStateId(3L);
         Type type1 = typeRepository.findByTypeIds(1L);
-        Product pt1 = productRepository.findByProdId(1L);
-        Product pt2 = productRepository.findByProdId(2L);
+       
         String pDate = ("01:02:2019");
         DateTimeFormatter formatt = DateTimeFormatter.ofPattern("dd:MM:yyyy");
         LocalDate productDate = LocalDate.parse(pDate,formatt);
@@ -105,6 +104,8 @@ public class Data {
             product1.setStatus(sta2);
             product1.setType(type1);
             productRepository.save(product1);
+            Product pt1 = productRepository.findByProdId(1L);
+            Product pt2 = productRepository.findByProdId(2L);
 
             Education educationdb = new Education();
             educationdb.setEducationIds("E1");
@@ -220,7 +221,7 @@ public class Data {
             Staff staffdb = new Staff();
             staffdb.setStaffIds("St1");
             staffdb.setStaffName("Owner");
-            staffdb.setStaffPassword("Chayanun123456789");
+            staffdb.setStaffPassword("123456");
             staffdb.setEducation(ed1);
             staffdb.setExperience(ex1);
             staffdb.setStaffGender("Man");
@@ -234,7 +235,7 @@ public class Data {
             Staff staffdb1 = new Staff();
             staffdb1.setStaffIds("St2");
             staffdb1.setStaffName("Ploy");
-            staffdb1.setStaffPassword("Chayanun123456789");
+            staffdb1.setStaffPassword("123456");
             staffdb1.setStaffGender("Woman");
             staffdb1.setStaffJobtype("Part Time");
             staffdb1.setEducation(ed2);
@@ -249,7 +250,7 @@ public class Data {
 
             staffdb2.setStaffIds("St3");
             staffdb2.setStaffName("Sunvo");
-            staffdb2.setStaffPassword("Chayanun123456789");
+            staffdb2.setStaffPassword("123456");
             staffdb2.setStaffGender("Man");
             staffdb2.setStaffJobtype("Part Time");
             staffdb2.setEducation(ed3);
@@ -263,7 +264,7 @@ public class Data {
             Staff staffdb3 = new Staff();
             staffdb3.setStaffIds("St4");
             staffdb3.setStaffName("Ao");
-            staffdb3.setStaffPassword("Chayanun123456789");
+            staffdb3.setStaffPassword("123456");
             staffdb3.setStaffGender("Man");
             staffdb3.setStaffJobtype("Part Time");
             staffdb3.setEducation(ed4);
@@ -598,6 +599,22 @@ public class Data {
             });
         
 
+            Lease leasedb2 = new Lease();
+            String l2Date1 = "07:07:1998";
+            String l2Date2 = "06:07:1998";
+            DateTimeFormatter l2formatter = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+            LocalDate l2date = LocalDate.parse(l2Date1, l2formatter);
+            LocalDate l2date1 = LocalDate.parse(l2Date2, l2formatter);
+            leasedb2.setCustomer(c3);
+            leasedb2.setDateStart(l2date);
+            leasedb2.setDateEnd(l2date1);
+            leasedb2.setStatus("not paid");
+            leasedb2.setLeaseStatus("Rent");
+            leasedb2.setCommentRenting("ชุดสวยมาก");
+            leasedb2.setStaff(st1);
+            leasedb2.setProduct(pt1);
+            leaseRepository.save(leasedb2);
+
             Lease leasedb3 = new Lease();
             String l2Date12 = "07:07:1998";
             String l2Date22 = "06:07:1998";
@@ -613,6 +630,7 @@ public class Data {
             leasedb3.setStaff(st1);
             leasedb3.setProduct(pt1);
             leaseRepository.save(leasedb3);
+
             Lease lid = leaseRepository.findByLeaseId(1L);
 
             Restore restoredb = new Restore();
