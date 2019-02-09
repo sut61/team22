@@ -21,7 +21,7 @@ public class BookingCancleController {
 
     public BookingCancleController(BookingCancleRepository bookingCancleRepository, 
                                    BookingRepository bookingRepository,
-                                   CustomerRepository customerRepository) {
+                                   TypeReasonRepository typeReasonRepository) {
                                     this.bookingRepository = bookingRepository;
                                     this.bookingCancleRepository = bookingCancleRepository;
                                     this.typeReasonRepository = typeReasonRepository;
@@ -36,36 +36,28 @@ public class BookingCancleController {
         private boolean isBooking(Booking booking){
             return booking.getStatusBooking().equals("Booking");
         }
-   
+
+
     @GetMapping("/typeReason")
         public Collection<TypeReason> typeReasons() {
             return typeReasonRepository.findAll().stream()
             .collect(Collectors.toList());
     }
-    
+
     @GetMapping("/bookingCancle")
         public Collection<BookingCancle> bookingCancles() {
             return bookingCancleRepository.findAll().stream()
-                    // .filter(this::isBookingCancle)
-                    .collect(Collectors.toList());
-        }
-        // private boolean isBookingCancle(BookingCancle bookingCancle){
-        //     return bookingCancle.getBooking().getStatusBooking().equals("Cancled");
-        // }   
+            .collect(Collectors.toList());
+    }
+          
+        
     @PostMapping("/bookingCancle/{bookingId}/{bookingCancleReason}/{typeReasonName}")
     public BookingCancle newBookingCancle(@PathVariable Long bookingId,
                                         @PathVariable String bookingCancleReason,
                                         @PathVariable Long typeReasonName)
                                          {
-        Long i;
-            BookingCancle newBookingCancle = new BookingCancle();
-                for( i=1L; i<9999L;i++) {
-                    if(bookingCancleRepository.findBybookingCancleID(i) == null) {
-                        newBookingCancle.setBookingCancleIDs("Bc"+i);
-                        break;
-                    }
-                }
-       
+
+        BookingCancle newBookingCancle = new BookingCancle();
         newBookingCancle.setBookingCancleReason(bookingCancleReason);
         newBookingCancle.setBookingCancleStatus("Cancled");
 
@@ -80,7 +72,6 @@ public class BookingCancleController {
       
         return bookingCancleRepository.save(newBookingCancle);
     }
-    
 
     @PutMapping("/cancleStatus/{bookingCancleID}/{bookingId}/{statusBooking}")
      BookingCancle replaceBookingCancle( BookingCancle newBookingCancle,
@@ -103,5 +94,4 @@ public class BookingCancleController {
     
             });
         }
-    }
-
+}
