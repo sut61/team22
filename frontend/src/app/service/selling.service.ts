@@ -17,4 +17,7 @@ export class SellingService {
   getProduct(): Observable<any> {
     return this.http.get('//localhost:8080/productSelling');
   }
+  CheckCommentSelling(commentSelling: String ): Observable<any> {
+    return this.http.post('//localhost:8080/CheckCommentSelling/' + commentSelling , {} );
+  }
 }
