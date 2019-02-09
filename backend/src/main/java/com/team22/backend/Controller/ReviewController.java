@@ -86,7 +86,7 @@ public class ReviewController {
         }
 
 
-        
+
         @PutMapping("/sellingRe/{id}/{status}")
         Selling replaceSelling(Selling newSelling, @PathVariable String status, @PathVariable Long id){
     
@@ -101,4 +101,8 @@ public class ReviewController {
         });
     }
 
+    @PostMapping("/CheckReviewComment/{commentRe}")
+    public Review CheckReviewComment(@PathVariable String commentRe) {
+        return this.reviewRepository.findByReviewComment(commentRe);
+    }
 }
