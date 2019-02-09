@@ -24,7 +24,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @DataJpaTest
 public class RestoreTypeTests {
     @Autowired
