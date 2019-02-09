@@ -1,0 +1,164 @@
+<app-menucustomer></app-menucustomer>
+<div class="panel panel-default" [ngStyle]="{'background-image': getUrl()}">
+<div class="panel">
+  <div class="panel1">
+    <div class="button-row">
+      <mat-tab-group>
+        <!-- ------------------------------------------------------------------------- -->
+        <mat-tab label="Booking">
+          <p>กรุณาเลือกใบจองที่ท่านต้องการยกเลิก</p>
+          <table mat-table [dataSource]="Bookings" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="customerIDs">
+                  <th mat-header-cell *matHeaderCellDef> customerIDs </th>
+                  <td mat-cell *matCellDef="let element"> {{element.customer.customerIDs}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bookingId">
+              <th mat-header-cell *matHeaderCellDef> bookingId </th>
+              <td mat-cell *matCellDef="let element"> {{element.bookingId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="styleName">
+                <th mat-header-cell *matHeaderCellDef> styleName </th>
+                <td mat-cell *matCellDef="let element"> {{element.style.styleName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="staffName">
+                <th mat-header-cell *matHeaderCellDef> staffName </th>
+                <td mat-cell *matCellDef="let element"> {{element.staff.staffName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bookingDate">
+              <th mat-header-cell *matHeaderCellDef> bookingDate </th>
+              <td mat-cell *matCellDef="let element"> {{element.bookingDate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="statusBooking">
+              <th mat-header-cell *matHeaderCellDef> statusBooking </th>
+              <td mat-cell *matCellDef="let element"> {{element.statusBooking}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef> category </th>
+              <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="bookingColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: bookingColumns; "(click)="selectRowBooking(row)"></tr>
+          </table>
+        </mat-tab>
+        <!-- ------------------------------------------------------------------------ -->
+        <mat-tab label="Cancle History">
+            <p>ข้อมูลสำหรับการอัพเดตการยกเลิกใบจอง</p>
+            <table mat-table [dataSource]="BookingCancles" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="bookingId">
+                      <th mat-header-cell *matHeaderCellDef> bookingId </th>
+                      <td mat-cell *matCellDef="let element"> {{element.booking.bookingId}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="bookingCancleID">
+                  <th mat-header-cell *matHeaderCellDef> bookingCancleID </th>
+                  <td mat-cell *matCellDef="let element"> {{element.bookingCancleID}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="bookingCancleDate">
+                    <th mat-header-cell *matHeaderCellDef> วันเวลาที่ยกเลิก </th>
+                    <td mat-cell *matCellDef="let element"> {{element.bookingCancleDate}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="statusBooking">
+                    <th mat-header-cell *matHeaderCellDef> สถานะใบจอง </th>
+                    <td mat-cell *matCellDef="let element"> {{element.booking.statusBooking}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="bookingCancleReason">
+                  <th mat-header-cell *matHeaderCellDef> เหตุผลที่ยกเลิก </th>
+                  <td mat-cell *matCellDef="let element"> {{element.bookingCancleReason}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="typeReasonName">
+                  <th mat-header-cell *matHeaderCellDef> ประเภทของเหตุผล </th>
+                  <td mat-cell *matCellDef="let element"> {{element.typeReason.typeReasonName}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="bookingCancleColumn1"></tr>
+                <tr mat-row *matRowDef="let row; columns: bookingCancleColumn1;"></tr>
+              </table>
+        </mat-tab>
+        <!-- ------------------------------------------------------------------------ -->
+      </mat-tab-group>
+    </div>
+  </div>
+  <!-- ------------------------------------------------------------------------- -->
+  <div class="panel2">
+    <mat-toolbar>
+      <span> ยืนยันการยกเลิกจองคิว </span>
+    </mat-toolbar>
+    <form class="example-form">
+    <p>ใบจองที่ท่านต้องการยกเลิก</p>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="views.customerIDs"  [(value)]="views.selectCustomerIDs" name="customerIDs" [value] = "views.customerIDs">
+      <mat-placeholder class="placeholder">customerIDs</mat-placeholder>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="views.bookingId"  [(value)]="views.selectBookingId" name="bookingId" [value] = "views.bookingId">
+      <mat-placeholder class="placeholder">bookingId</mat-placeholder>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="views.staffName"  [(value)]="views.selectStaffName" name="staffName" [value] = "views.staffName">
+      <mat-placeholder class="placeholder">staffName</mat-placeholder>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="views.styleName"  [(value)]="views.selectStyleName" name="styleName" [value] = "views.styleName">
+      <mat-placeholder class="placeholder">styleName</mat-placeholder>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="views.bookingDate"  [(value)]="views.selectBookingDate" name="bookingDate" [value] = "views.bookingDate">
+      <mat-placeholder class="placeholder">bookingDate</mat-placeholder>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="views.statusBooking"  [(value)]="views.selectStatusBooking" name="statusBooking" [value] = "views.statusBooking">
+      <mat-placeholder class="placeholder">statusBooking</mat-placeholder>
+    </mat-form-field>
+  </form>
+
+  <form class="example-form">
+    <p>กรุณาระบุสาเหตุที่ยกเลิกการจอง</p>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="bookingCancleReason" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <p>กรุณาระบุประเภทของสาเหตุที่ยกเลิกการจอง</p>
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Type Reason Name" [(ngModel)]="typeReasonName" name="TypeReason">
+          <mat-option *ngFor="let TypeReason of TypeReasons" [value]="TypeReason.typeReasonID">
+            {{TypeReason.typeReasonName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+      <div align="center">
+        <button mat-raised-button color= "primary" (click)= OK() >ยกเลิกการจอง</button>
+      </div>
+
+      <form class="example-form">
+        <p>กรุณาระบุ bookingID ที่จะอัพเดทสถานะยกเลิก </p>
+          <mat-form-field class="example-full-width">
+            <input matInput [(ngModel)]="views.selectBookingId"  [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        <p>กรุณาระบุ bookingCancleID ที่จะอัพเดทสถานะยกเลิก </p>
+          <mat-form-field class="example-full-width">
+          <input matInput [(ngModel)]="bookingCancleID"  [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+      </form>
+    <div align="center">
+    <button mat-raised-button color= "primary" (click)= UPDATE() >อัพเดทการยกเลิก</button>
+  </div>
+</div>
+</div>

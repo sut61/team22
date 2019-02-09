@@ -59,6 +59,8 @@ import { CheckproductService } from './service/checkproduct.service';
 import { SignupComponent , Signincomplete , Signinuncomplete} from './signup/signup.component';
 import { SignupService } from './service/signup.service';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
+import { CancleComponent } from './cancle/cancle.component';
+import { CancleService } from './service/cancle.service';
 //npm i amazing-time-picker --save
 const appRoutes: Routes = [
 ];
@@ -86,7 +88,8 @@ const appRoutes: Routes = [
     Signincomplete,
     Signinuncomplete,
     Paymentcomplete,
-    CheckproductComponent
+    CheckproductComponent,
+    CancleComponent
   ],
   imports: [
     BrowserModule,
@@ -147,11 +150,12 @@ const appRoutes: Routes = [
       {path: 'loginfalse' , component: Loginfalse},
       {path: 'paymentcomplete' , component: Paymentcomplete},
       {path: 'check' , component: CheckproductComponent},
+      {path: 'cancle' , component: CancleComponent},
       {path: '', component: HomeComponent}
     ])
   ],
   providers: [PaymentService , MakeupService , SellingService ,
-    LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse ,
+    LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse , CancleService,
     Signincomplete , Signinuncomplete , HomeComponent , Paymentcomplete , CheckproductService ,
     SalaryService , RegisterUncomplete, RegisterComplete, RegisterEditcomplete, SalaryEditcomplete ],
   bootstrap: [AppComponent]
