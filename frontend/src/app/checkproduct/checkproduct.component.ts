@@ -4,6 +4,7 @@ import {MatSnackBar} from '@angular/material';
 import {Component, OnInit ,ViewChild} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {MatSort} from '@angular/material';
+import { AmazingTimePickerService } from 'amazing-time-picker';
 
 export interface Tile {
   cols: number;
@@ -43,6 +44,7 @@ export class CheckproductComponent implements OnInit {
   product: Array<any>;
   checkproduct: Array<any>;
   checkDate: Array<any>;
+  selectedTime: string;
   selectcheckDate: Array<any>;
   pipe = new DatePipe('en-US');
   @ViewChild(MatSort)
@@ -65,11 +67,12 @@ export class CheckproductComponent implements OnInit {
     selectCheckProductLevel: '',
     selectCheckId:'',
     selectChecking:'',
-    checkingSelect:''
+    checkingSelect:'',
+    time:''
   };
   displayedColumns: string[] = ['PID', 'productID', 'productName', 'productPrice', 'productQuantity', 'types','statuses'];
   displayedColumnss: string[] = ['PID','CID','level', 'comment','date','checking'];
-  constructor(private CheckService: CheckproductService,private snackBar: MatSnackBar, private httpClient: HttpClient) {
+  constructor(private CheckService: CheckproductService,private snackBar: MatSnackBar, private httpClient: HttpClient,private atp: AmazingTimePickerService) {
   }
   ngOnInit() {
     this.CheckService.getType().subscribe(data => {
@@ -93,6 +96,20 @@ export class CheckproductComponent implements OnInit {
       console.log(this.checking);
     });
   }
+  open() {
+    const amazingTimePicker = this.atp.open({
+        time: this.selectedTime,
+        theme: 'dark',
+        arrowStyle: {
+            background: 'red',
+            color: 'white',
+        }
+    });
+    amazingTimePicker.afterClose().subscribe(time => {
+      this.selectedTime = time;
+      console.log(this.selectedTime);
+    });
+}
    selectRow(row) {
     this.views.selectPID = row.prodId;
     this.views.selectProductID = row.productIds;
@@ -110,7 +127,7 @@ export class CheckproductComponent implements OnInit {
     this.views.selectCheckProductLevel = row.checkLevel;
     this.views.selectCheckProductComment = row.checkComment;
     this.views.selectCheckId = row.checkId;
-    this.views.selectChecking = row.checking.checkingId;
+    this.views.selectChecking = row.checked.checkingId;
     this.checkDate = row.checkDate;
     console.log(this.views.selectCheckId);
     console.log(this.views.selectPID);
@@ -122,20 +139,30 @@ export class CheckproductComponent implements OnInit {
   save() {
     this.views.prodID = this.views.selectPID;
     this.views.checkingSelect = this.views.selectChecking;
-    this.httpClient.post('http://localhost:8080/checkproduct/' + this.views.prodID + '/' + this.views.level + '/' + this.views.comment
-    +'/'+ this.pipe.transform(this.checkDate,'dd:MM:yyyy')+'/'+ this.views.checkingSelect,
-    this.views) .subscribe(
-      data => {
-        this.snackBar.open('Check ', 'complete', {
-        });
-        console.log('INPUT Request is successful', data);
-      },
-      error => {
-        this.snackBar.open('Check ', 'uncomplete', {
-        });
-        console.log('Error', error);
+    if (this.views.level === ''|| this.views.comment === ''||this.views.checkingSelect === '')
+        {  this.snackBar.open('โปรดใส่ข้อมูลให้ครบ', 'OK', { });
+    } else{
+        if(this.views.level>100){
+          {  this.snackBar.open('Not more than 100', 'OK', {});}
+        } else  if(this.views.level<0){
+          {  this.snackBar.open('Not Less than 0', 'OK', { });}
+        } else {     
+            this.httpClient.post('http://localhost:8080/checkproduct/' + this.views.prodID + '/' + this.views.level + '/' + this.views.comment
+            +'/'+ this.pipe.transform(this.checkDate,'dd:MM:yyyy')+'/'+ this.selectedTime +'/'+ this.views.checkingSelect,
+            this.views) .subscribe(
+            data => {
+              this.snackBar.open('Check ', 'complete', {
+              });
+              console.log('INPUT Request is successful', data);
+            },
+            error => {
+              this.snackBar.open('Check ', 'uncomplete', {
+              });
+              console.log('Error', error);
+            }
+            );
+          }
       }
-    );
   }
   editcheck() {
     this.views.prodID = this.views.selectPID;

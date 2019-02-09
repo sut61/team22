@@ -56,6 +56,8 @@ import {STOCKINGService} from './service/stocking.service';
 import { CheckproductService } from './service/checkproduct.service';
 import { SignupComponent , Signincomplete , Signinuncomplete} from './signup/signup.component';
 import { SignupService } from './service/signup.service';
+import { AmazingTimePickerModule } from 'amazing-time-picker'; 
+//npm i amazing-time-picker --save
 const appRoutes: Routes = [
 ];
 
@@ -117,6 +119,7 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    AmazingTimePickerModule,
     RouterModule.forRoot([
       {path: 'home', component: HomeComponent},
       {path: 'payment', component: PaymentComponent},
