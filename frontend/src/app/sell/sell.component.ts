@@ -39,6 +39,7 @@ export class SellComponent implements OnInit {
     selectProductID: '',
     selectProductName: '',
     selectProductPrice : '',
+    commentSelling : '',
   };
 
   @ViewChild(MatSort)
@@ -64,23 +65,45 @@ export class SellComponent implements OnInit {
       console.log(this.Products);
     });
   }
-  save() {
-    this.httpClient.post( 'http://localhost:8080/sell/' + this.views.selectProductID + '/' + this.views.selectProductName + '/'
-      + this.views.selectProductPrice + '/' + this.customerID + '/' + this.staffIDs + '/'
-      + this.pipe.transform(this.sellingDate, 'dd:MM:yyyy') + '/' + this.commentSelling,this.Sellings)
-      .subscribe(
-        data => {
-          console.log('POST Request is successful', data);
-          //window.location.reload();
-          this.snackBar.open('input detail ', 'complete', {
-          });
-          },
-        error => {
-            this.snackBar.open('input detail ', 'uncomplete', {
-            });
-            console.log('Error', error);
-          });
-  }
+   save() {
+     const rex = new RegExp('[ร้าน].+');
+     console.log(this.commentSelling);
+
+     if (this.views.selectProductID == null || this.views.selectProductName == null || this.views.selectProductPrice == null
+       || this.customerID == null || this.staffIDs == null || this.sellingDate == null
+       || this.views.commentSelling == null) {
+       alert('กรุณาเลือกและใส่ข้อมูลให้ครบ');
+     } else {
+       if (this.views.commentSelling != null) {
+         if (rex.test(this.views.commentSelling)) {
+           this.sellingService
+             .CheckCommentSelling(this.views.commentSelling)
+             .subscribe(CheckCommentSelling => {
+               console.log(CheckCommentSelling);
+               if (CheckCommentSelling != null) {
+                 this.snackBar.open('คอมเม้นซ้ำ ', 'ตกลง', {});
+               } else {
+                 this.httpClient.post('http://localhost:8080/sell/' + this.views.selectProductID + '/' + this.views.selectProductName + '/'
+                   + this.views.selectProductPrice + '/' + this.customerID + '/' + this.staffIDs + '/'
+                   + this.pipe.transform(this.sellingDate, 'dd:MM:yyyy') + '/' + this.views.commentSelling, this.Sellings)
+                   .subscribe(
+                     data => {
+                       console.log('POST Request is successful', data);
+                       this.snackBar.open('input detail ', 'complete', {});
+                     },
+                     error => {
+                       this.snackBar.open('input detail ', 'uncomplete', {});
+                       console.log('Error', error);
+                     }
+                   );
+               }
+             });
+         } else {
+           this.snackBar.open('กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าร้าน');
+         }
+       }
+     }
+   }
    selectRow(row) {
     this.views.selectProductID = row.productIds;
     this.views.selectProductName = row.productName;
