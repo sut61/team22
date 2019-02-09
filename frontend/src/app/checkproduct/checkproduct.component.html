@@ -22,25 +22,10 @@
       <input matInput [(ngModel)]="views.productQuantity"[(value)]="views.selectProductQuantity" name="quantity" [value]="views.ProductQuantity"disabled>
         <mat-placeholder class="placeholder">Quantity</mat-placeholder>
       </mat-form-field><br/>
-      <br/>
       CHECK :
       <mat-form-field class="check-width">
         <input matInput name="level"[(ngModel)]="views.level"[(value)]="views.selectCheckProductLevel"name = "lev" [value]="views.level">
         <span matSuffix>%&nbsp;</span>
-      </mat-form-field><br/>
-      <mat-slider [max]="max"
-      [min]="min"
-      [step]="step"
-      thumbLabel [(ngModel)]="views.level"[(value)]="views.selectCheckProductLevel"name = "lev" [value]="views.level"></mat-slider>
-    COMMENT :
-    <mat-form-field class="example-full-width">
-      <textarea matInput [(ngModel)]="views.comment" [(value)]="views.selectCheckProductComment" name="comm" [value] = "views.comment"></textarea>
-    </mat-form-field><br/>
-    <mat-form-field class="example-date">
-        <input matInput [matDatepicker]="picker" [(ngModel)]="checkDate"name="date" [(value)]="selectchecktDate" [value]="checkDate">
-        <mat-placeholder class="placeholder">Date</mat-placeholder>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="example-width">
         <mat-placeholder class="placeholder">Checking</mat-placeholder>
@@ -50,8 +35,28 @@
             {{checking.checking}}
           </mat-option>
         </mat-select>
+      </mat-form-field><br/>
+      <mat-slider [max]="max"
+      [min]="min"
+      [step]="step"
+      thumbLabel [(ngModel)]="views.level"[(value)]="views.selectCheckProductLevel"name = "lev" [value]="views.level"></mat-slider>
+      <br/>COMMENT :
+    <mat-form-field class="example-full-width">
+      <textarea matInput [(ngModel)]="views.comment" [(value)]="views.selectCheckProductComment" name="comm" [value] = "views.comment"></textarea>
+    </mat-form-field><br/>
+    <mat-form-field class="example-date">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="checkDate"name="date" [(value)]="selectchecktDate" [value]="checkDate">
+        <mat-placeholder class="placeholder">Date</mat-placeholder>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <br/>
+      <button mat-mini-fab class="bottom-time">
+        <mat-icon (click)="open()"aria-label="Example icon-button with a time icon">timer</mat-icon>
+      </button> 
+      <mat-form-field class="example-time">
+      <input matInput type="time" value="{{selectedTime}}">
+      </mat-form-field>
+      <br/><br/>
     <button mat-mini-fab class="bottom-left">
       <mat-icon (click)="save()" aria-label="Example icon-button with a save icon">save</mat-icon>
     </button>
@@ -165,10 +170,10 @@
               <td mat-cell *matCellDef="let element"> {{element.checkDate}} </td>
             </ng-container>
 
-            <!-- checking Column -->
+            <!-- Checking Column -->
             <ng-container matColumnDef="checking">
               <th mat-header-cell *matHeaderCellDef> Checking </th>
-              <td mat-cell *matCellDef="let element"> {{element.checking.checking}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.checked.checking}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumnss; sticky: true"></tr>
