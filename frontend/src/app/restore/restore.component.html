@@ -1,0 +1,157 @@
+<app-menuadmin></app-menuadmin>
+<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+<div class="panel">
+  <div class="panel1">
+    <!-- <div class="button-row"> -->
+        <mat-tab-group>
+            <mat-tab  label="LEASE">
+              <br>
+              <table mat-table [dataSource]="Lease" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="customerIDs">
+                  <th mat-header-cell *matHeaderCellDef> customerIDs </th>
+                  <td mat-cell *matCellDef="let element"> {{element.customer.customerIDs}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="customerName">
+                    <th mat-header-cell *matHeaderCellDef> customerName </th>
+                    <td mat-cell *matCellDef="let element"> {{element.customer.customerName}} </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="leaseId">
+                  <th mat-header-cell *matHeaderCellDef> leaseId </th>
+                  <td mat-cell *matCellDef="let element"> {{element.leaseId}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="productName">
+                    <th mat-header-cell *matHeaderCellDef> productName </th>
+                    <td mat-cell *matCellDef="let element"> {{element.product.productName}} </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="reserveDate">
+                  <th mat-header-cell *matHeaderCellDef> reserveDate </th>
+                  <td mat-cell *matCellDef="let element"> {{element.dateStart}} </td>
+                </ng-container>
+                <ng-container matColumnDef="returnDate">
+                    <th mat-header-cell *matHeaderCellDef> returnDate </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dateEnd}} </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="leaseStatus">
+                    <th mat-header-cell *matHeaderCellDef> leaseStatus </th>
+                    <td mat-cell *matCellDef="let element"> {{element.leaseStatus}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="status">
+                      <th mat-header-cell *matHeaderCellDef> status </th>
+                      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                    </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns1; "(click)="selectRow(row)"></tr>
+
+              </table>
+              <br>
+
+            </mat-tab>
+
+            <mat-tab  label="RESTORE">
+                <table mat-table [dataSource]=" restore" class="mat-elevation-z8">
+
+                    <ng-container matColumnDef="restoreId">
+                      <th mat-header-cell *matHeaderCellDef> restoreId </th>
+                      <td mat-cell *matCellDef="let element"> {{element.restoreId}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="commentRestore">
+                        <th mat-header-cell *matHeaderCellDef> commentRestore </th>
+                        <td mat-cell *matCellDef="let element"> {{element.commentRestore}} </td>
+                      </ng-container>
+
+
+                    <ng-container matColumnDef="customerName">
+                        <th mat-header-cell *matHeaderCellDef> customerName </th>
+                        <td mat-cell *matCellDef="let element"> {{element.lease.customer.customerName}} </td>
+                      </ng-container>
+
+                    <ng-container matColumnDef="statusRestore">
+                      <th mat-header-cell *matHeaderCellDef> statusRestore </th>
+                      <td mat-cell *matCellDef="let element"> {{element.statusRestore}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="typeRestoreName">
+                      <th mat-header-cell *matHeaderCellDef> typeRestoreName </th>
+                      <td mat-cell *matCellDef="let element"> {{element.restoreType.typeRestoreName}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns3; "(click)="selectRow1(row)"></tr>
+
+                  </table>
+
+              </mat-tab>
+
+
+        </mat-tab-group>
+      </div>
+
+    <div class="panel2">
+
+       <div align="center"><p>Restore</p></div>
+      <form class="example-form">
+
+        <mat-form-field class="example-full-width">
+          <input matInput [(ngModel)]="views.customerIDs"  [(value)]="views.selectCustomerIDs" name="customerIDs" [value] = "views.customerIDs">
+          <mat-placeholder class="placeholder">customerIDs</mat-placeholder>
+        </mat-form-field><br/>
+      </form>
+      <p>
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <input matInput [(ngModel)]="views.customerName"  [(value)]="views.selectCustomerName" name="customerName" [value] = "views.customerName">
+                  <mat-placeholder class="placeholder">customerName</mat-placeholder>
+                </mat-form-field><br/>
+              </form>
+
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput [(ngModel)]="views.leaseId"  [(value)]="views.selectLeaseId" name="leaseId" [value] = "views.leaseId">
+            <mat-placeholder class="placeholder">leaseId</mat-placeholder>
+          </mat-form-field><br/>
+        </form>
+
+       <p>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput [(ngModel)]="views.productName"  [(value)]="views.selectProductName" name="productName" [value] = "views.productName">
+          <mat-placeholder class="placeholder">productName</mat-placeholder>
+        </mat-form-field><br/>
+      </form>
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="views.commentRestore"  name="views.commentRestore" >
+        <mat-placeholder class="placeholder">กรอกสภาพสินค้า(ขึ้นต้นด้วยชุด)</mat-placeholder>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="กรุณาเลือก" [(ngModel)]="typeRestoreName" name="typeRestoreName">
+          <mat-option *ngFor="let RestoreType of RestoreTypes" [value]="RestoreType.restoreTypeId">
+            {{RestoreType.typeRestoreName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div align="center">
+         <div class="example-button-row">
+         <button mat-flat-button color="accent"(click) = save()>OK</button>
+         </div>
+      </div>
+     <mat-form-field class="example-full-width">
+     <input matInput [(ngModel)]="views.restoreId"  name="views.restore" >
+    <mat-placeholder class="placeholder">RestoreId</mat-placeholder>
+  </mat-form-field>
+
+  <div align="center">
+   <div class="example-button-row">
+  <button mat-flat-button color="accent"(click) = update()>Update</button>
+   </div>
+  </div>
