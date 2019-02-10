@@ -61,6 +61,11 @@ import { SignupService } from './service/signup.service';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { CancleComponent } from './cancle/cancle.component';
 import { CancleService } from './service/cancle.service';
+import { RestoreComponent } from './restore/restore.component';
+import { RestoreService } from './service/restore.service';
+import { ReviewComponent } from './review/review.component';
+import { ReviewService } from './service/review.service';
+
 //npm i amazing-time-picker --save
 const appRoutes: Routes = [
 ];
@@ -89,7 +94,9 @@ const appRoutes: Routes = [
     Signinuncomplete,
     Paymentcomplete,
     CheckproductComponent,
-    CancleComponent
+    CancleComponent,
+    ReviewComponent,
+    RestoreComponent
   ],
   imports: [
     BrowserModule,
@@ -151,13 +158,15 @@ const appRoutes: Routes = [
       {path: 'paymentcomplete' , component: Paymentcomplete},
       {path: 'check' , component: CheckproductComponent},
       {path: 'cancle' , component: CancleComponent},
+      {path: 'restore' , component: RestoreComponent},
+      {path: 'review' , component: ReviewComponent},
       {path: '', component: HomeComponent}
     ])
   ],
   providers: [PaymentService , MakeupService , SellingService ,
     LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse , CancleService,
     Signincomplete , Signinuncomplete , HomeComponent , Paymentcomplete , CheckproductService ,
-    SalaryService , RegisterUncomplete, RegisterComplete, RegisterEditcomplete, SalaryEditcomplete ],
+    SalaryService , RegisterUncomplete, RegisterComplete, RegisterEditcomplete, SalaryEditcomplete , RestoreService , ReviewService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
