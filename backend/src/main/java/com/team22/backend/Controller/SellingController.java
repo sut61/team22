@@ -54,6 +54,10 @@ public class SellingController {
     private boolean isStaff(Staff staff){
         return staff.getPosition().getPositionName().equals("Seller");
     }
+    @PostMapping("/CheckCommentSelling/{comment}")
+    public Selling CheckCommentSelling(@PathVariable String comment) {
+        return this.sellingRepository.findByCommentSelling(comment);
+    }
 
     @PostMapping("/sell/{productID}/{productName}/{productPrice}/{customerID}/{staffIDs}/{sellingDate}/{commentSelling}")
         public Selling newSSel(@PathVariable String productID,@PathVariable String productName,@PathVariable Integer productPrice,@PathVariable String customerID,@PathVariable String staffIDs,@PathVariable String sellingDate,@PathVariable String commentSelling){

@@ -45,8 +45,8 @@ public class BookingCancleTest{
         Date bcDate1 = new Date(); 
         bc1.setBookingCancleIDs("Bc3");
         bc1.setBookingCancleDate(bcDate1);
-        bc1.setBookingCancleStatus("Booking");
-        bc1.setBookingCancleReason("เพราะไก่อ่อน");
+         bc1.setBookingCancleStatus("Booking");
+        bc1.setBookingCancleReason("BecauseAA");
         bc1.setBooking(bookingRepository.findByBookingId(1L));
         bc1.setTypeReason(typeReasonRepository.findByTypeReasonID(1L));
         
@@ -70,7 +70,7 @@ public class BookingCancleTest{
         bc2.setBookingCancleID(null);
         bc2.setBookingCancleIDs(null);
         bc2.setBookingCancleDate(null);
-        bc2.setBookingCancleStatus(null);
+         bc2.setBookingCancleStatus(null);
         bc2.setBookingCancleReason(null);
         bc2.setTypeReason(null);
 
@@ -98,8 +98,8 @@ public class BookingCancleTest{
         Booking b1 = bookingRepository.findByBookingId(1L);
         bc3.setBookingCancleIDs("Bc1");
         bc3.setBookingCancleDate(bcDate3);
-        bc3.setBookingCancleStatus("Cancled");
-        bc3.setBookingCancleReason("เพราะล");
+         bc3.setBookingCancleStatus("Cancled");
+        bc3.setBookingCancleReason("Because");
         bc3.setBooking(b1);
         bc3.setTypeReason(typeReasonRepository.findByTypeReasonID(1L));
 
@@ -115,7 +115,7 @@ public class BookingCancleTest{
             System.out.println();
             System.out.println();
             assertEquals(violations.isEmpty(), false);
-			assertEquals(violations.size(), 1);
+			assertEquals(violations.size(), 2);
         }
 	}
     @Test
@@ -126,7 +126,7 @@ public class BookingCancleTest{
         bc4.setBookingCancleIDs("Bc1");
         bc4.setBookingCancleDate(bcDate4);
         bc4.setBookingCancleStatus("Cancled");
-        bc4.setBookingCancleReason("เพราะffjwfwjjfeifiefjiefjiefjgrrgrgrgrgedfsaafsas");
+        bc4.setBookingCancleReason("BecauseAAsaascsccdvcdvdvdvdvdvdvdvdvdvdvdvdv");
         bc4.setBooking(b1);
         bc4.setTypeReason(typeReasonRepository.findByTypeReasonID(1L));
 		try {
@@ -182,7 +182,7 @@ public class BookingCancleTest{
         bc1.setBookingCancleIDs("Bc4");
         bc1.setBookingCancleDate(bcDate1);
         bc1.setBookingCancleStatus("Booking");
-        bc1.setBookingCancleReason("เพราะไก่อ่อน");
+        bc1.setBookingCancleReason("BecauseAA");
         bc1.setBooking(bookingRepository.findByBookingId(1L));
         bc1.setTypeReason(typeReasonRepository.findByTypeReasonID(1L));
         
@@ -194,7 +194,7 @@ public class BookingCancleTest{
         bc2.setBookingCancleIDs("Bc4");
         bc2.setBookingCancleDate(bcDate2);
         bc2.setBookingCancleStatus("Booking");
-        bc2.setBookingCancleReason("เพราะไก่อ่อน");
+        bc2.setBookingCancleReason("BecauseAA");
         bc2.setBooking(bookingRepository.findByBookingId(1L));
         bc2.setTypeReason(typeReasonRepository.findByTypeReasonID(1L));
         

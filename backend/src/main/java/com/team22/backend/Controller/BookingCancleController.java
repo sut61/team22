@@ -49,15 +49,26 @@ public class BookingCancleController {
             return bookingCancleRepository.findAll().stream()
             .collect(Collectors.toList());
     }
+    @PostMapping("checkbookingCancleReason/{cancleReason}") 
+        public BookingCancle checkbookingCancleReason(@PathVariable String cancleReason) {
+            return this.bookingCancleRepository.findByBookingCancleReason(cancleReason);
+        }
           
         
-    @PostMapping("/bookingCancle/{bookingId}/{bookingCancleReason}/{typeReasonName}")
-    public BookingCancle newBookingCancle(@PathVariable Long bookingId,
+    @PostMapping("/bookingCanclecon/{bookingId}/{bookingCancleReason}/{typeReasonName}")
+    public BookingCancle newBookingCancles(@PathVariable Long bookingId,
                                         @PathVariable String bookingCancleReason,
                                         @PathVariable Long typeReasonName)
                                          {
 
         BookingCancle newBookingCancle = new BookingCancle();
+        Long i;
+        for( i=1L; i<9999L;i++) {
+            if(bookingCancleRepository.findByBookingCancleID(i) == null) {
+                newBookingCancle.setBookingCancleIDs("Bc"+i);
+                break;
+            }
+        }
         newBookingCancle.setBookingCancleReason(bookingCancleReason);
         newBookingCancle.setBookingCancleStatus("Cancled");
 

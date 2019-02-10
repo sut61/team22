@@ -10,4 +10,5 @@ public
 interface  SellingRepository extends JpaRepository<Selling, Long> {
     Selling findBySellingId(long id);
 
+    Selling findByCommentSelling(String commentSelling);
 }
