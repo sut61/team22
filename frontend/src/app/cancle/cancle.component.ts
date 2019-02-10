@@ -107,7 +107,7 @@ export class CancleComponent implements OnInit {
       this.views.selectBookingDate === '' ||
       this.views.selectStatusBooking === '' ||
       this.views.selectStaffName === '') {
-      alert("กรุณาใส่ข้อมูลให้ครบ")
+        this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ');
     } else {
       if (this.views.bookingCancleReason != null) {
         if (rex.test(this.views.bookingCancleReason)) {
@@ -121,8 +121,8 @@ export class CancleComponent implements OnInit {
               } else {
                 this.httpClient.post('http://localhost:8080/bookingCanclecon/' +
                   this.views.selectBookingId + '/' +
+                  this.views.bookingCancleReason  + '/' +
                   this.views.typeReasonName
-                  + '/' +  this.views.bookingCancleReason
                   , this.views.BookingCancles, this.views)
                   .subscribe(
                     data => {
@@ -131,15 +131,15 @@ export class CancleComponent implements OnInit {
                       });
                     },
                   );
-              }  
+              }
             });
         } else {
           this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่า Because');
         }
       } else {
-        this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่า Because');
+        this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ');
       }
-    } 
+    }
   }
   UPDATE() {
     this.httpClient.put('http://localhost:8080/cancleStatus/' + this.bookingCancleID + '/' +
@@ -179,4 +179,3 @@ export class CancleComponent implements OnInit {
   }
 }
 
-/*  */

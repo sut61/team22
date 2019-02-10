@@ -580,10 +580,10 @@ public class Data {
             bookingCancledb.setBookingCancleIDs("Bc1");
             bookingCancledb.setBookingCancleDate(bookingCancleDate);
             bookingCancledb.setBookingCancleStatus("cancled");
-            bookingCancledb.setBookingCancleReason("เพราะไม่ว่าง");
+            bookingCancledb.setBookingCancleReason("BecauseAA");
             bookingCancledb.setBooking(b1);
             bookingCancledb.setTypeReason(tr1);
-            bookingCancleRepository.save(bookingCancledb);
+            bookingCancleRepository.save(bookingCancledb); 
 
 
             Stream.of("คืนสินค้าครบ", "คืนสินค้าไม่ครบ").forEach(restoreType -> {

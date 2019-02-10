@@ -80,7 +80,7 @@ export class SellComponent implements OnInit {
   }
   save() {
     const rex = new RegExp(
-      '[ร้าน].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{4,20}'
+      '[ร้าน].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{5,20}'
     );
     console.log(
       this.views.commentSelling,
@@ -136,7 +136,7 @@ export class SellComponent implements OnInit {
                       this.snackBar.open('input detail ', 'complete', {});
                     },
                     error => {
-                      this.snackBar.open('input detail ', 'uncomplete', {});
+                      this.snackBar.open('input not detail ', 'uncomplete', {});
                       console.log('Error', error);
                     }
                   );

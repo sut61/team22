@@ -55,7 +55,11 @@ public class BookingController {
         return staffRepository.findAll().stream()
                 .collect(Collectors.toList());
     }
-
+    @PostMapping("/checkcategory/{category}")
+    public Booking Checkcategory(@PathVariable String category)
+    {
+        return  this.bookingRepository.findByStatusBooking(category);
+    }
     @PostMapping("/makeupBooking/{styleID}/{styleIDs}/{styleName}/{stylePrice}/{stID}/{staffIDs}/{staffName}/{bookingDate}/{category}/{cusId}/{customerIDs}/{customerName}/{addressCustomer}")
     public Booking newMakeupBooking(@PathVariable Long cusId,@PathVariable String customerIDs,
                                     @PathVariable String customerName, @PathVariable String addressCustomer,

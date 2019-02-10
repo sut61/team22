@@ -33,13 +33,13 @@ public class BookingCancle {
     private String bookingCancleStatus; 
 
     @NotNull(message="bookingCancleReasonbe null to be valid")
-    @Pattern(regexp ="(เพราะ).+")
+    @Pattern(regexp = "(Because).+")    
     @Size(min=8 ,max=20)
     private String bookingCancleReason; 
 
     @NotNull(message="bookingId must not be null to be valid")
-    @OneToOne(fetch = FetchType.EAGER, targetEntity = Booking.class)
-    @JoinColumn(name = "bookingId", insertable = true)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "bookingId")
     private Booking booking;
 
     @NotNull(message="typeReasonID must not be null to be valid")
