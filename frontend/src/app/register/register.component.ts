@@ -156,13 +156,7 @@ export class RegisterComponent implements OnInit {
       this.views.staffPassword === '') {
       this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ');
     } else {
-      this.registerservice
-        .postStaffCheck(this.views.staffIds)
-        .subscribe(checkStaff => {
-          console.log(checkStaff);
-          if (checkStaff != null) {
-            this.snackBar.open('ไม่สามารถใช้ ID นี้ได้', 'ตกลง', {});
-          } else {
+     
             if (rex.test(this.views.staffPhone)) {
               this.httpClient
                 .post(
@@ -202,19 +196,18 @@ export class RegisterComponent implements OnInit {
                         width: '500px'
                       });
                       dialogRe.afterClosed().subscribe(result => {
+                        window.location.reload();
                         console.log('Can Not Post Staff');
                       });
                       console.log('Error', error);
                     }
                   );
                 });
-            }
-            else {
+                
+            } else {
               this.snackBar.open('Phone ไม่ถูกต้อง');
-            }
-          }
 
-        });
+        }
     }
   }
 
