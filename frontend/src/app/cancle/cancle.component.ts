@@ -15,7 +15,7 @@ import { isNull } from '@angular/compiler/src/output/output_ast';
 })
 export class CancleComponent implements OnInit {
   bookingColumns: string[] = ['customerIDs', 'bookingId', 'staffName', 'styleName', 'bookingDate', 'statusBooking', 'category'];
-  bookingCancleColumn1: string[] = ['bookingId', 'bookingCancleID', 'bookingCancleDate',
+  bookingCancleColumn1: string[] = ['bookingId', 'bookingCancleID', 'bookingCancleDate', 'bookingCancleReason',
     'statusBooking', 'typeReasonName'];
 
 
