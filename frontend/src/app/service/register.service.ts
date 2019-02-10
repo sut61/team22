@@ -21,4 +21,10 @@ export class RegisterService {
   getEducation(): Observable<any> {
     return this.http.get('//localhost:8080/education');
   }
+  getSalary(): Observable<any> {
+    return this.http.get('//localhost:8080/salary');
+  }
+  postStaffCheck(p:string): Observable<any> {
+    return this.http.post('//localhost:8080/salary/' + p , {});
+  }
 }
