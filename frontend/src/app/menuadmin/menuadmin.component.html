@@ -1,13 +1,19 @@
-<div id ="style1" style="text-align: right">
+<div id="style1" style="text-align: right">
   <div *ngFor="let staff of staffs">
     Name :{{staff.staffName}}
-  </div></div>
+  </div>
+</div>
 <mat-toolbar class="toolbar">
   <mat-toolbar-row>
     <a class="menu-list">{{title}}</a>
     <span class="example-spacer"></span>
-    <button mat-button routerLink="/stock">Stock</button>
+    <button mat-button [matMenuTriggerFor]="animals">Product</button>
+    <mat-menu #animals="matMenu">
+      <button mat-menu-item routerLink="/stock">Stock</button>
+      <button mat-menu-item routerLink="/check">Check Product</button>
+    </mat-menu>
     <button mat-button routerLink="/register">Register</button>
+    <button mat-button routerLink="/salary">Salary</button>
     <button mat-button routerLink="/payment">Payment</button>
     <button mat-button routerLink="/restore">Restore</button>
     <button mat-button routerLink="/home">LOG OUT</button>
