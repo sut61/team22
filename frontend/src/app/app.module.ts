@@ -49,7 +49,9 @@ import { LeaseService } from './service/lease.service';
 import { MenucustomerComponent } from './menucustomer/menucustomer.component';
 import { MenuadminComponent } from './menuadmin/menuadmin.component';
 import { RegisterService } from './service/register.service';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent, RegisterComplete, RegisterUncomplete, RegisterEditcomplete } from './register/register.component';
+import { SalaryComponent, SalaryEditcomplete } from './salary/salary.component';
+import { SalaryService } from './service/salary.service';
 import { StockComponent} from './stock/stock.component';
 import { CheckproductComponent} from './checkproduct/checkproduct.component';
 import {STOCKINGService} from './service/stocking.service';
@@ -75,6 +77,11 @@ const appRoutes: Routes = [
     MenuadminComponent,
     StockComponent,
     RegisterComponent,
+    SalaryComponent,
+    RegisterComplete,
+    RegisterUncomplete,
+    RegisterEditcomplete,
+    SalaryEditcomplete,
     SignupComponent,
     Signincomplete,
     Signinuncomplete,
@@ -129,6 +136,11 @@ const appRoutes: Routes = [
       {path: 'renting', component: RentingComponent},
       {path: 'stock' , component: StockComponent},
       {path: 'register' , component: RegisterComponent},
+      { path: 'salary', component: SalaryComponent },
+      { path: 'salaryeditcomplete', component: SalaryEditcomplete },
+      { path: 'registereditcomplete', component: RegisterEditcomplete },
+      { path: 'registeruncomplete', component: RegisterUncomplete },
+      { path: 'registercomplete', component: RegisterComplete },
       {path: 'signup' , component: SignupComponent},
       {path: 'signinuncomplete' , component: Signinuncomplete},
       {path: 'signincomplete' , component: Signincomplete},
@@ -140,7 +152,8 @@ const appRoutes: Routes = [
   ],
   providers: [PaymentService , MakeupService , SellingService ,
     LeaseService , RegisterService , STOCKINGService , SignupService , Loginfalse ,
-    Signincomplete, Signinuncomplete , HomeComponent , Paymentcomplete , CheckproductService ],
+    Signincomplete , Signinuncomplete , HomeComponent , Paymentcomplete , CheckproductService ,
+    SalaryService , RegisterUncomplete, RegisterComplete, RegisterEditcomplete, SalaryEditcomplete ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
