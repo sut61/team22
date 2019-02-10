@@ -50,7 +50,7 @@ export class CheckproductComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
   views: any = {
-    level : 0,
+    level : '',
     comment: '',
     productID: '',
     productName: '',
