@@ -25,7 +25,6 @@ public class Selling {
     @NotNull
     private  String status;
 
-
     @NotNull
     @Size(min=5,max=70)
     @Pattern(regexp = "(ร้าน).+")
