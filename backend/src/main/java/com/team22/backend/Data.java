@@ -553,7 +553,29 @@ public class Data {
             sellingdb.setCommentSelling("ร้านชุดสวย");
             sellingRepository.save(sellingdb);
 
+            Selling sellingdb2 = new Selling();
+            sellingdb2.setSellingId(2L);
+            sellingdb2.setSellingDate(sdate);
+            sellingdb2.setCustomer(c6);
+            sellingdb2.setStaff(st1);
+            sellingdb2.setStatus("paid");
+            sellingdb2.setProduct(pt1);
+            sellingdb2.setCommentSelling("ร้านชุดสวยอิ");
+            sellingRepository.save(sellingdb2);
+
+            Selling sellingdb3 = new Selling();
+            sellingdb3.setSellingId(3L);
+            sellingdb3.setSellingDate(sdate);
+            sellingdb3.setCustomer(c5);
+            sellingdb3.setStaff(st1);
+            sellingdb3.setStatus("paid");
+            sellingdb3.setProduct(pt1);
+            sellingdb3.setCommentSelling("ร้านชุดอิ");
+            sellingRepository.save(sellingdb3);
+
+
             Selling sl1 = sellingRepository.findBySellingId(1L);
+            Selling sl2 = sellingRepository.findBySellingId(2L);
 
 
 
@@ -631,7 +653,19 @@ public class Data {
             leasedb3.setProduct(pt1);
             leaseRepository.save(leasedb3);
 
+            Lease leasedb4 = new Lease();
+            leasedb4.setCustomer(c6);
+            leasedb4.setDateStart(l2date2);
+            leasedb4.setDateEnd(l2date12);
+            leasedb4.setStatus("paid");
+            leasedb4.setLeaseStatus("Rent");
+            leasedb4.setCommentRenting("ชุดสวยอิ");
+            leasedb4.setStaff(st1);
+            leasedb4.setProduct(pt1);
+            leaseRepository.save(leasedb4);
+
             Lease lid = leaseRepository.findByLeaseId(1L);
+            Lease lid2 = leaseRepository.findByLeaseId(2L);
 
             Restore restoredb = new Restore();
             Date dateRestore = new Date();
