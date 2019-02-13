@@ -138,26 +138,14 @@ export class RestoreComponent implements OnInit {
                     data => {
                       console.log('POST Request is successful', data);
                       this.snackBar.open('input detail ', 'complete', {});
-                    },
-                    error => {
-                      this.snackBar.open(
-                        'กรุณาเลือกข้อมูลให้ครบ',
-                        'uncomplete',
-                        {}
-                      );
-                      console.log('Error', error);
-                    }
-                  );
-
-                this.httpClient
+                      this.httpClient
                   .put(
                     'http://localhost:8080/lease/' +
                       this.views.selectLeaseId +
                       '/' +
                       'restore',
                     this.lease
-                  )
-                  .subscribe(
+                  ).subscribe(
                     data => {
                       if (data) {
                         console.log('put Request is successful', data);
@@ -171,6 +159,16 @@ export class RestoreComponent implements OnInit {
                         {}
                       );
                       console.log('error', error);
+                    }
+                  );
+                    },
+                    error => {
+                      this.snackBar.open(
+                        'กรุณาเลือกข้อมูลให้ครบ',
+                        'uncomplete',
+                        {}
+                      );
+                      console.log('Error', error);
                     }
                   );
               }

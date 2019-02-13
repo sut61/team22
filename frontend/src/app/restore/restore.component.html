@@ -134,6 +134,7 @@
 
       <mat-form-field class="example-full-width">
         <mat-select placeholder="กรุณาเลือก" [(ngModel)]="typeRestoreName" name="typeRestoreName">
+            <mat-option>None</mat-option>
           <mat-option *ngFor="let RestoreType of RestoreTypes" [value]="RestoreType.restoreTypeId">
             {{RestoreType.typeRestoreName}}
           </mat-option>
