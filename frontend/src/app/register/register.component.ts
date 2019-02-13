@@ -1,29 +1,29 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef, MatSort } from '@angular/material';
-import { MatSnackBar } from '@angular/material';
-import { RegisterService } from '../service/register.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { DatePipe } from "@angular/common";
+import { Router } from "@angular/router";
+import { MatDialog, MatDialogRef, MatSort } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
+import { RegisterService } from "../service/register.service";
+import { a } from "@angular/core/src/render3";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: "app-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.css"]
 })
-
 export class RegisterComponent implements OnInit {
   displayedColumns: string[] = [
-    'staffIds',
-    'staffName',
-    'staffGender',
-    'educationId',
-    'staffPhone',
-    'staffJobtype',
-    'staffSalary',
-    'positionId',
-    'experienceId'
+    "staffIds",
+    "staffName",
+    "staffGender",
+    "educationId",
+    "staffPhone",
+    "staffJobtype",
+    "staffSalary",
+    "positionId",
+    "experienceId"
   ];
   Staff: Array<any>;
   Staffs: Array<any>;
@@ -52,38 +52,38 @@ export class RegisterComponent implements OnInit {
   Salarys: Array<any>;
 
   views: any = {
-    staffId: '',
-    staffIds: '',
-    staffName: '',
-    staffPhone: '',
-    staffGender: '',
-    staffStatus: '',
-    staffSalary: '',
-    staffJobtype: '',
-    staffPassword: '',
+    staffId: "",
+    staffIds: "",
+    staffName: "",
+    staffPhone: "",
+    staffGender: "",
+    staffStatus: "",
+    staffSalary: "",
+    staffJobtype: "",
+    staffPassword: "",
 
-    positionId: '',
+    positionId: "",
 
-    experienceId: '',
+    experienceId: "",
 
-    educationId: '',
+    educationId: "",
 
-    payerId: '',
+    payerId: "",
 
-    SelectStaffId: '',
-    SelectStaffIds: '',
-    SelectStaffName: '',
-    SelectStaffPhone: '',
-    SelectStaffGender: '',
-    SelectStaffSalary: '',
-    SelectStaffJobtype: '',
-    SelectStaffPassword: '',
+    SelectStaffId: "",
+    SelectStaffIds: "",
+    SelectStaffName: "",
+    SelectStaffPhone: "",
+    SelectStaffGender: "",
+    SelectStaffSalary: "",
+    SelectStaffJobtype: "",
+    SelectStaffPassword: "",
 
-    SelectPositionId: '',
+    SelectPositionId: "",
 
-    SelectExperienceId: '',
+    SelectExperienceId: "",
 
-    SelectEducationId: ''
+    SelectEducationId: ""
   };
 
   @ViewChild(MatSort)
@@ -95,7 +95,7 @@ export class RegisterComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     public dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.registerservice.getPosition().subscribe(data => {
@@ -135,115 +135,132 @@ export class RegisterComponent implements OnInit {
     this.views.SelectPositionId = row.position.positionId;
 
     this.views.SelectExperienceId = row.experience.experienceId;
-
   }
 
   Post1() {
-    const rex = new RegExp(
-      '([0][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9])'
-    );
+    const rex1 = new RegExp("(\\S{12})");
+    const rex = new RegExp("([0][0-9]{2}-[0-9]{3}-[0-9]{4})");
     this.views.staffPhone.charAt(0);
     console.log(this.views.staffPhone.charAt(0));
     if (
-      this.views.staffName === '' ||
-      this.views.staffPhone === '' ||
-      this.views.positionId === '' ||
-      this.views.staffGender === '' ||
-      this.views.educationId === '' ||
-      this.views.staffSalary === '' ||
-      this.views.experienceId === '' ||
-      this.views.staffJobtype === '' ||
-      this.views.staffPassword === '') {
-      this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ');
+      this.views.staffName === "" ||
+      this.views.staffPhone === "" ||
+      this.views.positionId === "" ||
+      this.views.staffGender === "" ||
+      this.views.educationId === "" ||
+      this.views.staffSalary === "" ||
+      this.views.experienceId === "" ||
+      this.views.staffJobtype === "" ||
+      this.views.staffPassword === ""
+    ) {
+      this.snackBar.open("กรุณาใส่ข้อมูลให้ครบ");
     } else {
-     
-            if (rex.test(this.views.staffPhone)) {
-              this.httpClient
-                .post(
-                  'http://localhost:8080/staffs/' +
-                  this.views.staffName +
-                  '/' +
-                  this.views.staffGender +
-                  '/' +
-                  this.views.educationId +
-                  '/' +
-                  this.views.staffPhone +
-                  '/' +
-                  this.views.staffJobtype +
-                  '/' +
-                  this.views.staffSalary +
-                  '/' +
-                  this.views.positionId +
-                  '/' +
-                  'UnPaid' +
-                  '/' +
-                  this.views.experienceId +
-                  '/' +
-                  this.views.staffPassword,
-                  this.Staffs
-                )
-                .subscribe(dataRegister => {
-                  const dialogRef = this.dialog.open(RegisterComplete, {
-                    width: '500px'
-                  });
-                  dialogRef.afterClosed().subscribe(
-                    result => {
-                      window.location.href = '/register';
-                      console.log('Can Post Staff');
-                    },
-                    error => {
-                      const dialogRe = this.dialog.open(RegisterUncomplete, {
-                        width: '500px'
-                      });
-                      dialogRe.afterClosed().subscribe(result => {
-                        window.location.reload();
-                        console.log('Can Not Post Staff');
-                      });
-                      console.log('Error', error);
-                    }
-                  );
-                });
-                
+      this.registerservice
+        .postStaffCheck(this.views.staffName)
+        .subscribe(postStaffCheck => {
+          console.log(postStaffCheck);
+          if (postStaffCheck != null) {
+            this.snackBar.open("ไม่สามารถใช้ Name นี้ได้", "ตกลง", {});
+          } else {
+            if (!rex1.test(this.views.staffPhone)) {
+              this.snackBar.open("Size Phone ไม่ถูกต้อง");
+              console.log(this.views.staffPhone);
             } else {
-              this.snackBar.open('Phone ไม่ถูกต้อง');
-
-        }
+              if (rex.test(this.views.staffPhone)) {
+                this.httpClient
+                  .post(
+                    "http://localhost:8080/staffs/" +
+                      this.views.staffName +
+                      "/" +
+                      this.views.staffGender +
+                      "/" +
+                      this.views.educationId +
+                      "/" +
+                      this.views.staffPhone +
+                      "/" +
+                      this.views.staffJobtype +
+                      "/" +
+                      this.views.staffSalary +
+                      "/" +
+                      this.views.positionId +
+                      "/" +
+                      "UnPaid" +
+                      "/" +
+                      this.views.experienceId +
+                      "/" +
+                      this.views.staffPassword,
+                    this.Staffs
+                  )
+                  .subscribe(dataRegister => {
+                    console.log("Post successful", dataRegister);
+                    localStorage.setItem(
+                      "staffName",
+                      JSON.stringify(postStaffCheck)
+                    );
+                    const dialogRef = this.dialog.open(RegisterComplete, {
+                      width: "500px"
+                    });
+                    dialogRef.afterClosed().subscribe(
+                      result => {
+                        window.location.href = "/register";
+                        console.log("Can Post Staff");
+                        this.snackBar.open("ลงทะเบียนสำเร็จ");
+                      },
+                      error => {
+                        const dialogRe = this.dialog.open(RegisterUncomplete, {
+                          width: "500px"
+                        });
+                        dialogRe.afterClosed().subscribe(result => {
+                          // window.location.reload();
+                          console.log("Can Not Post Staff");
+                        });
+                        console.log("Error", error);
+                      }
+                    );
+                  });
+              } else {
+                this.snackBar.open("Pattern Phone ไม่ถูกต้อง");
+              }
+            }
+          }
+        });
     }
   }
 
   Post2() {
     if (
-      this.views.SelectStaffName === '' ||
-      this.views.SelectStaffSalary === '') {
-      this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ2');
+      this.views.SelectStaffName === "" ||
+      this.views.SelectStaffSalary === ""
+    ) {
+      this.snackBar.open("กรุณาใส่ข้อมูลให้ครบ2");
     }
     this.httpClient
       .post(
-        'http://localhost:8080/salaryPost/' +
-        this.views.SelectStaffName +
-        '/' +
-        '1' +
-        '/' +
-        'UnPaid' +
-        '/' +
-        this.views.SelectStaffSalary,
+        "http://localhost:8080/salaryPost/" +
+          this.views.SelectStaffName +
+          "/" +
+          "1" +
+          "/" +
+          "UnPaid" +
+          "/" +
+          this.views.SelectStaffSalary,
         this.Salarys
       )
       .subscribe(dataRegister => {
         const dialogRef = this.dialog.open(RegisterComplete, {
-          width: '500px'
+          width: "500px"
         });
         dialogRef.afterClosed().subscribe(
           result => {
-            window.location.href = '/register';
-            console.log('Can Post Salary');
+            window.location.href = "/register";
+            console.log("Can Post Salary");
           },
           error => {
             const dialogRe = this.dialog.open(RegisterUncomplete, {
-              width: '500px'
+              width: "500px"
             });
-            dialogRe.afterClosed().subscribe(result => { });
-            console.log('Can Not Post Salary');
+            dialogRe.afterClosed().subscribe(result => {});
+            console.log("Can Not Post Salary");
           }
         );
       });
@@ -290,50 +307,50 @@ export class RegisterComponent implements OnInit {
     }
     this.httpClient
       .put(
-        'http://localhost:8080/staffupdate/' +
-        this.views.SelectStaffId +
-        '/' +
-        this.views.SelectStaffIds +
-        '/' +
-        this.views.staffName +
-        '/' +
-        this.views.staffPhone +
-        '/' +
-        this.views.staffSalary +
-        '/' +
-        'UnPaid' +
-        '/' +
-        this.views.positionId +
-        '/' +
-        this.views.educationId +
-        '/' +
-        this.views.staffGender +
-        '/' +
-        this.views.staffJobtype +
-        '/' +
-        this.views.experienceId +
-        '/' +
-        this.views.staffPassword,
+        "http://localhost:8080/staffupdate/" +
+          this.views.SelectStaffId +
+          "/" +
+          this.views.SelectStaffIds +
+          "/" +
+          this.views.staffName +
+          "/" +
+          this.views.staffPhone +
+          "/" +
+          this.views.staffSalary +
+          "/" +
+          "UnPaid" +
+          "/" +
+          this.views.positionId +
+          "/" +
+          this.views.educationId +
+          "/" +
+          this.views.staffGender +
+          "/" +
+          this.views.staffJobtype +
+          "/" +
+          this.views.experienceId +
+          "/" +
+          this.views.staffPassword,
         this.Staffs
       )
 
       .subscribe(dataRegister => {
         const dialogRef = this.dialog.open(RegisterComplete, {
-          width: '500px'
+          width: "500px"
         });
         dialogRef.afterClosed().subscribe(
           result => {
-            window.location.href = '/register';
-            console.log('Can Post');
+            window.location.href = "/register";
+            console.log("Can Post");
           },
           error => {
             const dialogRe = this.dialog.open(RegisterUncomplete, {
-              width: '500px'
+              width: "500px"
             });
             dialogRe.afterClosed().subscribe(result => {
-              console.log('Can Not Post');
+              console.log("Can Not Post");
             });
-            console.log('Error', error);
+            console.log("Error", error);
           }
         );
       });
@@ -341,36 +358,33 @@ export class RegisterComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-registercomplete',
-  templateUrl: './registercomplete.html'
+  selector: "app-registercomplete",
+  templateUrl: "./registercomplete.html"
 })
-
 export class RegisterComplete {
-  constructor(public dialogRef: MatDialogRef<RegisterComplete>) { }
+  constructor(public dialogRef: MatDialogRef<RegisterComplete>) {}
   onNoClick(): void {
     this.dialogRef.close();
   }
 }
 
 @Component({
-  selector: 'app-registeruncomplete',
-  templateUrl: './registeruncomplete.html'
+  selector: "app-registeruncomplete",
+  templateUrl: "./registeruncomplete.html"
 })
-
 export class RegisterUncomplete {
-  constructor(public dialogRef: MatDialogRef<RegisterUncomplete>) { }
+  constructor(public dialogRef: MatDialogRef<RegisterUncomplete>) {}
   onNoClick(): void {
     this.dialogRef.close();
   }
 }
 
 @Component({
-  selector: 'app-registereditcomplete',
-  templateUrl: './registereditcomplete.html'
+  selector: "app-registereditcomplete",
+  templateUrl: "./registereditcomplete.html"
 })
-
 export class RegisterEditcomplete {
-  constructor(public dialogRef: MatDialogRef<RegisterEditcomplete>) { }
+  constructor(public dialogRef: MatDialogRef<RegisterEditcomplete>) {}
   onNoClick(): void {
     this.dialogRef.close();
   }

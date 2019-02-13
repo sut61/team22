@@ -25,6 +25,6 @@ export class RegisterService {
     return this.http.get('//localhost:8080/salary');
   }
   postStaffCheck(p: string): Observable<any> {
-    return this.http.post('//localhost:8080/salary/' + p , {});
+    return this.http.post('//localhost:8080/staffCheck/' + p , {});
   }
 }
