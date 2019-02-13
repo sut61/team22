@@ -30,10 +30,10 @@ public class Staff {
     private Long staffId;
 
     @NotNull(message = "staffIds not be null")
-    @Column(unique = true)
     private String staffIds;
 
     @NotNull(message = "staffName not be null")
+    @Column(unique = true)
     private String staffName;
 
     @NotNull(message = "staffPassword not be null")
@@ -41,7 +41,7 @@ public class Staff {
 
     @NotNull(message = "staffPhone not be null")
     @Size(min = 12, max = 12)
-    @Pattern(regexp = "([0][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9])")
+    @Pattern(regexp = "([0][0-9]{2}-[0-9]{3}-[0-9]{4})")
     private String staffPhone;
 
     @NotNull(message = "staffSalary not be null")

@@ -53,9 +53,9 @@ class StaffController {
     public Collection<Experience> experience() {
         return experienceRepository.findAll().stream().collect(Collectors.toList());
     }
-    @PostMapping("/staffCheck/{staffIds}")
-    public Staff staffCheck(@PathVariable String staffIds) {
-        return this.staffRepository.findByStaffIds(staffIds);
+    @PostMapping("/staffCheck/{staffName}")
+    public Staff staffCheck(@PathVariable String staffName) {
+        return this.staffRepository.findByStaffName(staffName);
     }
 
     @PostMapping("/staffs/{staffName}/{staffGender}/{educationId}/{staffPhone}/{staffJobtype}/{staffSalary}/{positionId}/{staffStatus}/{experienceId}/{staffPassword}")
