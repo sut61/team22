@@ -124,7 +124,7 @@ public class LeaseTests {
 			System.out.println();
 			System.out.println(); 
             assertEquals(violations.isEmpty(), false);
-            assertEquals(violations.size(), 1);
+            assertEquals(violations.size(), 2);
         }
     }
    
