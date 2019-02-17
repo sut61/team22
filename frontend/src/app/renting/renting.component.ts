@@ -73,7 +73,7 @@ export class RentingComponent implements OnInit {
   }
 
   save() {
-    const rex = new RegExp('[ชุด].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{4,50}');
+    const rex = new RegExp('[ชุด].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{5,20}');
     console.log(this.views.commentRenting);
 
     if (this.views.selectProductID == null || this.views.selectProductName == null || this.views.selectProductPrice == null

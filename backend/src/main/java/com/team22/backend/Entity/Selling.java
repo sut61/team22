@@ -26,7 +26,7 @@ public class Selling {
     private  String status;
 
     @NotNull
-    @Size(min=5,max=70)
+    @Size(min=5,max=20)
     @Pattern(regexp = "(ร้าน).+")
     @Column(unique = true)
     private String commentSelling;

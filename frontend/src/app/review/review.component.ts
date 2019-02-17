@@ -87,7 +87,7 @@ export class ReviewComponent implements OnInit {
     });
   }
   save() {
-    const rex = new RegExp('[ควร].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{4,20}');
+    const rex = new RegExp('[ควร].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{5,20}');
     console.log(
       this.views.selectProductID,
       this.views.selectProductName,
