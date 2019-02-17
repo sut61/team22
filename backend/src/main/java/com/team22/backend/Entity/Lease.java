@@ -34,7 +34,7 @@ public class Lease {
 
     @NotNull
     @Pattern(regexp = "(ชุด).+")
-    @Size(min=5,max=50)
+    @Size(min=5,max=20)
     @Column(unique=true)
     private    String commentRenting;
 
