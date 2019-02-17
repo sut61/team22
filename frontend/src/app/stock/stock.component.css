@@ -3,7 +3,7 @@
   margin-right: 10%;
   height: 460px;
   background-color:whitesmoke;
-  opacity: .9;
+  opacity: .85;
 }
 mat-grid-list{
   margin-top: 0%;
@@ -14,6 +14,7 @@ mat-grid-tile{
   margin-top: 0%;
   margin-bottom: 0%;
   height: auto;
+
 }
 .left{
   text-align: right;
@@ -28,6 +29,7 @@ mat-grid-tile{
   font-size: 15px;
   color: black;
   margin-right: 5%;
+  
 }
 .example-form-right{
   min-width: 150px;
@@ -36,6 +38,7 @@ mat-grid-tile{
   height: 460px;
   font-size: 15px;
   color: black;
+
 }
 .example-full-width {
   width: fit-content;
@@ -116,7 +119,7 @@ table {
   color: rgb(0, 0, 0);
 }
 body{
-  background-image: url("/img/OLF8ED0.jpg");
+  background-image: url("https://images.pexels.com/photos/1128797/pexels-photo-1128797.jpeg?cs=srgb&dl=blur-color-depth-of-field-1128797.jpg&fm=jpg");
   background-size: cover;
   background-position: center;
   position: relative;
