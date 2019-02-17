@@ -266,7 +266,7 @@ public class StaffTest {
 	public void TestUniqe() {
 
 		Staff s1 = new Staff();
-		s1.setStaffName("Owner");
+		s1.setStaffName("Owner1");
 		s1.setStaffIds("St9");
 		s1.setStaffGender("Man");
 		s1.setStaffJobtype("Full Time");
@@ -282,7 +282,7 @@ public class StaffTest {
 		entityManager.flush();
 
 		Staff s2 = new Staff();
-		s2.setStaffName("Owner");
+		s2.setStaffName("Owner1");
 		s2.setStaffIds("St9");
 		s2.setStaffGender("Man");
 		s2.setStaffJobtype("Full Time");
