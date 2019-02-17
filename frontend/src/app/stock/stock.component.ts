@@ -226,7 +226,8 @@ export class StockComponent implements OnInit {
     );
   }
   addproduct() {
-    const rex = new RegExp('P');
+    const rex = new RegExp('[P]+[0-9]{1,5}$');
+    const pname = new RegExp('[A-Za-zw0-9d]{3,30}');
     this.views.productID.charAt(0);
     console.log(this.views.productID.charAt(0));
     if (this.views.productName === ''|| this.views.productPrice === ''||
@@ -240,6 +241,7 @@ export class StockComponent implements OnInit {
               this.snackBar.open('Cannot Use ProductID ', 'OK', {});
         }else {     
             if (rex.test(this.views.productID)) {
+              if (pname.test(this.views.productName)) {
             this.httpClient.post('http://localhost:8080/product/add/' + this.views.productID + '/' + this.views.productName
             + '/' + this.views.productPrice + '/' + this.views.productQuantity + '/'
             + this.pipe.transform(this.productDate,'dd:MM:yyyy') + '/'
@@ -258,7 +260,11 @@ export class StockComponent implements OnInit {
               );
             }
             else{
-              this.snackBar.open('Fisr ProductID is P ', 'OK', {
+              this.snackBar.open('Product Name is Between 3-30 ', 'OK', {
+              });
+            }
+          }else{
+              this.snackBar.open('ProductID Fisr Character is P and between 1-99999', 'OK', {
               });
             }
         }
@@ -274,8 +280,8 @@ export class StockComponent implements OnInit {
 }
   adddetail() {
     this.views.prodID = this.views.selectPID;
-    if (this.views.data === '')
-        {  this.snackBar.open('โปรดใส่ข้อมูล', 'OK', {
+    if (this.views.data === ''||this.views.detID === '')
+        {  this.snackBar.open('โปรดใส่ข้อมูลให้ครบ', 'OK', {
             });
         }
     else {     
