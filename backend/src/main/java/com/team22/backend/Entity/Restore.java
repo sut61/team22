@@ -32,7 +32,7 @@ public class Restore {
 
     @NotNull
     @Size(min=5,max=20)
-    @Pattern(regexp = "[ชุด].+")
+    @Pattern(regexp = "(ชุด).+")
     @Column(unique = true)
     private String commentRestore;
 
