@@ -174,7 +174,7 @@ export class ReviewComponent implements OnInit {
             });
         } else {
           this.snackBar.open(
-            'กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าควร', 'uncomplete', {}
+            'กรุณากรอกข้อมูล Comment 5 ถึง 20 ตัวและขึ้นต้นด้วยคำว่าควร', 'uncomplete', {}
           );
         }
       }

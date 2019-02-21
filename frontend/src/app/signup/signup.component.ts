@@ -60,7 +60,7 @@ export class SignupComponent implements OnInit {
     });
   }
   SignUp() {
-    const rex = new RegExp('0');
+    const rex = new RegExp('[0]\\d{9}');
     const address = new RegExp('[A-Za-zw0-9d]{2,100}');
     this.customer.customerPhone.charAt(0);
     console.log(this.customer.customerPhone.charAt(0));
@@ -142,7 +142,7 @@ export class SignupComponent implements OnInit {
               }
             } else {
               this.snackBar.open(
-                'เบอร์โทรไม่ถูกต้อง ต้องเท่ากับ 10 ตัว และ ตัวเลขเป็นเลข 0'
+                'เบอร์โทรไม่ถูกต้อง ต้องเท่ากับ 10 ตัว และ ตัวเลขเป็นเลข 0 เท่านั้น'
               );
             }
           }
