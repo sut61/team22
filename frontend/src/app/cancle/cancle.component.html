@@ -132,7 +132,7 @@
   <form class="example-form">
     <p>กรุณาระบุสาเหตุที่ยกเลิกการจอง</p>
     <mat-form-field class="example-full-width">
-        <input matInput [(ngModel)]="views.bookingCancleReason" [ngModelOptions]="{standalone: true}">
+        <input matInput [(ngModel)]="views.bookingCancleReason" [ngModelOptions]="{standalone: true}" maxlength="30" >
     </mat-form-field>
     <p>กรุณาระบุประเภทของสาเหตุที่ยกเลิกการจอง</p>
       <mat-form-field class="example-full-width">

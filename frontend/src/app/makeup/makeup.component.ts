@@ -104,7 +104,7 @@ export class MakeupComponent implements OnInit {
     this.viewStaff.selectstaffIDs,
     this.pipe.transform(this.views.bookingDate, 'dd:MM:yyyy'),
     this.views.category, this.views.cusId , this.views.customerIDs,
-    this.views.customerName, this.views.customerAddress 
+    this.views.customerName, this.views.customerAddress
     );
 
     if (this.viewStyle.selectstyleID === '' ||
@@ -126,7 +126,7 @@ export class MakeupComponent implements OnInit {
             .subscribe(Checkcategory => {
               console.log(Checkcategory);
               if (Checkcategory != null) {
-                this.snackBar.open('คอมเม้นซ้ำ ', 'ตกลง', {});
+                this.snackBar.open('งานที่จะไปซ้ำ ', 'ตกลง', {});
               } else {
                 this.httpClient.post('http://localhost:8080/makeupBooking/' +
                   this.viewStyle.selectstyleID + '/' + this.viewStyle.selectstyleIDs + '/' +
@@ -149,10 +149,10 @@ export class MakeupComponent implements OnInit {
               }
             });
         } else {
-          this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่า งาน');
+          this.snackBar.open('กรุณากรอกข้อมูลงานที่จะไป 5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่า งาน');
         }
       } else {
-        this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่า งาน');
+        this.snackBar.open('กรุณากรอกข้อมูลงานที่จะไป 5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่า งาน');
       }
     }
   }
