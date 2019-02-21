@@ -117,7 +117,7 @@ export class CancleComponent implements OnInit {
             .subscribe(checkbookingCancleReason => {
               console.log(checkbookingCancleReason);
               if (checkbookingCancleReason != null) {
-                this.snackBar.open('คอมเม้นซ้ำ ', 'ตกลง', {});
+                this.snackBar.open('เหตุผลที่ยกเลิกซ้ำ ', 'ตกลง', {});
               } else {
                 this.httpClient.post('http://localhost:8080/bookingCanclecon/' +
                   this.views.selectBookingId + '/' +
@@ -134,7 +134,7 @@ export class CancleComponent implements OnInit {
               }
             });
         } else {
-          this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่า Because');
+          this.snackBar.open('กรุณากรอกข้อมูลเหตุผลที่ยกเลิก 8 ตัวขึ้นไปและขึ้นต้นด้วยคำว่า Because');
         }
       } else {
         this.snackBar.open('กรุณาใส่ข้อมูลให้ครบ');
