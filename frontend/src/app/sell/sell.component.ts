@@ -101,7 +101,9 @@ export class SellComponent implements OnInit {
       this.views.sellingDate === '' ||
       this.views.commentSelling === ''
     ) {
-      alert('กรุณาเลือกและใส่ข้อมูลให้ครบ');
+      this.snackBar.open(
+        'กรุณาเลือกข้อมูลให้ครบ','uncomplete', {}
+      );
     } else {
       if (this.views.commentSelling != null) {
         if (rex.test(this.views.commentSelling)) {
@@ -144,12 +146,12 @@ export class SellComponent implements OnInit {
             });
         } else {
           this.snackBar.open(
-            'กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าร้าน'
+            'กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าร้าน','uncomplete', {}
           );
         }
         } else {
           this.snackBar.open(
-            'กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าร้าน'
+            'กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าร้าน','uncomplete', {}
           );
       }
     }

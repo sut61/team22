@@ -109,7 +109,9 @@ export class ReviewComponent implements OnInit {
       this.views.reviewComment === '' ||
       this.views.ment2 === ''
     ) {
-      alert('กรุณาเลือกและใส่ข้อมูลให้ครบ');
+      this.snackBar.open(
+        'กรุณากรอกข้อมูลให้ครบ' ,'uncomplete', {}
+      );
     } else {
       if (this.views.reviewComment != null) {
         if (rex.test(this.views.reviewComment)) {
@@ -172,7 +174,7 @@ export class ReviewComponent implements OnInit {
             });
         } else {
           this.snackBar.open(
-            'กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าควร'
+            'กรุณากรอกข้อมูล Comment5 ตัวขึ้นไปและขึ้นต้นด้วยคำว่าควร', 'uncomplete', {}
           );
         }
       }

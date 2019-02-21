@@ -67,7 +67,6 @@ public class SellingTests {
         s0.setCustomer(c);
         try {
             entityManager.persist(s0);
-//            entityManager.flush();
             System.out.println();
             System.out.println();
             System.out.println("\n\n\n\n\n\n\n\n\n----------------->> 1.Test Selling Insert DataSuccess \n\n\n\n\n\n\n\n\n\n\n");
@@ -94,6 +93,7 @@ public class SellingTests {
         try {
             entityManager.persist(s);
             entityManager.flush();
+            fail("Test Selling Not Null Error");
 
         } catch(javax.validation.ConstraintViolationException e) {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
@@ -107,7 +107,7 @@ public class SellingTests {
         }
     }
     @Test
-    public void testCommentSellingSize(){
+    public void testCommentSellingSizeMin(){
         Selling s1 = new Selling();
         s1.setCommentSelling("ร้านก");
         s1.setStatus("paid");
@@ -117,8 +117,6 @@ public class SellingTests {
         s1.setSellingDate(sdate);
         Staff sf1 = staffRepository.findByStaffId(1L);
         s1.setStaff(sf1);
-        Product p1 = productRepository.findByProdId(1L);
-        s1.setProduct(p1);
         Customer c1 = customerRepository.findByCusId(1L);
         s1.setCustomer(c1);
         try {
@@ -129,7 +127,7 @@ public class SellingTests {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
             System.out.println();
             System.out.println();
-            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> SellingSize \n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> SellingSizeMin \n\n\n\n\n\n\n\n\n\n\n");
             System.out.println();
             System.out.println();
             assertEquals(violations.isEmpty(), false);
@@ -152,6 +150,7 @@ public class SellingTests {
         try {
             entityManager.persist(s2);
             entityManager.flush();
+            fail("Test Selling Pattern Error");
 
         } catch(javax.validation.ConstraintViolationException e) {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
@@ -192,6 +191,7 @@ public class SellingTests {
         try {
             entityManager.persist(s5);
             entityManager.flush();
+            fail("Test Selling CommentUnique Error");
         } catch(javax.persistence.PersistenceException e) {
             System.out.println();
             System.out.println();
@@ -203,6 +203,35 @@ public class SellingTests {
         }
 
 
+    }
+    @Test
+    public void testCommentSellingSizeMax(){
+        Selling s6 = new Selling();
+        s6.setCommentSelling("ร้านกกกกกกกกกกกดเ้่าสวหกกกกกกกกกกกกกดดดดดด");
+        s6.setStatus("paid");
+        String sDate2 = "20:04:1998";
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+        LocalDate sdate = LocalDate.parse(sDate2, formatter2);
+        s6.setSellingDate(sdate);
+        Staff sf5 = staffRepository.findByStaffId(1L);
+        s6.setStaff(sf5);
+        Customer c6 = customerRepository.findByCusId(1L);
+        s6.setCustomer(c6);
+        try {
+            entityManager.persist(s6);
+            entityManager.flush();
+            fail("Test Selling SizeMax Error");
+
+        } catch(javax.validation.ConstraintViolationException e) {
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            System.out.println();
+            System.out.println();
+            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> SellingSizeMax \n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println();
+            System.out.println();
+            assertEquals(violations.isEmpty(), false);
+            assertEquals(violations.size(), 1);
+        }
     }
  }
 
