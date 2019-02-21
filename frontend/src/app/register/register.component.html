@@ -118,10 +118,10 @@
           </mat-form-field>
           &nbsp;&nbsp;
           <mat-form-field class="example-full-width" hintLabel="Pattern 0XX-XXX-XXXX">
-            <input matInput [(ngModel)]="views.staffPhone"  [(value)]="views.SelectStaffPhone" name="staffPhone" [value] = "views.staffPhone">
+            <input matInput [(ngModel)]="views.staffPhone"  [(value)]="views.SelectStaffPhone" name="staffPhone" [value] = "views.staffPhone" maxlength="12">
             <mat-placeholder class="placeholder">Phone</mat-placeholder>
           </mat-form-field>
-        </form><br> 
+        </form><br>
         <form class="example-form">
           <mat-form-field class="example-full-width">
             <input matInput [(ngModel)]="views.staffPassword"  [(value)]="views.SelectStaffPassword" name="staffPassword" [value] = "views.staffPassword">

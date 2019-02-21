@@ -1,12 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormControl } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
-import { DatePipe } from "@angular/common";
 import { Router } from "@angular/router";
 import { MatDialog, MatDialogRef, MatSort } from "@angular/material";
 import { MatSnackBar } from "@angular/material";
 import { RegisterService } from "../service/register.service";
-import { a } from "@angular/core/src/render3";
 
 @Component({
   selector: "app-register",
