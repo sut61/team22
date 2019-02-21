@@ -57,7 +57,7 @@ public class LeaseTests {
             System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("TestCommentRentingIsNull Error:" + e +"\n");
+			System.out.println("1.TestCommentRentingIsNull Error:" + e +"\n");
 			System.out.println();
 			System.out.println();
 			System.out.println(); 
@@ -85,7 +85,7 @@ public class LeaseTests {
             System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("TestLeaseSuccess");
+			System.out.println("2.TestLeaseSuccess");
 			System.out.println();
 			System.out.println();
 			System.out.println();
@@ -96,7 +96,7 @@ public class LeaseTests {
         }
     }
     @Test
-    public void testCommentRentingsizefalse(){
+    public void testCommentRentingsizeMin(){
         Lease l4 = new Lease();
         String l2Date12 = "07:07:1998";
         String l2Date22 = "06:07:1998";
@@ -113,13 +113,13 @@ public class LeaseTests {
             entityManager.persist(l4);
             entityManager.flush();
 
-            fail("TestCommentRentingsizefalse Error");
+            fail("TestCommentRentingsizeMin Error");
         } catch(javax.validation.ConstraintViolationException e) {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
             System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("TestCommentRentingsizefalse Error :" + e +"\n");
+			System.out.println("3.TestCommentRentingsizeMin Error :" + e +"\n");
 			System.out.println();
 			System.out.println();
 			System.out.println(); 
@@ -128,6 +128,44 @@ public class LeaseTests {
         }
     }
    
+    @Test
+    public void testCommentRentingsizeMax(){
+        Lease l4 = new Lease();
+        String l2Date12 = "07:07:1998";
+        String l2Date22 = "06:07:1998";
+         DateTimeFormatter l2formatter2 = DateTimeFormatter.ofPattern("dd:MM:yyyy");
+         LocalDate l2date2 = LocalDate.parse(l2Date12, l2formatter2);
+         LocalDate l2date12 = LocalDate.parse(l2Date22, l2formatter2);
+         l4.setCommentRenting("ชุดหกดหกดกฟดหฟเมยเำมเำพเมพเมะพสะืะพะยำเไดบใไฟดใกมออ");
+         l4.setStatus("paid");
+         l4.setLeaseStatus("Rent");
+         l4.setDateStart(l2date2);
+         l4.setDateEnd(l2date12);
+
+         try {
+            entityManager.persist(l4);
+            entityManager.flush();
+
+            fail("TestCommentRentingsizeMax Error");
+        } catch(javax.validation.ConstraintViolationException e) {
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            System.out.println();
+			System.out.println();
+			System.out.println();
+			System.out.println("4.TestCommentRentingsizeMax Error :" + e +"\n");
+			System.out.println();
+			System.out.println();
+			System.out.println(); 
+            assertEquals(violations.isEmpty(), false);
+            assertEquals(violations.size(), 1);
+        }
+    }
+
+
+
+
+
+
     @Test
     public void testCommentRentingPatternFasle(){
         Lease l5 = new Lease();
@@ -151,7 +189,7 @@ public class LeaseTests {
             System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("TestCommentRentingPattern Error :" + e +"\n");
+			System.out.println("5.TestCommentRentingPattern Error :" + e +"\n");
 			System.out.println();
 			System.out.println();
 			System.out.println(); 
@@ -190,7 +228,7 @@ public class LeaseTests {
             System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("testCommentRentingMustBeUnique Error:" + e +"\n");
+			System.out.println("6.TestCommentRentingMustBeUnique Error:" + e +"\n");
 			System.out.println();
 			System.out.println();
 			System.out.println(); 

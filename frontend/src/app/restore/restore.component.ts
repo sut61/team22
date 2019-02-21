@@ -116,7 +116,7 @@ export class RestoreComponent implements OnInit {
             .subscribe(CheckCommentRestore => {
               console.log(CheckCommentRestore);
               if (CheckCommentRestore != null) {
-                this.snackBar.open('คอมเม้นซ้ำ ', 'ตกลง', {});
+                this.snackBar.open('คอมเม้นซ้ำ ', 'uncomplete', {});
               } else {
                 this.httpClient
                   .post(
@@ -175,7 +175,8 @@ export class RestoreComponent implements OnInit {
             });
         } else {
           this.snackBar.open(
-            'กรุณากรอกข้อมูล Comment 5ตัวขึ้นไปและขึ้นต้นด้วยคำว่าชุด'
+            'กรุณากรอกข้อมูลComment 5-20ตัวและขึ้นต้นด้วยคำว่าชุด',
+            'uncomplete',{}
           );
         }
       }

@@ -88,7 +88,7 @@ public class RestoreTest {
             System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("1.1 Test RestoreSuccces True ");
+			System.out.println("2 Test RestoreSuccces True ");
 			System.out.println();
 			System.out.println();
 			System.out.println();
@@ -146,7 +146,7 @@ public class RestoreTest {
             System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("2.Test CommentRestore Size Max Error :" + e +"\n");
+			System.out.println("4.Test CommentRestore Size Max Error :" + e +"\n");
 			System.out.println();
 			System.out.println();
 			System.out.println(); 
@@ -174,7 +174,7 @@ public class RestoreTest {
             System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("4.Test CommentRestore Pattern Error :" + e +"\n");
+			System.out.println("5.Test CommentRestore Pattern Error :" + e +"\n");
 			System.out.println();
 			System.out.println();
 			System.out.println(); 
@@ -216,7 +216,7 @@ public class RestoreTest {
             System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("5.Test CommentRestore MustBeUnique Error :" + e +"\n");
+			System.out.println("6.Test CommentRestore MustBeUnique Error :" + e +"\n");
 			System.out.println();
 			System.out.println();
 			System.out.println(); 
