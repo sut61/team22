@@ -138,6 +138,7 @@ export class CheckproductComponent implements OnInit {
   }
   save() {
     this.views.prodID = this.views.selectPID;
+    const com = new RegExp('[A-Za-zw0-9d]{3,500}');
     this.views.checkingSelect = this.views.selectChecking;
     if (this.views.level === ''|| this.views.comment === ''||this.views.checkingSelect === '')
         {  this.snackBar.open('โปรดใส่ข้อมูลให้ครบ', 'OK', { });
@@ -146,7 +147,8 @@ export class CheckproductComponent implements OnInit {
           {  this.snackBar.open('Not more than 100', 'OK', {});}
         } else  if(this.views.level<0){
           {  this.snackBar.open('Not Less than 0', 'OK', { });}
-        } else {     
+        } else { 
+          if (com.test(this.views.comment)) {    
             this.httpClient.post('http://localhost:8080/checkproduct/' + this.views.prodID + '/' + this.views.level + '/' + this.views.comment
             +'/'+ this.pipe.transform(this.checkDate,'dd:MM:yyyy')+'/'+ this.selectedTime +'/'+ this.views.checkingSelect,
             this.views) .subscribe(
@@ -162,8 +164,13 @@ export class CheckproductComponent implements OnInit {
             }
             );
           }
+          else{
+            this.snackBar.open('Comment is Between 3-500 ', 'OK', {
+            });
+          }
       }
   }
+}
   editcheck() {
     this.views.prodID = this.views.selectPID;
     this.views.checkId = this.views.selectCheckId;
