@@ -79,7 +79,7 @@ export class RentingComponent implements OnInit {
     if (this.views.selectProductID == null || this.views.selectProductName == null || this.views.selectProductPrice == null
       || this.customerID == null || this.addressCustomer == null || this.ReserveDate == null || this.ReturnDate == null
       || this.staffIDs == null || this.views.commentRenting == null) {
-      alert('กรุณาเลือกข้อมูลให้ครบ');
+        this.snackBar.open('กรุณากรอกข้อมูลให้ครบ','uncomplete',{});
     } else {
       if (this.views.commentRenting != null) {
 
@@ -112,11 +112,11 @@ export class RentingComponent implements OnInit {
           }
         });
         } else {
-          this.snackBar.open('กรุณากรอกข้อมูลComment5ตัวขึ้นไปและขึ้นต้นด้วยคำว่าชุด');
+          this.snackBar.open('กรุณากรอกข้อมูลComment5-20ตัวและขึ้นต้นด้วยคำว่าชุด','uncomplete',{});
 
         }
       }
-    }
+     }  
 }
   selectRow(row) {
     this.views.selectProductID = row.productIds;
