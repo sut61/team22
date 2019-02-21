@@ -208,7 +208,6 @@ export class RegisterComponent implements OnInit {
                           width: "500px"
                         });
                         dialogRe.afterClosed().subscribe(result => {
-                          // window.location.reload();
                           console.log("Can Not Post Staff");
                         });
                         console.log("Error", error);
@@ -302,57 +301,71 @@ export class RegisterComponent implements OnInit {
     if (!this.views.staffPassword) {
       this.views.staffPassword = this.views.SelectStaffPassword;
     }
-    this.httpClient
-      .put(
-        "http://localhost:8080/staffupdate/" +
-          this.views.SelectStaffId +
-          "/" +
-          this.views.SelectStaffIds +
-          "/" +
-          this.views.staffName +
-          "/" +
-          this.views.staffPhone +
-          "/" +
-          this.views.staffSalary +
-          "/" +
-          "UnPaid" +
-          "/" +
-          this.views.positionId +
-          "/" +
-          this.views.educationId +
-          "/" +
-          this.views.staffGender +
-          "/" +
-          this.views.staffJobtype +
-          "/" +
-          this.views.experienceId +
-          "/" +
-          this.views.staffPassword,
-        this.Staffs
-      )
+    const rex1 = new RegExp("(\\S{12})");
+    const rex = new RegExp("([0][0-9]{2}-[0-9]{3}-[0-9]{4})");
+    this.views.staffPhone.charAt(0);
+    console.log(this.views.staffPhone.charAt(0));
+            if (!rex1.test(this.views.staffPhone)) {
+              this.snackBar.open("Size Phone ไม่ถูกต้อง");
+              console.log(this.views.staffPhone);
+            } else {
+              if (rex.test(this.views.staffPhone)) {
+                this.httpClient
+                  .put(
+                    "http://localhost:8080/staffupdate/" +
+                      this.views.SelectStaffId +
+                      "/" +
+                      this.views.SelectStaffIds +
+                      "/" +
+                      this.views.staffName +
+                      "/" +
+                      this.views.staffPhone +
+                      "/" +
+                      this.views.staffSalary +
+                      "/" +
+                      "UnPaid" +
+                      "/" +
+                      this.views.positionId +
+                      "/" +
+                      this.views.educationId +
+                      "/" +
+                      this.views.staffGender +
+                      "/" +
+                      this.views.staffJobtype +
+                      "/" +
+                      this.views.experienceId +
+                      "/" +
+                      this.views.staffPassword,
+                    this.Staffs
+                  )
+                  .subscribe(dataRegister => {
+                    console.log("Put successful", dataRegister);
+                   });
+                    const dialogRef = this.dialog.open(RegisterComplete, {
+                      width: "500px"
+                    });
+                    dialogRef.afterClosed().subscribe(
+                      result => {
+                        window.location.href = "/register";
+                        console.log("Can Post Staff");
+                        this.snackBar.open("แก้ไขสำเร็จ");
+                      },
+                      error => {
+                        const dialogRe = this.dialog.open(RegisterUncomplete, {
+                          width: "500px"
+                        });
+                        dialogRe.afterClosed().subscribe(result => {
+                          console.log("Can Not Put Staff");
+                        });
+                        console.log("Error", error);
+                      });
 
-      .subscribe(dataRegister => {
-        const dialogRef = this.dialog.open(RegisterComplete, {
-          width: "500px"
-        });
-        dialogRef.afterClosed().subscribe(
-          result => {
-            window.location.href = "/register";
-            console.log("Can Post");
-          },
-          error => {
-            const dialogRe = this.dialog.open(RegisterUncomplete, {
-              width: "500px"
-            });
-            dialogRe.afterClosed().subscribe(result => {
-              console.log("Can Not Post");
-            });
-            console.log("Error", error);
+              } else {
+                this.snackBar.open("Pattern Phone ไม่ถูกต้อง");
+              }
+            }
           }
-        );
-      });
-  }
-}
+        }
 
 @Component({
   selector: "app-registercomplete",
