@@ -85,7 +85,7 @@ public class ReviewTests {
         try {
             entityManager.persist(r1);
             entityManager.flush();
-            fail("Test Selling Not Null Error");
+            fail("Test Review Not Null Error");
 
         } catch(javax.validation.ConstraintViolationException e) {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
@@ -114,12 +114,13 @@ public class ReviewTests {
         try {
             entityManager.persist(r2);
             entityManager.flush();
+            fail("Test Review CommenSizeMin Error");
 
         } catch(javax.validation.ConstraintViolationException e) {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
             System.out.println();
             System.out.println();
-            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> ReviewSize \n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("\n\n\n\n\n\n\n\n\n" + e + "----------------->> ReviewSizeMin \n\n\n\n\n\n\n\n\n\n\n");
             System.out.println();
             System.out.println();
             assertEquals(violations.isEmpty(), false);
@@ -142,6 +143,7 @@ public class ReviewTests {
         try {
             entityManager.persist(r3);
             entityManager.flush();
+            fail("Test Review CommenSizeMax Error");
 
         } catch(javax.validation.ConstraintViolationException e) {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
@@ -170,6 +172,7 @@ public class ReviewTests {
         try {
             entityManager.persist(r4);
             entityManager.flush();
+            fail("Test Review CommentPattern Error");
 
         } catch(javax.validation.ConstraintViolationException e) {
             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
@@ -211,16 +214,18 @@ public class ReviewTests {
         try {
             entityManager.persist(r9);
             entityManager.flush();
+            fail("Test Review CommentUnique Error");
 
         } catch(javax.persistence.PersistenceException e) {
             System.out.println();
             System.out.println();
             System.out.println();
-            System.out.println("\n\n\n\n" + e + "----------------->> Unique \n\n\n\n\n");;
+            System.out.println("\n\n\n\n" + e + "----------------->> ReviewUnique \n\n\n\n\n");;
             System.out.println();
             System.out.println();
             System.out.println();
         }
     }
+
 
 }

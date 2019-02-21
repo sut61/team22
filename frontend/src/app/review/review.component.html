@@ -107,6 +107,7 @@
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <mat-select placeholder="level" [(ngModel)]="views.levelName" name="levelName" [ngModelOptions]="{standalone: true}">
+          <mat-option>None</mat-option>
           <mat-option *ngFor="let LevelReview of LevelReviews" [value]="LevelReview.levelReviewId">
             {{LevelReview.levelName}}
           </mat-option>
@@ -125,7 +126,7 @@
 
       <p>ข้อเสีย  (ขึ้นต้นด้วยคำว่า ควร*)
         <mat-form-field class="example-full-width">
-        <input matInput [(ngModel)]="views.reviewComment" pattern="[ควร].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{4,20}">
+        <input matInput [(ngModel)]="views.reviewComment"  maxlength="20">
         <mat-placeholder class="placeholder">reviewComment</mat-placeholder>
         </mat-form-field><br>
         </p>
