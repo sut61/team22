@@ -127,7 +127,7 @@ export class CancleComponent implements OnInit {
                   .subscribe(
                     data => {
                       console.log('POST Request is successful', data);
-                      this.snackBar.open('input detail ', 'สำเร็จ', {
+                      this.snackBar.open('บันทึกข้อมูลสำเร็จ ', 'สำเร็จ', {
                       });
                     },
                   );
@@ -148,12 +148,12 @@ export class CancleComponent implements OnInit {
         data => {
           if (data) {
             console.log('put Request is successful', data);
-            this.snackBar.open('input detail ', 'อัพเดทข้อมูลสำเร็จ', {
+            this.snackBar.open('อัพเดทข้อมูลสำเร็จ ', 'OK', {
             });
           }
         },
         error => {
-          this.snackBar.open('input detail ', 'อัพเดทข้อมูลไม่สำเร็จ', {
+          this.snackBar.open('อัพเดทข้อมูลไม่สำเร็จ', 'OK', {
           });
           console.log('error', error);
         });
