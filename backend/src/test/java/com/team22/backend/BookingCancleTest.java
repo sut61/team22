@@ -46,7 +46,7 @@ public class BookingCancleTest{
         bc1.setBookingCancleIDs("Bc3");
         bc1.setBookingCancleDate(bcDate1);
          bc1.setBookingCancleStatus("Booking");
-        bc1.setBookingCancleReason("BecauseAA");
+        bc1.setBookingCancleReason("BecauseABB");
         bc1.setBooking(bookingRepository.findByBookingId(1L));
         bc1.setTypeReason(typeReasonRepository.findByTypeReasonID(1L));
         
@@ -187,7 +187,6 @@ public class BookingCancleTest{
         bc1.setTypeReason(typeReasonRepository.findByTypeReasonID(1L));
         
 		entityManager.persist(bc1);
-		entityManager.flush();
 		
         BookingCancle bc2 = new BookingCancle();
         Date bcDate2 = new Date(); 
