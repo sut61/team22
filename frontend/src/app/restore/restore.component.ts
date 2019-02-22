@@ -155,7 +155,7 @@ export class RestoreComponent implements OnInit {
                     },
                     error => {
                       this.snackBar.open(
-                        'กรุณาเลือกข้อมูลให้ครบ',
+                        'input detail',
                         'uncomplete',
                         {}
                       );
@@ -165,7 +165,7 @@ export class RestoreComponent implements OnInit {
                     },
                     error => {
                       this.snackBar.open(
-                        'กรุณาเลือกข้อมูลให้ครบ',
+                        'input detail',
                         'uncomplete',
                         {}
                       );
@@ -185,8 +185,8 @@ export class RestoreComponent implements OnInit {
   }
 
   update() {
-    if (this.views.restoreId === null) {
-      alert('กรุณาใส่ Id Restore');
+    if (this.views.restoreId === '') {
+      this.snackBar.open('กรุณาใส่ Id Restore', 'uncomplete', {});
     } else {
       if (this.views.restoreId != null) {
         this.httpClient
@@ -202,13 +202,11 @@ export class RestoreComponent implements OnInit {
               }
             },
             error => {
-              this.snackBar.open('กรุณาใส่ Id Restore', 'uncomplete', {});
+              this.snackBar.open('input detail', 'uncomplete', {});
               console.log('error', error);
             }
           );
-      } else {
-        alert('กรุณาใส่ Id Restore');
-      }
+      } 
     }
   }
 
