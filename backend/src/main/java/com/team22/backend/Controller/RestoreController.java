@@ -86,12 +86,12 @@ public class RestoreController {
 
      }
      @PutMapping("/restorestatus/{id}")
-     Restore replaceLease(Restore newRestore, @PathVariable Long id){
+     Restore replaceRestore(Restore newRestore, @PathVariable Long id){
 
     return restoreRepository.findById(id)
-                .map(lease ->{
-                lease.setStatusRestore("restore");
-                return restoreRepository.save(lease);
+                .map(restore ->{
+                restore.setStatusRestore("restore");
+                return restoreRepository.save(restore);
             }
             ).orElseGet(() ->{
                 newRestore.setRestoreId(id);
