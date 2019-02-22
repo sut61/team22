@@ -101,13 +101,14 @@ export class RestoreComponent implements OnInit {
     console.log(this.views.commentRestore);
 
     if (
-      this.views.selectCustomerIDs === null ||
-      this.views.selectLeaseId === null ||
-      this.views.selectCustomerName === null ||
-      this.views.commentRestore === null ||
-      this.typeRestoreName === null
+      this.views.selectCustomerIDs == null ||
+      this.views.selectLeaseId == null ||
+      this.views.selectCustomerName == null ||
+      this.views.commentRestore == null ||
+      this.typeRestoreName == null
     ) {
-      alert('กรุณาเลือกข้อมูลให้ครบ');
+      this.snackBar.open('กรุณากรอกข้อมูลให้ครบ','uncomplete',{});
+
     } else {
       if (this.views.commentRestore != null) {
         if (rex.test(this.views.commentRestore)) {
@@ -171,7 +172,7 @@ export class RestoreComponent implements OnInit {
                       console.log('Error', error);
                     }
                   );
-              }
+                  }
             });
         } else {
           this.snackBar.open(
