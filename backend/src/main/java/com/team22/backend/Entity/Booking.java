@@ -34,6 +34,7 @@ public class Booking {
     @NotNull(message="category must not be null to be valid")
     @Pattern(regexp ="(งาน).+")
     @Size(min=5 ,max=30)
+    @Column(unique = true)
     private String category;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Staff.class)

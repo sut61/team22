@@ -58,7 +58,7 @@ public class BookingController {
     @PostMapping("/checkcategory/{category}")
     public Booking Checkcategory(@PathVariable String category)
     {
-        return  this.bookingRepository.findByStatusBooking(category);
+        return  this.bookingRepository.findByCategory(category);
     }
     @PostMapping("/makeupBooking/{styleID}/{styleIDs}/{styleName}/{stylePrice}/{stID}/{staffIDs}/{staffName}/{bookingDate}/{category}/{cusId}/{customerIDs}/{customerName}/{addressCustomer}")
     public Booking newMakeupBooking(@PathVariable Long cusId,@PathVariable String customerIDs,
