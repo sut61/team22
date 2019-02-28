@@ -300,6 +300,7 @@ public class Data {
             salarydb.setStaff(st1);
             salarydb.setPayer(pa1);
             salarydb.setSalaryDate(sadate);
+            salarydb.setSalaryBankId("B123456789111");
             salarydb.getStaff().getStaffStatus();
             salarydb.getStaff().getStaffSalary();
             salaryRepository.save(salarydb);
@@ -309,6 +310,7 @@ public class Data {
             salarydb2.setStaff(st2);
             salarydb2.setPayer(pa1);
             salarydb2.setSalaryDate(sadate);
+            salarydb2.setSalaryBankId("B123456789222");
             salarydb2.getStaff().getStaffStatus();
             salarydb2.getStaff().getStaffSalary();
             salaryRepository.save(salarydb2);
@@ -318,6 +320,7 @@ public class Data {
             salarydb3.setStaff(st3);
             salarydb3.setPayer(pa2);
             salarydb3.setSalaryDate(sadate);
+            salarydb3.setSalaryBankId("B123456789333");
             salarydb3.getStaff().getStaffStatus();
             salarydb3.getStaff().getStaffSalary();
             salaryRepository.save(salarydb3);
@@ -327,6 +330,7 @@ public class Data {
             salarydb4.setStaff(st4);
             salarydb4.setPayer(pa2);
             salarydb4.setSalaryDate(sadate);
+            salarydb4.setSalaryBankId("B123456789123");
             salarydb4.getStaff().getStaffStatus();
             salarydb4.getStaff().getStaffSalary();
             salaryRepository.save(salarydb4);

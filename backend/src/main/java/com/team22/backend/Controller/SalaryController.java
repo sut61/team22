@@ -69,12 +69,13 @@ class SalaryController {
         return payerRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/salaryPost/{staffName}/{payerId}/{staffStatus}/{staffSalary}")
+    @PostMapping("/salaryPost/{staffName}/{payerId}/{staffStatus}/{staffSalary}/{salaryBankId}")
     public Salary Salary1(
         @PathVariable String   staffName,
         @PathVariable Long   payerId,
         @PathVariable String   staffStatus, 
-        @PathVariable int   staffSalary
+        @PathVariable int   staffSalary,
+        @PathVariable String salaryBankId
          ){
         Salary salary = new Salary();
         for(Long i=1L; i<9999L;i++) {
@@ -90,18 +91,20 @@ class SalaryController {
         salary.setStaff(staff1);
         salary.getStaff().setStaffStatus(staffStatus);
         salary.getStaff().setStaffSalary(staffSalary);
+        salary.setSalaryBankId(salaryBankId);
         salary.setPayer(payer1);
     return salaryRepository.save(salary);
     }
 
-    @PutMapping("/salary/{salaryId}/{staffId}/{staffStatus}/{salaryDate}/{staffSalary}")
+    @PutMapping("/salary/{salaryId}/{staffId}/{staffStatus}/{salaryDate}/{staffSalary}/{salaryBankId}")
     Salary Salary2(
             Salary newSalary,
             @PathVariable String staffStatus,
             @PathVariable Long staffId,
             @PathVariable Long salaryId,
             @PathVariable int staffSalary,
-            @PathVariable Date salaryDate
+            @PathVariable Date salaryDate,
+            @PathVariable String salaryBankId
             ) {
         Staff staff1 = staffRepository.findByStaffId(staffId);
         return salaryRepository.findById(salaryId)
@@ -109,6 +112,7 @@ class SalaryController {
                     salary.setSalaryDate(new Date());
                     salary.getStaff().setStaffSalary(staffSalary);
                     salary.getStaff().setStaffStatus(staffStatus);
+                    salary.setSalaryBankId(salaryBankId);
                     return salaryRepository.save(salary);
                 }
                 ).orElseGet(() -> {

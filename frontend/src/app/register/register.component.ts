@@ -239,7 +239,9 @@ export class RegisterComponent implements OnInit {
           "/" +
           "UnPaid" +
           "/" +
-          this.views.SelectStaffSalary,
+          this.views.SelectStaffSalary +
+          "/" +
+          "B000000000000",
         this.Salarys
       )
       .subscribe(dataRegister => {

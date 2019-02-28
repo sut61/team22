@@ -50,6 +50,11 @@
                 <td mat-cell *matCellDef="let element">{{element.salaryDate}}</td>
               </ng-container>
 
+              <ng-container matColumnDef="salaryBankId">
+                <th mat-header-cell *matHeaderCellDef> BankId </th>
+                <td mat-cell *matCellDef="let element">{{element.salaryBankId}}</td>
+              </ng-container>
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns; " (click)="selectRow(row)"></tr>
             </table>
@@ -98,6 +103,11 @@
               <ng-container matColumnDef="salaryDate">
                 <th mat-header-cell *matHeaderCellDef> Date </th>
                 <td mat-cell *matCellDef="let element">{{element.salaryDate}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="salaryBankId">
+                <th mat-header-cell *matHeaderCellDef> BankId </th>
+                <td mat-cell *matCellDef="let element">{{element.salaryBankId}}</td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns1; sticky: true"></tr>
@@ -149,6 +159,11 @@
               <ng-container matColumnDef="salaryDate">
                 <th mat-header-cell *matHeaderCellDef> Date </th>
                 <td mat-cell *matCellDef="let element">{{element.salaryDate}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="salaryBankId">
+                <th mat-header-cell *matHeaderCellDef> BankId </th>
+                <td mat-cell *matCellDef="let element">{{element.salaryBankId}}</td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns2; sticky: true"></tr>
@@ -240,6 +255,12 @@
             <mat-placeholder class="placeholder">Salary</mat-placeholder>
           </mat-form-field>
           &nbsp;&nbsp;
+          <mat-form-field class="example-full-width">
+            <input matInput [(ngModel)]="views.salaryBankId" [(value)]="views.SelectSalaryBankId" name="salaryBankId"
+              [value]="views.salaryBankId" maxlength="13">
+            <mat-placeholder class="placeholder">BankId</mat-placeholder>
+          </mat-form-field>
+          <br><br><br>
           <mat-radio-group class="example-radio-group" [(ngModel)]="views.staffStatus" name="staffStatus">
             <mat-radio-button value="Paid">Paid</mat-radio-button>&nbsp;
             <mat-radio-button value="UnPaid">UnPaid</mat-radio-button>
