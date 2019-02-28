@@ -47,8 +47,9 @@ public class SalaryTest {
 	@Test
 	public void TestTrueData() {
 		Salary sa = new Salary();
-		sa.setSalaryId(9L);
-		sa.setSalaryIds("SA9");
+		sa.setSalaryId(8L);
+		sa.setSalaryIds("SA8");
+		sa.setSalaryBankId("B123456789221");
 		sa.setSalaryDate(new Date());
 		sa.setStaff(staffRepository.findByStaffId(1L));
 		sa.setPayer(payerRepository.findByPayerId(1L));
@@ -59,7 +60,7 @@ public class SalaryTest {
 			System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("1.1 > TestTrueData :");
+			System.out.println(">>>>>> TestTrueData :");
 			System.out.println();
 			System.out.println();
 			System.out.println();
@@ -75,11 +76,11 @@ public class SalaryTest {
 		Salary sa = new Salary();
 		sa.setSalaryId(null);
 		sa.setSalaryIds(null);
+		sa.setSalaryBankId(null);
 		sa.setSalaryDate(null);
 		sa.setStaff(staffRepository.findByStaffId(null));
 		sa.setPayer(payerRepository.findByPayerId(null));
 
-		// salaryRepository.save(sa);
 		try {
 			entityManager.persist(sa);
 			entityManager.flush();
@@ -89,16 +90,77 @@ public class SalaryTest {
 			System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("2.1 > TestSalaryNullError :");
-			System.out.println(e);
+			System.out.println(">>>>>> TestSalaryNullError :");
+			System.out.println(e.getMessage());
+			System.out.println();
+			System.out.println();
+			assertEquals(violations.isEmpty(), false);
+			assertEquals(violations.size(), 3);
+		}
+	}
+	
+	// Test SalaryBankId Size มากกว่า 2 แต่น้อยกว่า 20
+	@Test
+	public void TestSalaryBankIdOverMaxSize() {
+		Salary sa = new Salary();
+		sa.setSalaryId(10L);
+		sa.setSalaryIds("SA10");
+		sa.setSalaryBankId("B123456789123333333333333");
+		sa.setSalaryDate(new Date());
+		sa.setStaff(staffRepository.findByStaffId(3L));
+		sa.setPayer(payerRepository.findByPayerId(3L));
+
+		salaryRepository.save(sa);
+		try {
+			entityManager.flush();
+			fail("Should not pass to this line : TestSalaryBankIdOverMaxSize");
+		} catch (javax.validation.ConstraintViolationException e) {
+			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+			System.out.println();
+			System.out.println();
+			System.out.println();
+			System.out.println(">>>>>> TestSalaryBankIdOverMaxSize :");
+			System.out.println(e.getMessage());
 			System.out.println();
 			System.out.println();
 			assertEquals(violations.isEmpty(), false);
 			assertEquals(violations.size(), 2);
+
 		}
 	}
 
-	// ทดสอบข้อมูล Salary ไม่ null
+	// Test SalaryBankId Pattern ไม่ได้ขึ้นต้นด้วย B
+	@Test
+	public void TestSalaryBankIdPatternFalse() {
+		Salary sa = new Salary();
+		sa.setSalaryId(11L);
+		sa.setSalaryIds("SA11");
+		sa.setSalaryBankId("A234567891111");
+		sa.setSalaryDate(new Date());
+		sa.setStaff(staffRepository.findByStaffId(2L));
+		sa.setPayer(payerRepository.findByPayerId(2L));
+
+		salaryRepository.save(sa);
+		try {
+			entityManager.flush();
+			fail("Should not pass to this line : TestSalaryBankIdPatternFalse");
+		} catch (javax.validation.ConstraintViolationException e) {
+			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+			System.out.println();
+			System.out.println();
+			System.out.println();
+			System.out.println(">>>>>> TestSalaryBankIdPatternFalse :");
+			System.out.println(e.getMessage());
+			System.out.println();
+			System.out.println();
+			assertEquals(violations.isEmpty(), false);
+			assertEquals(violations.size(), 1);
+
+		}
+	}
+
+
+	// ทดสอบข้อมูล Payer ไม่ null
 	@Test
 	public void TestPayerNullError() {
 
@@ -107,7 +169,6 @@ public class SalaryTest {
 		pa.setPayerIds(null);
 		pa.setPayerName(null);
 
-		// payerRepository.save(pa);
 		try {
 			entityManager.persist(pa);
 			entityManager.flush();
@@ -117,8 +178,8 @@ public class SalaryTest {
 			System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("2.1 > TestSalaryNullError :");
-			System.out.println(e);
+			System.out.println(">>>>>> TestSalaryNullError :");
+			System.out.println(e.getMessage());
 			System.out.println();
 			System.out.println();
 			assertEquals(violations.isEmpty(), false);
@@ -126,31 +187,25 @@ public class SalaryTest {
 		}
 	}
 
-	// ทดสอบ size phone ผิด
+	//Test Payer Pattern PayerName ให้ใส่ไป  word  เริ่มต้น 2 ตัวอักษร
 	@Test
-	public void TestSizeStaffPhoneError() {
+	public void TestPayerPattern() {
+		Payer p = new Payer();
+		p.setPayerId(9L);
+		p.setPayerIds("PA9");
+		p.setPayerName("123456");
 
-		Salary sa = new Salary();
-		sa.setSalaryId(1L);
-		sa.setSalaryIds("SA1");
-		sa.setSalaryDate(sa.getSalaryDate());
-		sa.setStaff(staffRepository.findByStaffId(1L));
-		sa.setStaff(staffRepository.findByStaffPhone("086-141-98333")); // Testing
-		sa.setStaff(staffRepository.findByStaffSalary(50000));
-		sa.setPayer(payerRepository.findByPayerId(1L));
-
-		salaryRepository.save(sa);
+		payerRepository.save(p);
 		try {
-			// entityManager.persist(sa);
 			entityManager.flush();
-			fail("Should not pass to this line : TestSizeStaffPhoneError");
+			fail("Should not pass to this line : TestPayerPattern");
 		} catch (javax.validation.ConstraintViolationException e) {
 			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
 			System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("2.2 > TestSizeStaffPhoneErrorLong :");
-			System.out.println(e);
+			System.out.println(">>>>>> TestPayerPattern :");
+			System.out.println(e.getMessage());
 			System.out.println();
 			System.out.println();
 			assertEquals(violations.isEmpty(), false);
@@ -159,29 +214,25 @@ public class SalaryTest {
 		}
 	}
 
-	// ทดสอบ size phone น้อยกว่า 12
+	// Test Payer Size มากกว่า 2 แต่น้อยกว่า 20
 	@Test
-	public void TestSalaryPhonePatternError() {
-		Salary sa = new Salary();
-		sa.setSalaryId(1L);
-		sa.setSalaryIds("SA1");
-		sa.setSalaryDate(sa.getSalaryDate());
-		sa.setStaff(staffRepository.findByStaffId(1L));
-		sa.setStaff(staffRepository.findByStaffPhone("1861419833")); // Testing
-		sa.setStaff(staffRepository.findByStaffSalary(50000));
-		sa.setPayer(payerRepository.findByPayerId(1L));
-		salaryRepository.save(sa);
+	public void TestPayerOverMaxSize() {
+		Payer p = new Payer();
+		p.setPayerId(10L);
+		p.setPayerIds("PA10");
+		p.setPayerName("TungAoooooooooooooooooooooooooooooooooooooooo");
+
+		payerRepository.save(p);
 		try {
-			// entityManager.persist(sa);
 			entityManager.flush();
-			fail("Should not pass to this line : TestSalaryPhonePatternError");
+			fail("Should not pass to this line : TestPayerSize");
 		} catch (javax.validation.ConstraintViolationException e) {
 			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
 			System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("2.3 > TestSalaryPhonePatternError :");
-			System.out.println(e);
+			System.out.println(">>>>>> TestPayerSize :");
+			System.out.println(e.getMessage());
 			System.out.println();
 			System.out.println();
 			assertEquals(violations.isEmpty(), false);
@@ -190,40 +241,34 @@ public class SalaryTest {
 		}
 	}
 
-	// ทดสอบ StaffName ไม่เหมือนกัน
+	// Test Payer Unique ข้อมูลห้ามซ้ำ
 	@Test
-	public void TestUniqeStaffNameError() {
+	public void TestPayerUnique() {
+		Payer p = new Payer();
+		p.setPayerIds("PA5");
+		p.setPayerName("Admin5");
 
-		Salary sa1 = new Salary();
-		sa1.setSalaryId(9L);
-		sa1.setSalaryIds("SA9");
-		sa1.setSalaryDate(new Date());
-		sa1.setStaff(staffRepository.findByStaffId(1L));
-		sa1.setPayer(payerRepository.findByPayerId(1L));
-
-		salaryRepository.save(sa1);
+		entityManager.persist(p);
 		entityManager.flush();
 
-		Salary sa2 = new Salary();
-		sa2.setSalaryId(9L);
-		sa2.setSalaryIds("SA9");
-		sa2.setSalaryDate(new Date());
-		sa2.setStaff(staffRepository.findByStaffId(1L));
-		sa2.setPayer(payerRepository.findByPayerId(1L));
+		Payer p1 = new Payer();
+		p1.setPayerIds("PA5");
+		p1.setPayerName("Admin5");
 
 		try {
-			entityManager.persist(sa2);
+			entityManager.persist(p1);
 			entityManager.flush();
 
 		} catch (javax.persistence.PersistenceException e) {
 			System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println("2.5 > TestUniqeStaffNameError :");
-			System.out.println(e);
+			System.out.println(">>>>> TestPayerUnique :");
+			System.out.println(e.getMessage());
 			System.out.println();
 			System.out.println();
 
 		}
 	}
+
 }
