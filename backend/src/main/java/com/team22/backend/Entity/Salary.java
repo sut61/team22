@@ -1,8 +1,7 @@
 package com.team22.backend.Entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -35,6 +34,11 @@ public class Salary {
 
     @NotNull(message = "SalaryIds not null")
     private String salaryIds;
+
+    @NotNull(message = "salaryBankId not null")
+    @Pattern(regexp = "[B]\\w{2,12}")
+    @Size(min = 13, max = 13)
+    private String salaryBankId;
 
     @JsonFormat(pattern = "yyyy-MM-dd || hh:mm a", timezone = "GMT+7")
     @NotNull(message = "salaryDate not null")

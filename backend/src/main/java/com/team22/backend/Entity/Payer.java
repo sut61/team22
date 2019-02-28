@@ -1,7 +1,7 @@
 package com.team22.backend.Entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 import lombok.*;
 
@@ -25,6 +25,9 @@ public class Payer {
     private String payerIds;
 
     @NotNull(message = "payerName not be null")
+    @Pattern(regexp = "[A-Z,a-z]\\w{2,}")
+    @Column(unique = true)
+    @Size(min = 2, max = 20)
     private String payerName;
 
 }
