@@ -27,7 +27,7 @@ public class BookingTest{
     private BookingCancleRepository bookingCancleRepository;
 
     @Autowired
-    private TypeReasonRepository typeReasonRepository;
+    private StyleRepository styleRepository;
     
     @Autowired
     private TestEntityManager entityManager;
@@ -178,6 +178,29 @@ public class BookingTest{
     }
 }
 
-    // ----------------------------------------------------------------------------------------------
-    
+    @Test
+    public void TestStyleCannotBeNull() {
+        Style sy = new Style ();
+        sy.setStyleID(null);
+        sy.setStyleIDs(null);
+        sy.setStyleName(null);
+        sy.setStylePrice(null);
+
+        try {
+            entityManager.persist(sy);
+            entityManager.flush();
+            fail("Should not pass to this line : TestEducationCannotBeNull");
+        } catch (javax.validation.ConstraintViolationException e) {
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println("2.1 > TestStyleCannotBeNull:");
+            System.out.println(e);
+            System.out.println();
+            System.out.println();
+            assertEquals(violations.isEmpty(), false);
+            assertEquals(violations.size(), 3);
+        }
+    }
 }

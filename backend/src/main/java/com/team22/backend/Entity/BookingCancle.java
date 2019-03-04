@@ -34,7 +34,7 @@ public class BookingCancle {
 
     @NotNull(message="bookingCancleReasonbe null to be valid")
     @Pattern(regexp = "(Because).+")    
-    @Size(min=8 ,max=20)
+    @Size(min=8 ,max=30)
     @Column(unique = true)
     private String bookingCancleReason; 
 

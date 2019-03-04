@@ -93,7 +93,7 @@ export class MakeupComponent implements OnInit {
   }
 
   OK() {
-    const rex = new RegExp('[งาน].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{4,50}');
+    const rex = new RegExp('[งาน].+[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]{5,30}');
     console.log(this.views.category);
     console.log(this.viewStyle.selectstyleID,
     this.viewStyle.selectstyleIDs,
