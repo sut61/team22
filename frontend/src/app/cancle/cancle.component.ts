@@ -85,7 +85,7 @@ export class CancleComponent implements OnInit {
 
 
   OK() {
-    const rex = new RegExp('[Because].+[a-z]{8,20}');
+    const rex = new RegExp('[Because].+[a-z]{8,30}');
     console.log(this.views.bookingCancleReason
       , this.views.selectBookingId,
       this.views.typeReasonName,
